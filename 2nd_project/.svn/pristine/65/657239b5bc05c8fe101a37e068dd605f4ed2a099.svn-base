@@ -1,0 +1,632 @@
+@charset "UTF-8";
+
+/* 솔팅 */
+.ikea-new-ui-body .category-container .product-list-container .sort-container {
+	position: relative;
+	padding:20px 0;
+}
+.ikea-new-ui-body .category-container .product-list-container .sorting {
+	position: absolute;
+	top:20px;
+	right:0;	
+	width: 170px;
+	height: 20px;
+	border: 1px solid rgb(169,169,169);
+	font-size: 12px
+}
+/* productList */
+/* 상품리스트 */
+#mainPadding {
+	background-color: #FFF;
+    width: 1060px;
+    margin: 0 auto;
+    min-height: 500px;
+}
+#mainPadding .gridRow {
+	max-width: 1060px;
+    margin: 0 0 30px 0;
+    border: 0;
+    color: #333;
+    width: 100%;
+}
+.gridRow .categoryGray {
+    padding-bottom: 2px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #333;
+    font-weight: normal;
+}
+.gridRow .categoryGray h2 {
+    font-size: 12px;
+    font-weight: normal;
+    letter-spacing: 2px;
+    margin: 0;
+}
+.gridRow .headOneGray {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 20px;
+    height: auto!important;
+    letter-spacing: -1px;
+    margin: 0 0 13px 0;
+}
+.gridRow .bodyTextGray {
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0;
+    margin: 0 0 11px 0;
+}
+.productLists .product {	
+	float: left; 
+	width: 256px;	
+    height: 305px;
+	margin-left: 12px;
+	margin-bottom: 60px;
+    position: relative;
+    z-index: 0;
+}
+.productLists .product:nth-child(4n-3) {
+	margin-left: 0;
+}
+.productLists .product .image {
+    display: block;
+    width: 100%;  
+    height: 230px;
+    overflow: hidden;
+    vertical-align: middle;
+}
+.product .image img {
+	width: 230px;
+}
+.productLists .product .productDetails {
+    display: block;
+    z-index: 1;
+    background: #fff;
+}
+.productLists .product .productDetails a {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.productLists .product .productDetails .productTitle {
+    display: block;
+    float: none;    
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;    
+    margin-bottom: 5px;
+    padding-right: 5px;
+    padding-top: 1px;
+    cursor: pointer;
+    font-style: normal;
+}
+.productLists .product .productDetails .productDesp {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 10px;    
+    color: #666;
+    line-height: 16px;
+    text-decoration: none;
+    padding-left: 2px;
+    letter-spacing: -0.5px;
+    font-style: normal;
+}
+.productLists .product .productDetails .price {
+    display: block;
+    position: relative;
+    font-size: 26px;
+    font-weight: bold;
+    vertical-align: top;    
+    text-decoration: none;
+    line-height: 20px;
+    color: #333;
+    clear: left;
+    font-style: normal;
+}
+.productLists .product .productDetails .price .unit {
+    display: inline;
+    font-size: 14px!important;
+}
+.productLists .product .productDetails .button-wrap {
+	display: none;
+	padding: 8px 10px 14px;
+	overflow: auto;
+}
+.productLists .product .productDetails .button-wrap button {
+	float: left;
+	width: 49%;
+	font-size: 13px;
+	color: #fff;
+	padding: 7px 0 10px;
+	border: 0;
+	outline: 0;	
+	background: #0051ba;
+}
+.productLists .product .productDetails .button-wrap .goDetail {
+	width: 100%;
+	font-size: 13px;
+	color: #fff;
+	padding: 7px 0 10px;
+	border: 0;
+	outline: 0;	
+	background: #0051ba;
+	text-align: center;
+}
+.productLists .product .productDetails .button-wrap button:first-child {
+	margin-right: 2%;
+}
+.productLists .product .productDetails .button-wrap button:hover,
+.productLists .product .productDetails .button-wrap .goDetail:hover {
+	background: #327cc5
+}
+.productLists .product .productDetails:hover {
+	box-shadow: 3px 3px 7px rgba(0,0,0,.5);
+	z-index: 100;
+	position: absolute;
+	top: 0;
+	left: 0;	
+}
+.productLists .product .productDetails:hover .button-wrap {
+	display: block;
+	postition: absolute;
+	bottom: 0;
+	left: 0;
+}
+.productLists .product .productDetails:hover a {
+	padding: 10px 10px;
+}
+.productLists .product .productDetails:hover .image > img {
+	width: 90%;
+	height: auto;
+}
+
+
+/* 상품 등록 */
+.product-regist-container {
+	padding: 50px 0;
+}
+.product-regist {
+	width: 90%;
+	margin: 0 auto;
+}
+.product-regist th, .product-regist td { 
+	padding: 5px 30px 5px 0; 
+	font-size: 14px;
+}
+.product-regist th {
+	text-align: right;
+}
+.product-regist input[type="text"],
+.product-regist textarea {
+	width: 100%;
+	padding: 5px;
+	font-size: 14px;
+	color: #555;
+}
+.product-regist input[type="radio"] + label {
+	padding: 0 10px 0 3px
+}
+.product-regist input[type="file"] {
+	font-size: 14px;
+}
+.product-regist .prodImg {
+	width: 200px;
+	border: 1px solid #eee;
+}
+.product-regist .value {
+	padding: 10px 0; 
+}
+.product-regist-container .button-wrap,
+.registList .button-wrap {
+	padding: 50px 0;
+	text-align: center;
+}
+.product-regist-container .button-wrap button,
+.registList .button-wrap button {
+	width: 160px;
+	font-size: 15px;
+	color: #fff;
+	margin-left: 10px;	
+	padding: 10px 0;
+	border: 0;
+	outline: 0;
+	background: #0051ba;
+}
+.product-regist-container .button-wrap button:nth-child(odd),
+.registList .button-wrap button:nth-child(odd) {
+	background: #898989;
+}
+.product-regist-container .button-wrap button:only-child,
+.registList .button-wrap button:only-child {
+	margin-left: 0;
+	background: #0051ba;
+}
+
+/* 어드민 상품 상세 페이지*/
+.adminDetail {
+	border-top: 1px solid #eee;
+	border-right: 1px solid #eee
+}
+.adminDetail th {
+	background: #eee
+}
+.adminDetail td { 
+	padding: 10px 20px; 
+	border-bottom: 1px solid #eee
+}
+
+/* 상품 상세 페이지 */
+/* product */
+.pipContainer {
+	overflow: auto;	
+	padding-top: 30px
+}
+#leftMainContainer {
+	vertical-align: top;
+    display: inline-block;
+	margin-right: 20px;
+    width: 550px;
+}
+.rightContentContainer {
+	position: relative;
+    width: 100%;
+    max-height: 680px;
+    margin-bottom: 7px;
+}
+#rightNavContainer {
+	vertical-align: top;
+    display: inline-block;
+    width: 480px;
+    padding-right: 20px;
+}
+#prodImg {
+	display: block;
+    margin: 0 auto;
+    margin-bottom: 60px;
+    height: auto;
+}
+.rightInfoDiv {
+	width: auto;
+    text-align: left;
+    padding: 0 0 10px;    
+    border-bottom: 1px solid #ddd
+}
+.rightInfoDiv h1 {
+    padding: 0;
+    margin: 0;
+    color: #000;
+}
+.rightInfoDiv h1 span.productName {
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: -1px;
+    display: block;
+}
+.rightInfoDiv h1 span.productType {
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: normal;
+    margin-bottom: .1em;
+    display: block;
+}
+.rightInfoDiv .priceContainer {
+    font-weight: bold;
+    color: #000;
+    font-size: 11px;
+    padding-bottom: 6px;
+    margin-bottom: 20px;
+}
+.rightInfoDiv .packagePrice {
+    font-size: 38px;
+    margin-right: 17px;
+    color: #000;
+    letter-spacing: -1.5px;
+}
+.rightInfoDiv .productunit {
+	margin-right: 17px;
+    font-size: 20px!important;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+    color: #000;
+}
+#rightNavContainer .salesArguments {
+    font-size: 12px;
+    line-height: 18px;
+    color: #333;
+    padding: 0;
+    margin-bottom: 30px;
+}
+#rightNavContainer .rightNavSubContainer {
+	margin-top: 15px
+}
+#rightNavContainer .quantityLabel {
+    color: #666;
+    font-size: 14px;
+    line-height: 46px;
+    padding-left: 15px;
+}
+#rightNavContainer #quantity {    
+    float: right;
+    width: 100px;
+    height: 45px;
+    padding: 0 18px;
+    text-align: right;
+    box-sizing: border-box;
+    font-size: 12px;
+    font-weight: bold;
+    color: #444 !important;
+    border-radius: 0;
+    transition: all .3s;
+    border: 1px solid #999;
+}
+.buttonDiv3 {
+    display: block;
+    margin: 10px 0;
+}
+#rightNavContainer .buttonContainer {
+    position: inherit;
+    top: -11px;
+    left: -1px;
+}
+#rightNavContainer button.blueBtn, #rightNavContainer button.blueBtn:hover {
+    position: relative;
+    padding: 0;
+    padding-left: 50px;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    vertical-align: top;
+    border-radius: 0;
+    outline: none;
+    box-shadow: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    background: #155DA6;
+    transition: all .3s;
+}
+#rightNavContainer button.blueBtn:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    background: #124D8A url("../images/ico_cart_bbtn.png") no-repeat center center /45px auto;
+}
+#rightNavContainer button.blueBtn:hover {
+	background: #327cc5;
+}
+#rightNavContainer #addCartContainer .buttonMar {
+    position: relative;
+    float: none;
+    display: block;
+    width: auto;
+    padding: 0 !important;
+    transition: all .3s;
+    vertical-align: top;
+}
+#rightNavContainer #addCartContainer .buttonMar button {
+    position: relative;
+    padding: 0;
+    padding-left: 50px;
+    width: 180px;
+    height: 45px;
+    line-height: 45px;
+    border-radius: 0;
+    background: #D4D4D4;
+    font-size: 12px;
+    color: #656565;
+}
+#rightNavContainer #addCartContainer .buttonMar button:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    background: #B3B3B3 url("../images/ico_cart_gbtn.png") no-repeat center center;
+}
+#rightNavContainer #addCartContainer .buttonMar button:hover {
+	color:#7e7e7e;
+	background:#e7e7e7;
+}
+#total-list-price {
+    display: block;
+    position: absolute;
+    top: 0px;
+    right: 0;
+    line-height: 45px;
+    font-size: 30px;
+    font-weight: bold;
+}
+.stockChkTxtBold {
+	padding: 20px 0 2px 0;
+    margin: 30px 0;
+    font-size: 12px;	
+    border-top: 1px solid #ccc;
+}
+
+/* 상품등록리스트 */
+/*registList*/
+.registList { 
+	padding: 30px 0;
+}
+.registList h3 {
+	padding: 10px 0;
+}
+.registTable {
+	width: 100%
+}
+
+.registTable th  {
+	line-height: 35px;
+	font-size: 14px;	
+	color: #fff;
+	text-align: center;
+	border-right: 1px solid #ddd;	
+	background: #898989;
+}
+.registTable th:last-child {
+	border-right: 0;
+}
+.registTable td {
+	padding: 5px 3px;
+	line-height: 20px;
+	font-size: 14px;
+	text-align: center;
+	border-bottom: 1px solid #ddd;
+	overflow: hidden;
+}
+.registTable .prodName {		
+	text-align: left;
+	padding-left: 10px;
+}
+.registTable .pImg {
+	max-width: 100%;
+	height: 55px;
+	border:1px solid #eee
+}
+.status {
+	width: 20%;
+    padding: 5px;
+    font-size: 14px;
+    color: #555;
+}
+
+.registTable button,
+.registTable .modifyBtn {
+	width: 70%;
+	margin: 0 auto;
+	padding: 3px 0 5px;
+	line-height: 1;
+	font-size: 12px;
+	border: 1px solid #ccc;
+	background: #f1f2f1	
+}
+.registTable .modifyBtn {
+	display: block;
+}
+
+.selectSort {
+	float: right;
+	margin-bottom: 15px;
+	width: 150px;
+}
+.selectSort select {
+	width: 150px;
+    padding: 5px;
+    font-size: 14px;
+    color: #555;
+}
+
+/* paging */
+.list_number { 
+	margin: 40px auto 100px;
+	text-align: center; 
+}
+.list_n_menu { 
+	height: 28px;
+	padding: 3px; 
+	margin: 3px; 
+	text-align: center; 
+	font-size: 14px;
+}
+.list_n_menu a { 
+	padding: 4px 8px;
+	margin: 2px; 
+	border: 1px solid #ccc; 
+	color: #000; 
+	text-decoration: none; 
+}
+.list_n_menu a:hover { 
+	background: #eee; 
+}
+.list_n_menu .current { 
+	border: 1px solid #0051ba; 
+	padding: 4px 8px; 
+	font-weight: bold; 
+	margin: 2px; 
+	color: #0051ba; 
+}
+.list_n_menu .disabled { 
+	border: 1px solid #ccc; 
+	padding: 4px 8px; 
+	margin: 2px; 
+	color: #999; 
+}
+
+/* 메인 */
+/* feature products */
+.ikea-new-ui-body .feature-product-container {
+	position: relative;
+	padding:30px 0;
+}
+.ikea-new-ui-body .feature-product-container .section-title {
+	font-size:34px;
+	text-align: center;
+}
+.ikea-new-ui-body .feature-product-container .section-subtitle {
+	font-size:18px;
+	font-weight: normal;
+	text-align: center;
+	margin-bottom: 23px;	
+	margin-top:15px;
+}
+.ikea-new-ui-body .feature-product-container .product-list-container {
+	position: relative;
+	margin-bottom:50px;
+	overflow: hidden;
+	width: 100%;
+    height: 242px;
+}
+.ikea-new-ui-body .feature-product-container .product-list > li {
+	position: relative;
+	float: left;
+	width:16.666%;
+	height:242px;
+	padding-top:30px;
+}
+.ikea-new-ui-body .feature-product-container .product-list > li a {
+	text-decoration: none;
+}
+.ikea-new-ui-body .feature-product-container .product-list > li > article {
+	padding:0 30px;
+}
+.ikea-new-ui-body .feature-product-container .product-list > li .product-img {
+	width:100%;
+	margin-bottom: 15px;
+	max-width: 103px
+}
+.ikea-new-ui-body .feature-product-container .product-list > li .product-name,
+.ikea-new-ui-body .feature-product-container .product-list > li .product-desc,
+.ikea-new-ui-body .feature-product-container .product-list > li .product-price {
+	display: block;
+	font-size:12px;
+	color:#333;
+	font-weight: bold;
+}
+.ikea-new-ui-body .feature-product-container .product-list > li .product-price {
+	font-size:18px;
+	vertical-align: top;
+}
+.ikea-new-ui-body .feature-product-container .product-list > li .product-price .currency-mark {
+	font-size:14px;
+	font-weight: normal;
+	vertical-align: top;
+}
+.ikea-new-ui-body .feature-product-container .product-list > li .product-name{
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.ikea-new-ui-body .feature-product-container .product-list > li .product-desc {
+	margin:2px 0 5px;
+	font-weight: normal;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}

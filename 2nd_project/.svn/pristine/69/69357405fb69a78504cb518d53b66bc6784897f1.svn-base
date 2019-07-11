@@ -1,0 +1,23 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<div id="allContent">
+			<div id="mainPadding">
+				<!-- 내용 넣는 곳 : 시작 -->
+				<div id="content-outer">
+					<!-- start content -->
+					<div id="content">
+					
+						<!--  start page-heading -->
+						<div id="page-heading">
+							<h1 style="font-weight: bold;">&nbsp;&nbsp;&nbsp;상품등록<span>
+							<a href="<%=request.getContextPath()%>/This1_admin/indexAdmin.jsp?work=product_list">&nbsp;&nbsp;&nbsp;상품관리</a></span></h1>
+						</div>
+						
+						</div>
+					</div>
+				
+						
+						
+				<!-- 내용 넣는 곳 : 끝 -->
+			</div>		
+		</div>

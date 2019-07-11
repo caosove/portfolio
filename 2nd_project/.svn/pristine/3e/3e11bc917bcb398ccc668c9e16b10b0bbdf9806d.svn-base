@@ -1,0 +1,485 @@
+package product;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProductDAO extends JdbcDAO {
+	private static ProductDAO _dao;
+	
+	public ProductDAO() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	static {
+		_dao = new ProductDAO();
+	}
+	
+	public static ProductDAO getDAO() {
+		return _dao;
+	}
+	
+	//제품등록 메소드
+	/*@SuppressWarnings("resource")
+	public int addProdType(ProductDTO product) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int rows = 0;		
+		ResultSet rs = null;
+		int number =0 ;
+		try {			
+			con = getConnection();			
+			
+			String sql = " select MAX(p_ID)from  product_shopping WHERE P_ID >= ? AND P_ID <?";
+			pstmt = con.prepareStatement(sql);
+			
+			if(product.getpType().equals("BED")) {
+				pstmt.setInt(1, 1000);
+				pstmt.setInt(2, 2000);
+			}else if(product.getpType().equals("LIVING")) {
+				pstmt.setInt(1,2000);
+				pstmt.setInt(2,3000);
+			}else if(product.getpType().equals("KITCHEN")) {
+				pstmt.setInt(1,3000);
+				pstmt.setInt(2,4000);
+			}else if(product.getpType().equals("TEXTILE")) {
+				pstmt.setInt(1,4000);
+				pstmt.setInt(2,5000);
+			}
+			rs = pstmt.executeQuery();	
+
+			if(rs.next()) {
+				 number = rs.getInt(1)+1;
+				System.out.println(number);
+			}
+			
+			String sql1 = "insert into product_shopping values(?,?,?,?,?,?,100,sysdate,?,'PROGRESS')";
+			pstmt = con.prepareStatement(sql1);
+			System.out.println(product.getpType());
+			if(product.getpType().equals("BED")) {
+				pstmt.setInt(1,number );
+			}else if(product.getpType().equals("LIVING")) {
+				pstmt.setInt(1,number);
+			}else if(product.getpType().equals("KITCHEN")) {
+				pstmt.setInt(1,number);
+			}else if(product.getpType().equals("TEXTILE")) {
+				pstmt.setInt(1,number);
+			}
+			
+			pstmt.setString(2, product.getpType());
+			pstmt.setString(3, product.getpName());
+			pstmt.setString(4, product.getpCategory());
+			pstmt.setString(5, product.getpExp());
+			pstmt.setInt(6, product.getpPrice());
+			pstmt.setString(7, product.getpImage());
+			rows = pstmt.executeUpdate();	
+		} catch (SQLException e) {
+			System.out.println("[에러] addProdType() 메소드의 SQL 오류 : " + e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}		
+		return rows;
+	}*/
+	
+	
+	public int addProdType(ProductDTO product) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int rows = 0;	
+		try {			
+			con = getConnection();			
+			
+			String sql="insert into product_shopping values(";
+			if (product.getpType().equals("BED")) {
+				sql += "seq_pType01.nextval";
+		   	} else if (product.getpType().equals("LIVING")) {
+		   		sql += "seq_pType02.nextval";
+		   	} else if (product.getpType().equals("KITCHEN")) {
+		   		sql += "seq_pType03.nextval";
+		   	} else if (product.getpType().equals("TEXTILE")) {
+		   		sql += "seq_pType04.nextval";
+		   	}
+			
+			sql += ",?,?,?,?,?,100,sysdate,?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, product.getpType());
+			pstmt.setString(2, product.getpName());
+			pstmt.setString(3, product.getpCategory());
+			pstmt.setString(4, product.getpExp());
+			pstmt.setInt(5, product.getpPrice());
+			pstmt.setString(6, product.getpImage());
+			pstmt.setString(7, product.getpStatus());
+			rows = pstmt.executeUpdate();	
+		} catch (SQLException e) {
+			System.out.println("[에러] addProdType1() 메소드의 SQL 오류 : " + e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}		
+		return rows;
+	}
+	//전체상품 검색
+	/*public List<ProductDTO> getProductList() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<ProductDTO> productList = new ArrayList<>();
+		
+		
+		try {
+			con = getConnection();
+			String sql = "select * from product_shopping order by P_ID desc";
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				ProductDTO product = new ProductDTO();
+				product.setpID(rs.getInt("p_ID"));
+				product.setpType(rs.getString("p_Type"));
+				product.setpName(rs.getString("p_Name"));
+				product.setpCategory(rs.getString("p_Category"));
+				product.setpExp(rs.getString("p_Exp"));
+				product.setpPrice(rs.getInt("p_Price"));
+				product.setpInv(rs.getInt("p_Inv"));
+				product.setpDate(rs.getString("p_Date"));
+				product.setpImage(rs.getString("p_Image"));
+				product.setpStatus(rs.getString("p_Status"));
+				
+				productList.add(product);
+				
+			}			
+		} catch (SQLException e) {
+			System.out.println("[에러] getProductList() 메소드의 SQL 오류 : " + e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}		
+		return productList;
+	}*/
+	
+	//상품리스트 검색 : 어드민 상품리스트 상품타입 검색
+	public List<ProductDTO> getProductList(String pSort) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<ProductDTO> productList = new ArrayList<>();
+		System.out.println("getProductList, " + pSort);
+		
+		try {
+			con = getConnection();
+			if (pSort.equals("ALL")) {
+				String sql ="select * from product_shopping order by P_ID desc";
+				pstmt = con.prepareStatement(sql);
+			} else {
+				String sql = "select * from product_shopping where P_TYPE like ?||'%' order by P_TYPE";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, pSort);
+			}			
+			
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				ProductDTO product = new ProductDTO();
+				product.setpID(rs.getInt("p_ID"));
+				product.setpType(rs.getString("p_Type"));
+				product.setpName(rs.getString("p_Name"));
+				product.setpCategory(rs.getString("p_Category"));
+				product.setpExp(rs.getString("p_Exp"));
+				product.setpPrice(rs.getInt("p_Price"));
+				product.setpInv(rs.getInt("p_Inv"));
+				product.setpDate(rs.getString("p_Date"));
+				product.setpImage(rs.getString("p_Image"));
+				product.setpStatus(rs.getString("p_Status"));
+				
+				productList.add(product);
+				
+			}			
+		} catch (SQLException e) {
+			System.out.println("[에러] getProductList() 메소드의 SQL 오류 : " + e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}		
+		return productList;
+	}
+	
+	//상품리스트 검색 : 쇼핑몰 상품리스트 sorting 항목별 검색
+	public List<ProductDTO> getSortList(String sorting) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<ProductDTO> productList = new ArrayList<>();
+		System.out.println("getSortList, " + sorting);
+		
+		try {
+			con = getConnection();
+			if (sorting.equals("ALL")) {
+				String sql ="select * from product_shopping order by P_ID desc";
+				pstmt = con.prepareStatement(sql);
+			} else if (sorting.equals("name")) {
+				String sql ="select * from product_shopping order by P_NAME";
+				pstmt = con.prepareStatement(sql);
+			} else if (sorting.equals("price")){
+				String sql = "select * from product_shopping order by p_Price desc";
+				pstmt = con.prepareStatement(sql);
+			} else if(sorting.equals("newest")) {
+				String sql = "select * from product_shopping order by p_Date desc";
+				pstmt = con.prepareStatement(sql);
+			} 
+
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				ProductDTO product = new ProductDTO();
+				product.setpID(rs.getInt("p_ID"));
+				product.setpType(rs.getString("p_Type"));
+				product.setpName(rs.getString("p_Name"));
+				product.setpCategory(rs.getString("p_Category"));
+				product.setpExp(rs.getString("p_Exp"));
+				product.setpPrice(rs.getInt("p_Price"));
+				product.setpInv(rs.getInt("p_Inv"));
+				product.setpDate(rs.getString("p_Date"));
+				product.setpImage(rs.getString("p_Image"));
+				product.setpStatus(rs.getString("p_Status"));
+				
+				productList.add(product);
+				
+			}			
+		} catch (SQLException e) {
+			System.out.println("[에러] getSortList() 메소드의 SQL 오류 : " + e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}		
+		return productList;
+	}
+	
+	//상품리스트 검색 : 시작 행번호와 마지막 행번호를 전달받아 쇼핑몰 상품리스트 sorting 항목별 
+	//검색 행번호(ROWNUM)와 비교 검색하여 반환하는 메소드
+	public List<ProductDTO> getSortList(int startRow,int endRow,String sorting) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<ProductDTO> productList = new ArrayList<>();
+		System.out.println("getSortList, " + sorting + ", " + startRow + ", " + endRow);
+		
+		try {
+			con = getConnection();
+			String sql="select * from (select rownum rn,temp.* from (";
+			
+			if (sorting.equals("ALL")) {
+				sql +="select * from product_shopping order by P_ID desc) temp) where rn between ? and ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+			} else if (sorting.equals("name")) {
+				sql += "select * from product_shopping order by P_NAME) temp) where rn between ? and ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+			} else if (sorting.equals("price")){
+				sql += "select * from product_shopping order by p_Price desc) temp) where rn between ? and ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+			} else if(sorting.equals("newest")) {
+				sql += "select * from product_shopping order by p_Date desc) temp) where rn between ? and ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+			} 
+			
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				ProductDTO product = new ProductDTO();
+				product.setpID(rs.getInt("p_ID"));
+				product.setpType(rs.getString("p_Type"));
+				product.setpName(rs.getString("p_Name"));
+				product.setpCategory(rs.getString("p_Category"));
+				product.setpExp(rs.getString("p_Exp"));
+				product.setpPrice(rs.getInt("p_Price"));
+				product.setpInv(rs.getInt("p_Inv"));
+				product.setpDate(rs.getString("p_Date"));
+				product.setpImage(rs.getString("p_Image"));
+				product.setpStatus(rs.getString("p_Status"));
+				
+				productList.add(product);
+				
+			}			
+		} catch (SQLException e) {
+			System.out.println("[에러] getSortList() 메소드의 SQL 오류 : " + e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}		
+		return productList;
+	}
+	
+	//제품코드를 전달받아 PRODUCT 테이블의 저장 유무를 검색하여 반환하는 메소드
+	// => 미검색 : false 반환, 검색 : true 반환
+	public boolean isProduct(int pID) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		boolean result=false;
+		try {
+			con=getConnection();
+			
+			String sql = "select * from product_shopping where P_ID=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, pID);
+			
+			rs=pstmt.executeQuery();
+			
+			/*
+			if(rs.next()) {
+				result=true;
+			}
+			*/
+			
+			result=rs.next();
+		} catch (SQLException e) {
+			System.out.println("[에러]isProduct() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return result;
+	}
+	
+	//제품 검색(아이디)
+	public ProductDTO getProduct(int pID) {
+		System.out.println("getProduct");
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProductDTO product = new ProductDTO();
+		try {
+			con = getConnection();
+			String sql = "select * from product_shopping where P_ID=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, pID);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				product.setpID(rs.getInt("p_ID"));
+				product.setpType(rs.getString("p_Type"));
+				product.setpName(rs.getString("p_Name"));
+				product.setpCategory(rs.getString("p_Category"));
+				product.setpExp(rs.getString("p_Exp"));
+				product.setpPrice(rs.getInt("p_Price"));
+				product.setpInv(rs.getInt("p_Inv"));
+				product.setpDate(rs.getString("p_Date").substring(0,10));
+				product.setpImage(rs.getString("p_Image"));
+				product.setpStatus(rs.getString("p_Status"));
+				System.out.println(rs.getString("p_Status"));
+			}			
+		} catch (SQLException e) {
+			System.out.println("[에러]getProduct() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}		
+		return product;
+	}
+	
+	//제품 정보 수정
+	public int modifyProduct(ProductDTO product) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int rows = 0;
+		try {
+			con = getConnection();
+			String sql = "update product_shopping set P_NAME=?,P_CATEGORY=?,P_EXP=?,P_PRICE=?,P_INV=?,P_IMAGE=?,P_STATUS=? where P_ID=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, product.getpName());
+			pstmt.setString(2, product.getpCategory());
+			pstmt.setString(3, product.getpExp());
+			pstmt.setInt(4, product.getpPrice());
+			pstmt.setInt(5, product.getpInv());
+			pstmt.setString(6, product.getpImage());
+			pstmt.setString(7, product.getpStatus());
+			pstmt.setInt(8, product.getpID());
+			System.out.println("modifyProduct, " + product.getpStatus());
+			
+			rows = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			System.out.println("[에러]modifyProduct() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
+	}
+	
+	/*public int modifyStatus(int pID, String pStatus) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int rows = 0;
+		try {
+			con = getConnection();
+			String sql = "update product_shopping set p_status=? where p_id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, pStatus);
+			pstmt.setInt(2, pID);
+			rows = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[에러]modifyStatus() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
+	}*/
+	
+	//제품 삭제 (아이디)
+	public int removeProduct(int pID) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int rows = 0;
+		try {
+			con = getConnection();
+			String sql = "delete from product_shopping where P_ID=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, pID);
+			rows = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[에러]removeProduct() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
+	}
+	
+	//sorting 항목에 따라 검색된 제품의 갯수 반환
+	public int getTotalProduct(String sorting) {
+		int rows = 0;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		//ResultSet rs = null;
+		try {
+			con = getConnection();
+			
+			if (sorting.equals("ALL")) {
+				String sql ="select * from product_shopping order by P_ID";
+				pstmt = con.prepareStatement(sql);
+			} else if (sorting.equals("name")) {
+				String sql ="select * from product_shopping order by P_NAME";
+				pstmt = con.prepareStatement(sql);
+			} else if (sorting.equals("price")){
+				String sql = "select * from product_shopping order by p_Price";
+				pstmt = con.prepareStatement(sql);
+			} else if(sorting.equals("newest")) {
+				String sql = "select * from product_shopping order by p_Date";
+				pstmt = con.prepareStatement(sql);
+			}
+			/*
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				rows = rs.getInt(1);
+			}*/
+			rows = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[에러] getTotalProduct() 메소드 오류 : " + e.getMessage());
+		} finally {
+			//close(con, pstmt, rs);			
+			close(con, pstmt);			
+		}
+		
+		return rows;
+	}
+}

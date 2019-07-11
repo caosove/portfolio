@@ -1,0 +1,50 @@
+package it.will.kingsmap_mybatis.dao;
+
+import java.util.ArrayList;
+
+import it.will.kingsmap_mybatis.dto.AptDTO;
+import it.will.kingsmap_mybatis.dto.DongsillDTO;
+import it.will.kingsmap_mybatis.dto.GetbilllaDTO;
+import it.will.kingsmap_mybatis.dto.GetgunchukDTO;
+import it.will.kingsmap_mybatis.dto.GosimoonDTO;
+import it.will.kingsmap_mybatis.dto.MapDTO;
+import it.will.kingsmap_mybatis.dto.MaplistDTO;
+import it.will.kingsmap_mybatis.dto.VillaDTO;
+
+public interface MapDAO {
+	
+	public ArrayList<MapDTO> listDao();
+	public ArrayList<MapDTO> busanlistDao(String bArea);
+	public ArrayList<MapDTO> bArealistDao(String bArea);
+	public ArrayList<MapDTO> bSteplistDao(String bStep);
+	public ArrayList<GosimoonDTO> bunyanglistDao(String bCate, String bZone);
+	public ArrayList<MapDTO> getAreainfo(String bCate, String bZone);
+	public MapDTO detailzone(int bNum);
+	public void insertbillla(String billCost, String billBuildyear,String billYear,String billDe,String billArea,String billName,String billMonth,String billDay,String billJeon,String billJibun,String billCode,String billFloor);
+	public ArrayList<GetgunchukDTO> detailgunchuck(String sigungucd, String bjdcd, String gunchuckCate);
+	
+	
+	//해당지역 아파트검색
+	public ArrayList<GetgunchukDTO> APTlistDao(String bArea);
+	//해당지역 빌라검색
+	public ArrayList<GetgunchukDTO> GongdonglistDao(String bArea);
+	//해당지역 단독,다가구검색
+	public ArrayList<GetgunchukDTO> DandocklistDao(String bArea);
+	//하나의 건축물정보(디테일)
+	public ArrayList<GetgunchukDTO> infogunchuckDao(String platPlc);
+	
+	//마커에 최근실거래 보여주기 (html) (아파트)
+	public ArrayList<AptDTO> ApartLastSilldao(String platPlc);
+	
+	//마커에 최근실거래 보여주기 (html) (빌라)
+	public ArrayList<VillaDTO> BillLastSilldao(String platPlc);
+	
+	//동별 평균가
+	public ArrayList<GetgunchukDTO> infoOnegunchuckDao(String platPlc, String dongNm);
+	
+	//동별 평균가
+	public ArrayList<DongsillDTO> getdongAvgsillDao(String ymdate);
+	
+	//아파트명 검색 
+	public ArrayList<GetgunchukDTO> searchgunchuckDao(String key);
+}

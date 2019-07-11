@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 인터페이스 있는 경로 -->
+<mapper namespace="it.will.kingsmap.dao.mapper.AptMapper">
+	<!-- 인터페이스의 메소드 -->
+	
+	<select id="getCostList" resultType="it.will.kingsmap_mybatis.dto.AptDTO">
+	 <!-- select * from Apart where ADDROLD LIKE  #{ADDROLD}   and ADDRNUM = #{ADDRNUM} and YMDATE like #{YMDATE} and TYPE  = '매매'  -->
+<!-- 	select * from Apart where ADDROLD LIKE  '%대청동4가%' and ADDRNUM1 = '34' and ADDRNUM2 = '2'  and type = '매매'	 -->
+	select * from Apart where ADDROLD LIKE '%'||#{ADDROLD}||'%'and ADDRNUM = #{ADDRNUM} 	
+	<!-- select * from Apart where ADDROLD LIKE  #{ADDROLD}   and ADDRNUM = #{ADDRNUM} and TYPE  = '매매' -->
+	</select>
+	
+	<select id="getGongsi" resultType="it.will.kingsmap_mybatis.dto.GongsiDTO">
+	 select * from GONGSI A where ADDROLD LIKE '%'||#{ADDROLD}||'%' AND ADDRNUM = #{ADDRNUM}  order by officialdate desc
+	<!--  select * from GONGSI where ADDROLD LIKE '%'||#{ADDROLD}||'%'  and ADDRNUM = #{ADDRNUM}  -->
+	<!--  SELECT * FROM APART WHERE ADDROLD LIKE '부산광역시 중구 대청동4가' AND ADDRNUM = '34-2'  -->   
+	</select>
+	
+<select id="getVillCost" resultType="it.will.kingsmap_mybatis.dto.VillaDTO">
+
+select * from Villa where ADDROLD LIKE '%'||#{ADDROLD}||'%'and ADDRNUM = #{ADDRNUM} 	
+	
+</select>
+
+</mapper>

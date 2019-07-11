@@ -1,0 +1,34 @@
+<%@page import="StockList.StockListDAO"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="product.ProductDAO"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="product.ProductDTO"%>
+<%@page import="user.UserDTO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	UserDTO loginUser=(UserDTO)session.getAttribute("loginUser");
+	ProductDTO wishItem = (ProductDTO)session.getAttribute("wishItem");
+	
+	String uname =loginUser.getuName();
+	String pname = wishItem.getpName();
+	int price = wishItem.getpPrice();
+	int count = 1;
+
+	System.out.println(pname+  "       " + price );	
+	
+	String add1 =loginUser.getuPost();
+	String add2 =loginUser.getuAbasic();
+	String add3 =loginUser.getuAdetail();
+	
+	String address = add1+add2+add3;
+	
+	StockListDAO dbPro = StockListDAO.getDAO();
+	/* dbPro.addCart(uname, pname, price, count, address); */
+	
+%>
+<script type="text/javascript">
+alert("장바구니에 추가 하였습니다.");
+history.go(-1);
+</script>

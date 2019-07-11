@@ -1,0 +1,67 @@
+<%@page import="user.Utility"%>
+<%@page import="user.UserDAO"%>
+<%@page import="user.UserDTO"%>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<%
+	request.setCharacterEncoding("UTF-8");
+
+	if(request.getMethod().equals("GET")){
+		response.sendRedirect(request.getContextPath()+"/this14/login/login_index.jsp");
+		return;
+	}
+	
+	String id=request.getParameter("login-id");
+	//String pwd=request.getParameter("login-pw");
+	String pwd=Utility.encrypt(request.getParameter("login-pw"), "SHA-256");
+	
+	//System.out.println(id);
+	//System.out.println(pwd);
+	
+	UserDTO loginUser=UserDAO.getDAO().getUser(id);
+	
+	String jsSrc="<script type=\"text/javascript\"> frame.classList.toggle(\"show-login-content\"); loginId.focus();</script>";
+	
+	 if(loginUser==null){
+		session.setAttribute("login_msg", "아이디가 존재하지 않습니다.");
+		session.setAttribute("id", id);
+		session.setAttribute("jsSrc", jsSrc);
+		response.sendRedirect(request.getContextPath()+"/this14/login/login_index.jsp"); 
+	 	return ;
+	}
+
+	 if(loginUser.getuGrade().equals("leave")){
+		session.setAttribute("login_msg", "아이디가 존재하지 않습니다.");
+		session.setAttribute("id", id);
+		session.setAttribute("jsSrc", jsSrc);
+		response.sendRedirect(request.getContextPath()+"/this14/login/login_index.jsp");
+		return;
+	}
+	 
+	if(!pwd.equals(loginUser.getuPwd())){
+		session.setAttribute("login_msg", "아이디 또는 비밀번호가 맞지 않습니다.");
+		session.setAttribute("id", id);
+		session.setAttribute("jsSrc", jsSrc);
+		response.sendRedirect(request.getContextPath()+"/this14/login/login_index.jsp");
+		return;
+	}
+
+	session.setAttribute("loginUser", loginUser);
+	
+	if(loginUser.getuGrade().equals("password")){
+		response.sendRedirect("user_edit.jsp");
+		return;
+	}
+	
+	
+	 String uri=(String)session.getAttribute("uri");
+	if(uri==null){  
+		response.sendRedirect(request.getContextPath()+"/this14/login/login_index.jsp");
+	} else{ 
+		session.removeAttribute("uri");
+		response.sendRedirect(uri);
+	} 
+	
+%>

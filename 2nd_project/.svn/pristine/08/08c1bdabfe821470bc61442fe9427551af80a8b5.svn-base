@@ -1,0 +1,130 @@
+
+//ID 체크
+	$("#reg_mb_id").blur(function(){
+		$("#msg_id").css("color","red");
+		var regId=/^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,12}$/;
+		if($(this).val()==""){
+			$("#msg_id").text("필수 항목 입니다.");
+		} else if(!$(this).val().match(regId)){
+			$("#msg_id").text("아이디는 영문자와 숫자를 포함하고 6~12자리로 입력해야 합니다.");
+		} else{
+			$("#msg_id").css("color","blue");
+			$("#msg_id").text("확인");
+		}
+	})
+	
+//비밀번호 체크
+	$("#reg_mb_password").blur(function(){
+		$("#msg_password").css("color","red");
+		var regPwd=/^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{8,16}$/;
+		if($(this).val()==""){
+			$("#msg_password").text("필수 항목 입니다.");
+		} else if(!$(this).val().match(regPwd)){
+			$("#msg_password").text("잘못된 형식 입니다.");
+		} else{
+			$("#msg_password").css("color","blue");
+			$("#msg_password").text("확인");
+		}
+	})
+//비밀번호 확인 체크
+	$("#reg_mb_password_re").blur(function(){
+		$("#msg_password_re").css("color","red");
+		if($(this).val()!=""){
+			if($(this).val()!=$("#reg_mb_password").val()){
+				$("#msg_password_re").text("비밀번호가 일치하지 않습니다.");
+			} else{
+				$("#msg_password_re").css("color","blue");
+				$("#msg_password_re").text("확인");
+			}
+		} else if($(this).val()==""){
+			$("#msg_password_re").text("비밀번호를 한번 더 입력해 주세요.");
+		}
+	})
+
+//전화번호 체크
+$("#reg_mb_hp").blur(function(){
+	$("#msg_hp").css("color","red");
+	var regPh=/(01[016789])(\d{3,4})(\d{4})/g;
+	if($(this).val()==""){
+		$("#msg_hp").text("필수 항목 입니다.");
+	} else if(!$(this).val().match(regPh)){
+		$("#msg_hp").text("잘못된 형식 입니다.");
+	} else{
+		$("#msg_hp").css("color","blue");
+		$("#msg_hp").text("확인");
+	}
+})
+
+
+//이메일 체크
+	$("#reg_mb_email").blur(function(){
+	//alert($("#email_select").val())
+		if($(this).val()==""){
+			$("#msg_email").text("필수 항목 입니다.");
+			return false;
+		} else {
+			if($("#email_select").val()=="선택") {
+				$("#msg_email").css("color","red");
+				$("#msg_email").text("이메일을 선택하세요");
+				return;
+			}
+			$("#msg_email").text(emailCheck());
+		}
+	})
+	
+//이메일 직접입력
+	$("#email_select").change(function(){
+		$("#msg_email").css("color","red");
+		//alert($(this).val())
+		$("#email_enter").val("");
+		if($(this).val()=="직접입력"){
+			$("#msg_email").text("");
+			$("#email_enter").css("display","inline");
+			$("#email_enter").focus();
+		} else if($(this).val()=="선택") {
+			$("#msg_email").text("이메일을 선택하세요");
+		} else if($(this).val()=="naver.com" || $(this).val()=="daum.net" || $(this).val()=="google.com"){
+			$("#email_enter").css("display","none");
+			$("#email_enter").val($(this).val());
+			$("#msg_email").text(emailCheck());
+		} 
+		//alert($("#email_enter").val());
+	})
+	
+//입력 메일서버 확인
+	$("#email_enter").blur(function(){
+		$("#msg_email").css("color","red");
+		$("#msg_email").text(emailCheck());
+	})
+	
+//이메일 유효성 검사 함수
+	function emailCheck(){
+		$("#msg_email").css("color","red");
+		var regEmail=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/g;
+		var email=$("#reg_mb_email").val()+"@"+$("#email_enter").val();
+		//alert(email);
+		if(!email.match(regEmail)){
+			return "이메일 형식이 잘못 입력 되었습니다";
+		}else {
+			$("#msg_email").css("color","blue");
+			return "확인";	
+		}
+	}
+	
+//주소 체크
+	$("#reg_mb_addr2").blur(function(){
+		$("#msg_addr").css("color","red");
+		if($(this).val()==""){
+			$("#msg_addr").text("필수 항목 입니다.");
+		} else{
+			$("#msg_addr").css("color","blue");
+			$("#msg_addr").text("확인");
+		}
+	})
+	
+//아이디 중복 검사
+	function id_check(){
+		window.open("","아이디중복검사","width=500,height=250,left=450,top=250");
+	}
+	
+	

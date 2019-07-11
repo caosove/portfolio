@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="StockList.StockListDAO"%>
+<%@ page import="StockList.StockListDTO"%>
+<%@page import="product.ProductDAO"%>
+<%@page import="product.ProductDTO"%>
+<%@ page import="java.util.List"%>
+
+
+
+<%
+
+//count = document.form.amount.value;
+//id = document.form.pID.value;
+//name =document.form.pName.value;
+//price = document.form.pPrice.value;
+//image = document.form.pImage.value;
+
+// alert(count + " -- "+ id+ " -- " + name+ " -- " + price+" --" +image);
+///	location.href= 'product/InsertCart.jsp?pID='
+//			+id+'&pName='+name+'&pPrice'+price+'&pImage'+image + '&pCount'+count;
+
+String id = request.getParameter("pID");
+System.out.println(id);
+String pName = request.getParameter("pName");
+System.out.println(pName);
+String price = request.getParameter("pPrice");
+System.out.println(price);
+String image = request.getParameter("pImage");
+System.out.println(image);
+String count = request.getParameter("pCount");
+System.out.println(count);
+
+
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html>

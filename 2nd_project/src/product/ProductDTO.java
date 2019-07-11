@@ -1,0 +1,114 @@
+package product;
+
+/*
+이름         널?       유형            
+---------- -------- ------------- 
+P_ID       NOT NULL NUMBER        
+P_TYPE              VARCHAR2(30)  
+P_NAME              VARCHAR2(50)  
+P_CATEGORY          VARCHAR2(100) 
+P_EXP               VARCHAR2(777) 
+P_PRICE             NUMBER(10)    
+P_INV               NUMBER(10)    
+P_DATE              DATE
+P_IMAGE             VARCHAR2(30)
+P_STATUS			VARCHAR2(10)      - 상태 : PROGRESS(진행) STOP(중지)
+*/
+public class ProductDTO {
+	private int pID;
+	private String pType;
+	private String pName;
+	private String pCategory;
+	private String pExp;
+	private int pPrice;
+	private int pInv;
+	private String pDate;
+	private String pImage;
+	private String pStatus;
+	
+	public ProductDTO() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public int getpID() {
+		return pID;
+	}
+
+	public void setpID(int pID) {
+		this.pID = pID;
+	}
+
+	public String getpType() {
+		return pType;
+	}
+
+	public void setpType(String pType) {
+		this.pType = pType;
+	}
+
+	public String getpName() {
+		return pName;
+	}
+
+	public void setpName(String pName) {
+		this.pName = pName;
+	}
+
+	public String getpCategory() {
+		return pCategory;
+	}
+
+	public void setpCategory(String pCategory) {
+		this.pCategory = pCategory;
+	}
+
+	public String getpExp() {
+		return pExp;
+	}
+
+	public void setpExp(String pExp) {
+		this.pExp = pExp;
+	}
+
+	public int getpPrice() {
+		return pPrice;
+	}
+
+	public void setpPrice(int pPrice) {
+		this.pPrice = pPrice;
+	}
+
+	public int getpInv() {
+		return pInv;
+	}
+
+	public void setpInv(int pInv) {
+		this.pInv = pInv;
+	}
+
+	public String getpDate() {
+		return pDate;
+	}
+
+	public void setpDate(String pDate) {
+		this.pDate = pDate;
+	}
+
+	public String getpImage() {
+		return pImage;
+	}
+
+	public void setpImage(String pImage) {
+		this.pImage = pImage;
+	}
+
+	public String getpStatus() {
+		return pStatus;
+	}
+
+	public void setpStatus(String pStatus) {
+		this.pStatus = pStatus;
+	}
+	
+	
+}

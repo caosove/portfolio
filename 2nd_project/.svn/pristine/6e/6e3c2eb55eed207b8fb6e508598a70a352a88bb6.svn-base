@@ -1,0 +1,573 @@
+package product;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProductDAO extends JdbcDAO {
+	private static ProductDAO _dao;
+	
+	public ProductDAO() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	static {
+		_dao = new ProductDAO();
+	}
+	
+	public static ProductDAO getDAO() {
+		return _dao;
+	}
+	
+	//�젣�뭹�벑濡� 硫붿냼�뱶
+	/*@SuppressWarnings("resource")
+	public int addProdType(ProductDTO product) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int rows = 0;		
+		ResultSet rs = null;
+		int number =0 ;
+		try {			
+			con = getConnection();			
+			
+			String sql = " select MAX(p_ID)from  product_shopping WHERE P_ID >= ? AND P_ID <?";
+			pstmt = con.prepareStatement(sql);
+			
+			if(product.getpType().equals("BED")) {
+				pstmt.setInt(1, 1000);
+				pstmt.setInt(2, 2000);
+			}else if(product.getpType().equals("LIVING")) {
+				pstmt.setInt(1,2000);
+				pstmt.setInt(2,3000);
+			}else if(product.getpType().equals("KITCHEN")) {
+				pstmt.setInt(1,3000);
+				pstmt.setInt(2,4000);
+			}else if(product.getpType().equals("TEXTILE")) {
+				pstmt.setInt(1,4000);
+				pstmt.setInt(2,5000);
+			}
+			rs = pstmt.executeQuery();	
+
+			if(rs.next()) {
+				 number = rs.getInt(1)+1;
+				System.out.println(number);
+			}
+			
+			String sql1 = "insert into product_shopping values(?,?,?,?,?,?,100,sysdate,?,'PROGRESS')";
+			pstmt = con.prepareStatement(sql1);
+			System.out.println(product.getpType());
+			if(product.getpType().equals("BED")) {
+				pstmt.setInt(1,number );
+			}else if(product.getpType().equals("LIVING")) {
+				pstmt.setInt(1,number);
+			}else if(product.getpType().equals("KITCHEN")) {
+				pstmt.setInt(1,number);
+			}else if(product.getpType().equals("TEXTILE")) {
+				pstmt.setInt(1,number);
+			}
+			
+			pstmt.setString(2, product.getpType());
+			pstmt.setString(3, product.getpName());
+			pstmt.setString(4, product.getpCategory());
+			pstmt.setString(5, product.getpExp());
+			pstmt.setInt(6, product.getpPrice());
+			pstmt.setString(7, product.getpImage());
+			rows = pstmt.executeUpdate();	
+		} catch (SQLException e) {
+			System.out.println("[�뿉�윭] addProdType() 硫붿냼�뱶�쓽 SQL �삤瑜� : " + e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}		
+		return rows;
+	}*/
+	
+	
+	public int addProdType(ProductDTO product) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int rows = 0;	
+		try {			
+			con = getConnection();			
+			
+			String sql="insert into product_shopping values(";
+			if (product.getpType().equals("BED")) {
+				sql += "seq_pType01.nextval";
+		   	} else if (product.getpType().equals("LIVING")) {
+		   		sql += "seq_pType02.nextval";
+		   	} else if (product.getpType().equals("KITCHEN")) {
+		   		sql += "seq_pType03.nextval";
+		   	} else if (product.getpType().equals("TEXTILE")) {
+		   		sql += "seq_pType04.nextval";
+		   	}
+			
+			sql += ",?,?,?,?,?,100,sysdate,?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, product.getpType());
+			pstmt.setString(2, product.getpName());
+			pstmt.setString(3, product.getpCategory());
+			pstmt.setString(4, product.getpExp());
+			pstmt.setInt(5, product.getpPrice());
+			pstmt.setString(6, product.getpImage());
+			pstmt.setString(7, product.getpStatus());
+			rows = pstmt.executeUpdate();	
+		} catch (SQLException e) {
+			System.out.println("[�뿉�윭] addProdType1() 硫붿냼�뱶�쓽 SQL �삤瑜� : " + e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}		
+		return rows;
+	}
+	//�쟾泥댁긽�뭹 寃��깋
+	/*public List<ProductDTO> getProductList() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<ProductDTO> productList = new ArrayList<>();
+		
+		
+		try {
+			con = getConnection();
+			String sql = "select * from product_shopping order by P_ID desc";
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				ProductDTO product = new ProductDTO();
+				product.setpID(rs.getInt("p_ID"));
+				product.setpType(rs.getString("p_Type"));
+				product.setpName(rs.getString("p_Name"));
+				product.setpCategory(rs.getString("p_Category"));
+				product.setpExp(rs.getString("p_Exp"));
+				product.setpPrice(rs.getInt("p_Price"));
+				product.setpInv(rs.getInt("p_Inv"));
+				product.setpDate(rs.getString("p_Date"));
+				product.setpImage(rs.getString("p_Image"));
+				product.setpStatus(rs.getString("p_Status"));
+				
+				productList.add(product);
+				
+			}			
+		} catch (SQLException e) {
+			System.out.println("[�뿉�윭] getProductList() 硫붿냼�뱶�쓽 SQL �삤瑜� : " + e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}		
+		return productList;
+	}*/
+	
+	//�긽�뭹由ъ뒪�듃 寃��깋 : �뼱�뱶誘� �긽�뭹由ъ뒪�듃 �긽�뭹���엯 寃��깋
+	public List<ProductDTO> getTypeList(String pSort) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<ProductDTO> productList = new ArrayList<>();
+		System.out.println("getTypeList, " + pSort);
+		
+		try {
+			con = getConnection();
+			if (pSort.equals("ALL")) {
+				String sql ="select * from product_shopping order by P_ID desc";
+				pstmt = con.prepareStatement(sql);
+			} else {
+				String sql = "select * from product_shopping where P_TYPE like ?||'%' order by P_TYPE";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, pSort);
+			}			
+			
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				ProductDTO product = new ProductDTO();
+				product.setpID(rs.getInt("p_ID"));
+				product.setpType(rs.getString("p_Type"));
+				product.setpName(rs.getString("p_Name"));
+				product.setpCategory(rs.getString("p_Category"));
+				product.setpExp(rs.getString("p_Exp"));
+				product.setpPrice(rs.getInt("p_Price"));
+				product.setpInv(rs.getInt("p_Inv"));
+				product.setpDate(rs.getString("p_Date"));
+				product.setpImage(rs.getString("p_Image"));
+				product.setpStatus(rs.getString("p_Status"));
+				
+				productList.add(product);
+			}			
+		} catch (SQLException e) {
+			System.out.println("[�뿉�윭] getTypeList() 硫붿냼�뱶�쓽 SQL �삤瑜� : " + e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}		
+		return productList;
+	}
+	
+	//�긽�뭹由ъ뒪�듃 寃��깋 : �눥�븨紐� �긽�뭹由ъ뒪�듃 sorting �빆紐⑸퀎 寃��깋
+	public List<ProductDTO> getSortList(String sorting) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<ProductDTO> productList = new ArrayList<>();
+		System.out.println("getSortList, " + sorting);
+		
+		try {
+			con = getConnection();
+			if (sorting.equals("name")) {
+				String sql ="select * from product_shopping order by P_NAME";
+				pstmt = con.prepareStatement(sql);
+			} else if (sorting.equals("price")){
+				String sql = "select * from product_shopping order by p_Price desc";
+				pstmt = con.prepareStatement(sql);
+			} else if(sorting.equals("newest")) {
+				String sql = "select * from product_shopping order by p_Date desc";
+				pstmt = con.prepareStatement(sql);
+			} else {
+				String sql ="select * from product_shopping order by P_ID desc";
+				pstmt = con.prepareStatement(sql);
+			}  
+
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				ProductDTO product = new ProductDTO();
+				product.setpID(rs.getInt("p_ID"));
+				product.setpType(rs.getString("p_Type"));
+				product.setpName(rs.getString("p_Name"));
+				product.setpCategory(rs.getString("p_Category"));
+				product.setpExp(rs.getString("p_Exp"));
+				product.setpPrice(rs.getInt("p_Price"));
+				product.setpInv(rs.getInt("p_Inv"));
+				product.setpDate(rs.getString("p_Date"));
+				product.setpImage(rs.getString("p_Image"));
+				product.setpStatus(rs.getString("p_Status"));
+				
+				productList.add(product);				
+			}			
+		} catch (SQLException e) {
+			System.out.println("[�뿉�윭] getSortList() 硫붿냼�뱶�쓽 SQL �삤瑜� : " + e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}		
+		return productList;
+	}
+	
+	//�긽�뭹由ъ뒪�듃 寃��깋 : �떆�옉 �뻾踰덊샇�� 留덉�留� �뻾踰덊샇瑜� �쟾�떖諛쏆븘 �눥�븨紐� �긽�뭹由ъ뒪�듃 sorting �빆紐⑸퀎 
+	//寃��깋 �뻾踰덊샇(ROWNUM)�� 鍮꾧탳 寃��깋�븯�뿬 諛섑솚�븯�뒗 硫붿냼�뱶
+	public List<ProductDTO> getSortRow(int startRow,int endRow,String sorting) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<ProductDTO> productList = new ArrayList<>();
+		System.out.println("getSortRow, " + sorting + ", " + startRow + ", " + endRow);
+		
+		try {
+			con = getConnection();
+			String sql="select * from (select rownum rn,temp.* from (";
+			
+			if (sorting.equals("name")) {
+				sql += "select * from product_shopping order by P_NAME) temp) where rn between ? and ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+			} else if (sorting.equals("price")){
+				sql += "select * from product_shopping order by p_Price desc) temp) where rn between ? and ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+			} else if(sorting.equals("newest")) {
+				sql += "select * from product_shopping order by p_Date desc) temp) where rn between ? and ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+			} else {
+				sql +="select * from product_shopping order by P_ID desc) temp) where rn between ? and ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+			} 
+			
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				ProductDTO product = new ProductDTO();
+				product.setpID(rs.getInt("p_ID"));
+				product.setpType(rs.getString("p_Type"));
+				product.setpName(rs.getString("p_Name"));
+				product.setpCategory(rs.getString("p_Category"));
+				product.setpExp(rs.getString("p_Exp"));
+				product.setpPrice(rs.getInt("p_Price"));
+				product.setpInv(rs.getInt("p_Inv"));
+				product.setpDate(rs.getString("p_Date"));
+				product.setpImage(rs.getString("p_Image"));
+				product.setpStatus(rs.getString("p_Status"));
+				
+				productList.add(product);
+				
+			}			
+		} catch (SQLException e) {
+			System.out.println("[�뿉�윭] getSortList() 硫붿냼�뱶�쓽 SQL �삤瑜� : " + e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}		
+		return productList;
+	}
+	
+	//�젣�뭹肄붾뱶瑜� �쟾�떖諛쏆븘 PRODUCT �뀒�씠釉붿쓽 ���옣 �쑀臾대�� 寃��깋�븯�뿬 諛섑솚�븯�뒗 硫붿냼�뱶
+	// => 誘멸��깋 : false 諛섑솚, 寃��깋 : true 諛섑솚
+	public boolean isProduct(int pID) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		boolean result=false;
+		try {
+			con=getConnection();
+			
+			String sql = "select * from product_shopping where P_ID=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, pID);
+			
+			rs=pstmt.executeQuery();
+			
+			/*
+			if(rs.next()) {
+				result=true;
+			}
+			*/
+			
+			result=rs.next();
+		} catch (SQLException e) {
+			System.out.println("[�뿉�윭]isProduct() 硫붿냼�뱶�쓽 SQL �삤瑜� = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return result;
+	}
+	
+	//�젣�뭹 寃��깋(�븘�씠�뵒)
+	public ProductDTO getProduct(int pID) {
+		System.out.println("getProduct");
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProductDTO product = new ProductDTO();
+		try {
+			con = getConnection();
+			String sql = "select * from product_shopping where P_ID=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, pID);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				product.setpID(rs.getInt("p_ID"));
+				product.setpType(rs.getString("p_Type"));
+				product.setpName(rs.getString("p_Name"));
+				product.setpCategory(rs.getString("p_Category"));
+				product.setpExp(rs.getString("p_Exp"));
+				product.setpPrice(rs.getInt("p_Price"));
+				product.setpInv(rs.getInt("p_Inv"));
+				product.setpDate(rs.getString("p_Date").substring(0,10));
+				product.setpImage(rs.getString("p_Image"));
+				product.setpStatus(rs.getString("p_Status"));
+				System.out.println(rs.getString("p_Status"));
+			}			
+		} catch (SQLException e) {
+			System.out.println("[�뿉�윭]getProduct() 硫붿냼�뱶�쓽 SQL �삤瑜� = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}		
+		return product;
+	}
+	
+	//�젣�뭹 �젙蹂� �닔�젙
+	public int modifyProduct(ProductDTO product) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int rows = 0;
+		try {
+			con = getConnection();
+			String sql = "update product_shopping set P_NAME=?,P_CATEGORY=?"
+					+ ",P_EXP=?,P_PRICE=?,P_INV=?,P_IMAGE=?,P_STATUS=? where P_ID=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, product.getpName());
+			pstmt.setString(2, product.getpCategory());
+			pstmt.setString(3, product.getpExp());
+			pstmt.setInt(4, product.getpPrice());
+			pstmt.setInt(5, product.getpInv());
+			pstmt.setString(6, product.getpImage());
+			pstmt.setString(7, product.getpStatus());
+			pstmt.setInt(8, product.getpID());
+			System.out.println("modifyProduct, " + product.getpStatus());
+			
+			rows = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			System.out.println("[�뿉�윭]modifyProduct() 硫붿냼�뱶�쓽 SQL �삤瑜� = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
+	}
+	
+	/*public int modifyStatus(int pID, String pStatus) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int rows = 0;
+		try {
+			con = getConnection();
+			String sql = "update product_shopping set p_status=? where p_id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, pStatus);
+			pstmt.setInt(2, pID);
+			rows = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[�뿉�윭]modifyStatus() 硫붿냼�뱶�쓽 SQL �삤瑜� = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
+	}*/
+	
+	//�젣�뭹 �궘�젣 (�븘�씠�뵒)
+	public int removeProduct(int pID) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int rows = 0;
+		try {
+			con = getConnection();
+			String sql = "delete from product_shopping where P_ID=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, pID);
+			rows = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[�뿉�윭]removeProduct() 硫붿냼�뱶�쓽 SQL �삤瑜� = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
+	}
+	
+	//sorting �빆紐⑹뿉 �뵲�씪 寃��깋�맂 �젣�뭹�쓽 媛��닔 諛섑솚
+	public int getTotalProduct(String sorting) {
+		int rows = 0;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		System.out.println("getTotalProduct : " + sorting);
+		try {
+			con = getConnection();
+			
+			if (sorting.equals("name")) {
+				String sql ="select count(*) from product_shopping order by P_NAME";
+				pstmt = con.prepareStatement(sql);
+			} else if (sorting.equals("price")){
+				String sql = "select count(*) from product_shopping order by p_Price";
+				pstmt = con.prepareStatement(sql);
+			} else if(sorting.equals("newest")) {
+				String sql = "select count(*) from product_shopping order by p_Date";
+				pstmt = con.prepareStatement(sql);
+			} else {
+				String sql ="select count(*) from product_shopping order by P_ID";
+				pstmt = con.prepareStatement(sql);
+			}
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				rows = rs.getInt(1);
+			}
+			System.out.println("getTotalProduct rows: " + rows);
+		} catch (SQLException e) {
+			System.out.println("[�뿉�윭] getTotalProduct() 硫붿냼�뱶 �삤瑜� : " + e.getMessage());
+		} finally {
+			close(con, pstmt, rs);		
+		}
+		
+		return rows;
+	}
+	
+	//////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////This1 추가 메소드 시작/////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////
+	public int getTotalProduct2(String search,String keyword) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int rows=0;
+		try {
+			con=getConnection();
+			
+			//파라메터에 전달된 값에 따라 다른 SQL 명령을 PreparedStatement
+			//인스턴스에 저장하여 전달하여 실해되도록 작성 - 동적 SQL
+			if(search.equals("")) {
+				String sql="select count(*) from product_shopping";
+				pstmt=con.prepareStatement(sql);
+			} else {
+				String sql="select count(*) from product_shopping where "+search+" like '%'||?||'%' and p_status!='stop'";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+			}
+				
+			rs=pstmt.executeQuery();
+				
+			if(rs.next()) {
+				rows=rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러]getTotalProduct2() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+			return rows;
+	}
+	
+	public List<ProductDTO> getProductList(int startRow,int endRow,String search,String keyword){
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<ProductDTO> productList=new ArrayList<ProductDTO>();
+		try {
+			con=getConnection();
+	
+			if(search.equals("")) {
+				String sql="select * from (select rownum rn,temp.* from ("
+						+ "select * from product_shopping where p_status!='stop' order by p_Date) temp"
+						+ ") where rn between ? and ?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);	
+			} else {
+				String sql="select * from (select rownum rn,temp.* from ("
+						+ "select * from product_shopping where "+search+" like "
+						+ "'%'||?||'%' and p_status!='stop' order by p_Date "
+						+ ") temp) where rn between ? and ?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+			}
+	
+			rs=pstmt.executeQuery();
+	
+			while(rs.next()) {
+				ProductDTO product = new ProductDTO();
+				product.setpID(rs.getInt("p_ID"));
+				product.setpType(rs.getString("p_Type"));
+				product.setpName(rs.getString("p_Name"));
+				product.setpCategory(rs.getString("p_Category"));
+				product.setpExp(rs.getString("p_Exp"));
+				product.setpPrice(rs.getInt("p_Price"));
+				product.setpInv(rs.getInt("p_Inv"));
+				product.setpDate(rs.getString("p_Date").substring(0,10));
+				product.setpImage(rs.getString("p_Image"));
+				product.setpStatus(rs.getString("p_Status"));
+	
+				productList.add(product);
+				} 
+			} catch (SQLException e) {
+				System.out.println("[에러]getProductList() 메소드 SQL 오류 = "+e.getMessage());
+			} finally {
+				close(con, pstmt, rs);
+			}
+				return productList;
+		}
+	//////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////This1- 추가 메소드 종료/////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////
+}

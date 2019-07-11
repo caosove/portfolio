@@ -1,0 +1,23 @@
+<%@page import="product.ProductDTO"%>
+<%@page import="product.ProductDAO"%>
+<%@page import="java.io.File"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	if(request.getMethod().equals("GET")) {
+		response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+		return;
+	}
+	
+	String[] checkId = request.getParameterValues("checkId");
+	System.out.println(checkId);
+	int[] arrID = new int[checkId.length];
+	for (int i = 0; i < checkId.length; i++) {
+		int pID = arrID[i] = Integer.parseInt(checkId[i]);
+		
+		/* new File(request.getServletContext().getRealPath("/this14/product/images/product_image")
+				, ProductDAO.getDAO().getProduct(pID).getpImage()).delete(); */
+		ProductDAO.getDAO().removeProduct(pID);	
+	}
+	response.sendRedirect(request.getContextPath()+"/this14/admin/indexAdmin.jsp?work=product_list");
+%>

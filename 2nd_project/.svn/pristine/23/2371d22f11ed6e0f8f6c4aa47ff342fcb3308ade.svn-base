@@ -1,0 +1,112 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title> Checkout Page </title>
+
+</head>
+<body>
+	<jsp:include page="header.jsp" />
+
+	<!-- Cart view section -->
+	<section id="checkout">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="checkout-area">
+						<form action="">
+							<div class="row">
+								<div class="col-md-8">
+									<div class="checkout-left">
+										<div class="panel-group" id="accordion">
+
+											<div class="checkout-right">
+												<h4>구매 품목</h4>
+												<div class="aa-order-summary-area">
+													<table class="table table-responsive">
+														<thead>
+															<tr>
+																<th>상품</th>
+																<th>가격</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>T-Shirt <strong> x 1</strong></td>
+																<td>15,000 (원)</td>
+															</tr>
+															<tr>
+																<td>Polo T-Shirt <strong> x 2</strong></td>
+																<td>26,000 (원)</td>
+															</tr>
+															<tr>
+																<td>Shoes <strong> x 1</strong></td>
+																<td>72,000 (원)</td>
+															</tr>
+														</tbody>
+														<tfoot>
+															<tr>
+																<th>총 상품 가격 </th>
+																<td>113,000 (원)</td>
+															</tr>
+															<tr>
+																<th>배송비</th>
+																<td>2,500 (원)</td>
+															</tr>
+															<tr>
+																<th>총 결제 금액</th>
+																<td>115,500 (원)</td>
+															</tr>
+														</tfoot>
+													</table>
+												</div>
+												<h4>결제방법</h4>
+												<div class="aa-payment-method">
+													<label for="cashdelivery"> <input type="radio"
+														id="cashdelivery" name="optionsRadios"> 
+														계좌이체
+													</label> <label for="paypal"> <input type="radio"
+														id="paypal" name="optionsRadios" checked> 
+														카드결제
+													</label> <img
+														src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg"
+														border="0" alt="PayPal Acceptance Mark"> <input
+														type="submit" value="결제하기" class="aa-browse-btn">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- jQuery library -->
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="js/bootstrap.js"></script>
+		<!-- SmartMenus jQuery plugin -->
+		<script type="text/javascript" src="js/jquery.smartmenus.js"></script>
+		<!-- SmartMenus jQuery Bootstrap Addon -->
+		<script type="text/javascript" src="js/jquery.smartmenus.bootstrap.js"></script>
+		<!-- To Slider JS -->
+		<script src="js/sequence.js"></script>
+		<script src="js/sequence-theme.modern-slide-in.js"></script>
+		<!-- Product view slider -->
+		<script type="text/javascript" src="js/jquery.simpleGallery.js"></script>
+		<script type="text/javascript" src="js/jquery.simpleLens.js"></script>
+		<!-- slick slider -->
+		<script type="text/javascript" src="js/slick.js"></script>
+		<!-- Price picker slider -->
+		<script type="text/javascript" src="js/nouislider.js"></script>
+		<!-- Custom js -->
+		<script src="js/custom.js"></script>
+</body>
+</html>
+
+<jsp:include page="footter.jsp" />

@@ -1,0 +1,121 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title> Cart Page</title>
+
+</head>
+<body>
+
+	<jsp:include page="header.jsp" />
+
+	<!-- Cart view section -->
+	<section id="cart-view">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="cart-view-area">
+						<div class="cart-view-table">
+							<form action="">
+								<div class="table-responsive">
+									<table class="table">
+										<thead>
+											<tr>
+												<th></th>
+												<th></th>
+												<th>상품</th>
+												<th>가격</th>
+												<th>수량</th>
+												<th>총 가격</th>
+
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td><a class="remove" href="#">
+												<fa	class="fa fa-close"></fa></a></td>
+												<td><a href="#"><img src="img/man/polo-shirt-1.png"
+														alt="img"></a></td>
+												<td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
+												<td>25,000 (원)</td>
+												<td><input class="aa-cart-quantity" type="number"
+													value="1"></td>
+												<td>25,000 (원)</td>
+
+											</tr>
+											<tr>
+												<td><a class="remove" href="#">
+												<fa class="fa fa-close"></fa></a></td>
+												<td><a href="#"><img src="img/man/polo-shirt-2.png"
+														alt="img"></a></td>
+												<td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
+												<td>25,000 (원)</td>
+												<td><input class="aa-cart-quantity" type="number"
+													value="1"></td>
+												<td>25,000 (원)</td>
+
+											</tr>
+											<tr>
+												<td><a class="remove" href="#"><fa
+															class="fa fa-close"></fa></a></td>
+												<td><a href="#"><img src="img/man/polo-shirt-3.png"
+														alt="img"></a></td>
+												<td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
+												<td>25,000 (원)</td>
+												<td><input class="aa-cart-quantity" type="number"
+													value="1"></td>
+												<td>25,000 (원)</td>
+											</tr>
+					
+											<thead>
+											<tr>
+												<th colspan ="3"></th>
+												<th colspan ="2"> 총 가격</th>
+												<th>75,000(원)</th>
+												
+											</tr>
+										</thead>
+											<tr>
+												<td colspan="10" class="aa-cart-view-bottom">
+													<input class="aa-cart-view-btn" type="submit" value="구매하기">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<jsp:include page="footter.jsp" />
+	</section>
+	<!-- / Cart view section -->
+	<!-- jQuery library -->
+	<!-- <script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	Include all compiled plugins (below), or include individual files as needed
+	<script src="js/bootstrap.js"></script>
+	SmartMenus jQuery plugin
+	<script type="text/javascript" src="js/jquery.smartmenus.js"></script>
+	SmartMenus jQuery Bootstrap Addon
+	<script type="text/javascript" src="js/jquery.smartmenus.bootstrap.js"></script>
+	To Slider JS
+	<script src="js/sequence.js"></script>
+	<script src="js/sequence-theme.modern-slide-in.js"></script>
+	Product view slider
+	<script type="text/javascript" src="js/jquery.simpleGallery.js"></script>
+	<script type="text/javascript" src="js/jquery.simpleLens.js"></script>
+	slick slider
+	<script type="text/javascript" src="js/slick.js"></script>
+	Price picker slider
+	<script type="text/javascript" src="js/nouislider.js"></script>
+	Custom js
+	<script src="js/custom.js"></script> -->
+</body>
+</html>
+
+

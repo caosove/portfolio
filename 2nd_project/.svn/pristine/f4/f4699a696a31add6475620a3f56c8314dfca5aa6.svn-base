@@ -1,0 +1,202 @@
+<%@page import="user.UserDTO"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="product.ProductDAO"%>
+<%@page import="product.ProductDTO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+   if(request.getParameter("pID")==null) {
+%>
+      <script type="text/javascript">
+      location.href="<%=request.getContextPath()%>/this14/product/index.jsp?workgroup=product&work=product_list";
+      </script>
+<%      
+      return;
+   }
+
+	UserDTO loginUser=(UserDTO)session.getAttribute("loginUser");	
+   	
+	//전달된 제품번호를 반환받아 저장
+   	int pID=Integer.parseInt(request.getParameter("pID"));
+   	int i=1; //상품갯수 변수
+   	//제품번호를 전달하여 PRODUCT 테이블에 저장된 제품정보를 검색하여 반환하는 DAO 클래스의 메소드 호출
+   	ProductDTO product = ProductDAO.getDAO().getProduct(pID);
+%>
+<%@include file="/this14/returnURI.jspf" %>
+
+<body onload="init();">
+<div id="ikea" class="ikea-new-ui-body">
+   <div class="category-container">
+      <section class="category-cover">
+         <div class="wrap">
+            <h1>침대 · 매트리스</h1>
+         </div>
+      </section>
+   </div>
+</div>
+<div id="allContent">
+   <div id="mainPadding">
+      <div style="display:none">         
+      
+      </div>
+      <div class="pipContainer">
+         <div id="leftMainContainer">
+            <div class="rightContentContainer">                             
+                  <img src="<%=request.getContextPath()%>/this14/product/images/product_image/<%=product.getpImage()%>" 
+                  alt="" title="<%=product.getpExp() %>" style="width:500px; height:500px;border:0">
+            </div>          
+         </div>
+         <div id="rightNavContainer" class="addList">
+            <div class="rightInfoDiv">
+               <div id="productInfoWrapper" class="">
+                  <h1>
+                     <span id="" class="productName"><%=product.getpName() %></span> 
+                     <span id="" class="productType"><%=product.getpCategory() %></span>                         
+                  </h1>
+                  <div class="priceContainer">         
+                     <div id="prodPrice" class="">
+                        <span id="" class="packagePrice" style="width: 100%;">
+                        <%=DecimalFormat.getCurrencyInstance().format(product.getpPrice()) %></span>                           
+                        <span id="" class="productunit">&nbsp;/ 개</span>               
+                     </div> 
+                  </div>
+               </div>
+               <div class="clear"></div>
+      
+               <div id="" class="salesArguments">
+                  <span><%=product.getpExp() %></span>
+               </div>
+            </div>
+            <div class="rightNavSubContainer">
+               <form id="addCartContainer" name="form"  method="get">                           
+                  <span class="quantityLabel">
+                      <label for="quantity">수량:</label>
+                  </span>
+                  <input type="hidden" name="sell_price" value="<%=product.getpPrice()%>">
+                  <input type="text" name="amount" value="<%=i %>" size="3" onchange="change();"> (개)
+                  <input type="button" value=" + " onclick="add();"> 
+                  <input type="button" value=" - " onclick="del();"><br>
+                  
+                  <input type="hidden" name="pID" value="<%=product.getpID() %>"/>
+                  <input type="hidden" name="pName" value="<%=product.getpName() %>"/>
+                  <input type="hidden" name="pImage" value="<%=product.getpImage() %>"/>
+                  <input type="hidden" name="pPrice" value="<%=product.getpPrice() %>"/>
+         
+         
+                  <div class="clear"></div>
+                           
+                  <div class="buttonDiv3">
+                     <div class="buttonWrapper">
+                        <div id="dispQuantity" class="form">
+                           <div>                                       
+                              <div class="buttonContainer">
+                                 <button type="button"id ="buybtn"class="blueBtn" >구매하기</button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="buttonMar">
+                     <div>                                       
+                        <div class="buttonContainer">
+                           <button type="button" id="cartBtn" class="orangeBtn" >장바구니에 추가</button>
+                           
+                        </div>
+                     </div>
+                     <span id="total-list-price">₩
+                     <input type="text" style="background-color:transparent;border:0 solid black;text-align:right;"
+                            name="sum" size="11" readonly> </span>
+                  </div>
+               </form>
+               <div class="stockChkTxtBold">
+                   <b> 실시간 재고상황이 반영되지 않을 수 있어, 정확한 재고량은 매장에서 확인해주세요. </b>
+                </div>
+                
+            </div>                  
+         </div>   
+      </div>
+   </div>      
+</div>
+</body>
+
+
+
+
+<script type="text/javascript">
+
+$("#cartBtn").click(function() {
+    
+   //  $id =$("input[name=pID]").attr("value")
+    // $count =$("input[name=amount]").attr("value")
+     
+     count = document.form.amount.value;
+     id = document.form.pID.value;
+     name =document.form.pName.value;
+     price = document.form.pPrice.value;
+     image = document.form.pImage.value;
+   
+   /*   alert(count + " -- "+ id+ " -- " + name+ " -- " + price+" --" +image); */
+        location.href= 'product/InsertCart.jsp?pID='+id+'&sts=2&pName='+name+'&pPrice='+price+'&pImage='+image + '&pCount='+count;
+      });
+      
+$("#buybtn").click(function() {
+    
+	   //  $id =$("input[name=pID]").attr("value")
+	    // $count =$("input[name=amount]").attr("value")
+	     
+	     count = document.form.amount.value;
+	     id = document.form.pID.value;
+	     name =document.form.pName.value;
+	     price = document.form.pPrice.value;
+	     image = document.form.pImage.value;
+	   
+	   /*   alert(count + " -- "+ id+ " -- " + name+ " -- " + price+" --" +image); */
+	        location.href= '../../this14/Cart/checkout.jsp?pID='+id+'&sts=2&pName='+name+'&pPrice='+price+'&pImage='+image + '&pCount='+count;
+	      });
+
+
+   
+   var sell_price;
+   var amount;
+
+
+
+   function init () {
+      sell_price = document.form.sell_price.value;
+      amount = document.form.amount.value;
+      document.form.sum.value = sell_price;
+      change();
+   }
+
+   function add () {
+      hm = document.form.amount;
+      sum = document.form.sum;
+      
+      if(hm.value>9){
+         alert('10개를 초과하여 구매하실 수 없습니다.');
+      }else{
+         
+         hm.value ++ ;
+         sum.value = parseInt(hm.value) * sell_price;
+      }
+   }
+
+   function del () {
+      hm = document.form.amount;
+      sum = document.form.sum;
+         if (hm.value > 1) {
+            hm.value -- ;
+            sum.value = parseInt(hm.value) * sell_price;
+         }
+   }
+
+   function change () {
+      hm = document.form.amount;
+      sum = document.form.sum;
+
+         if (hm.value < 0) {
+            hm.value = 0;
+         }
+      sum.value = parseInt(hm.value) * sell_price;
+   }  
+</script>

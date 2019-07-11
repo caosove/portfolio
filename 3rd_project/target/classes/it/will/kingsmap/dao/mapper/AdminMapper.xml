@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="it.will.kingsmap.dao.mapper.AdminMapper">
+	 
+	<insert id="addApart" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			into apart values(
+			#{item.ADDROLD}, #{item.ADDRNUM}, #{item.ADDRNUM1}, #{item.ADDRNUM2}, #{item.NAME}, 
+			#{item.TYPE}, #{item.CONTRACT}, #{item.YMDATE}, #{item.DDATE}, #{item.TRADING}, 
+			#{item.DEPOSIT}, #{item.MONTHLY}, #{item.FLOOR}, #{item.YBUILD}, #{item.NEWADDR})
+		</foreach>
+	</insert>
+
+	<insert id="addVilla" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			into villa values(
+			#{item.ADDROLD}, #{item.ADDRNUM}, #{item.ADDRNUM1}, #{item.ADDRNUM2}, #{item.NAME}, 
+			#{item.TYPE}, #{item.CONTRACT}, #{item.SILCONTRACT}, #{item.YMDATE}, #{item.DDATE}, 
+			#{item.TRADING}, #{item.DEPOSIT}, #{item.MONTHLY}, #{item.FLOOR}, #{item.YBUILD}, #{item.NEWADDR})
+		</foreach>
+	</insert>
+	
+	<insert id="addDandock" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			into dandock values(
+			#{item.ADDROLD}, #{item.ADDRNUM}, #{item.TYPE}, #{item.ROAD}, #{item.CONTRACT}, 
+			#{item.SILCONTRACT}, #{item.CTYPE}, #{item.YMDATE}, #{item.DDATE}, #{item.TRADING}, 
+			#{item.DEPOSIT}, #{item.MONTHLY}, #{item.YBUILD}, #{item.NEWADDR})
+		</foreach>
+	</insert>
+	
+	<insert id="addGongsi" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			into gongsitest values(
+			#{item.NUM}, #{item.CODE}, #{item.ADDROLD}, #{item.SPECIALCODE}, #{item.SPECIALTYPE}, #{item.ADDRNUM}, 
+			#{item.STANDARDYEAR}, #{item.STANDARDMONTH}, #{item.OFFICIALPRICE}, #{item.OFFICIALDATE}, #{item.DOCUMENT}, #{item.STANDARDDATA})
+		</foreach>
+	</insert>
+
+
+	
+	<select id="getAdmin" resultType="it.will.kingsmap_mybatis.dto.AdminEmail">
+		select * from adminemail where email=#{email}
+	</select>
+	
+	<update id="setCode" parameterType="map">
+		update adminemail set code=#{code} where email=#{email}
+	</update>
+	
+</mapper>

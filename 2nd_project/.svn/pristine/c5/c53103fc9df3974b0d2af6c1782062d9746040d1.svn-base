@@ -1,0 +1,118 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%-- <%@ page import="java.util.Random"%>
+<%@ page import="members.MemberDTO"%>
+<%@ page import="members.MemberDAO"%>
+<%@ page import="java.util.List"%> --%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>IKEA KOREA - IKEA</title>
+
+<!-- Font awesome -->
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- Bootstrap -->
+<link href="css/bootstrap.css" rel="stylesheet">
+<!-- SmartMenus jQuery Bootstrap Addon CSS -->
+<link href="css/jquery.smartmenus.bootstrap.css" rel="stylesheet">
+<!-- Product view slider -->
+<link rel="stylesheet" type="text/css" href="css/jquery.simpleLens.css">
+<!-- slick slider -->
+<link rel="stylesheet" type="text/css" href="css/slick.css">
+<!-- price picker slider -->
+<link rel="stylesheet" type="text/css" href="css/nouislider.css">
+<!-- Theme color -->
+<link id="switcher" href="css/theme-color/default-theme.css"
+	rel="stylesheet">
+<!-- Top Slider CSS -->
+<link href="css/sequence-theme.modern-slide-in.css" rel="stylesheet"
+	media="all">
+
+<!-- Main style sheet -->
+<link href="css/style.css" rel="stylesheet">
+
+<!-- Google Font -->
+<link href='https://fonts.googleapis.com/css?family=Lato'
+	rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Raleway'
+	rel='stylesheet' type='text/css'>
+</head>
+<jsp:include page="header.jsp" />
+<body class="renewal2017">
+	
+<!-- 	 <div id="ikea" class="ikea-new-ui-body">
+		<div class="category-container">
+			<section class="category-cover">
+			<div class="wrap">
+				<h1>장바구니</h1>
+			</div>
+			</section>
+		</div>
+	</div> --> 
+	<div id="allContent">
+		<div id="mainPadding">
+			<section id="cart-view">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="cart-view-area">
+							<div class="cart-view-table aa-wishlist-table">
+								<form action="">
+									<div class="table-responsive">
+
+										<%-- <%
+											List<MemberDTO> articleList = null;
+											MemberDAO dbPro = MemberDAO.getInstance();
+											articleList = dbPro.getArticles();
+										%> --%>
+										<table class="table">
+											<thead>
+												<tr>
+													<th></th>
+													<th></th>
+													<th>상품명</th>
+													<th>가격</th>
+													<th>재고현황</th>
+													<th></th>
+												</tr>
+											</thead>
+										<%-- 	<%
+												/*  for (int i = 1; i <= articleList.size(); i++) {
+													 MemberDTO 	article = articleList.get(1)  ; */
+												for (MemberDTO article : articleList) {
+											%> --%>
+											<tbody>
+												<tr>
+													<td><a class="remove" href="#"><fa
+																class="fa fa-close"></fa></a></td>
+													<td><a href="#"><img
+															src="img/man/polo-shirt-1.png" alt="img"></a></td>
+													<td><a class="aa-cart-title" href="#"><%-- <%=article.getName()%> --%></a></td>
+													<td><%-- <%=article.getId()%> --%></td>
+													<td><%-- <%=article.getJob()%> --%></td>
+													<td><a href="#" class="aa-add-to-cart-btn">Add To
+															Cart</a></td>
+												</tr>
+											</tbody>
+										<%-- 	<%
+												}
+											%>
+ --%>
+										</table>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</section>
+			<!-- / Cart view section -->
+		</div>
+	</div>
+</body>
+
+</html>
+<jsp:include page="footter.jsp"/>
+

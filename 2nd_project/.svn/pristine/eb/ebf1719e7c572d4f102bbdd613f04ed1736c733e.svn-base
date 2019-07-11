@@ -1,0 +1,147 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<div id="allContent">
+			<div id="mainPadding">
+				<!-- 내용 넣는 곳 : 시작 -->
+				<div id="content-outer">
+					<!-- start content -->
+					<div id="content">
+					
+						<!--  start page-heading -->
+						<div id="page-heading">
+							<h1 style="font-weight: bold;">&nbsp;&nbsp;&nbsp;상품관리<span><a href="<%=request.getContextPath()%>/This1_admin/indexAdmin.jsp?work=product_add">&nbsp;&nbsp;&nbsp;상품등록</a></span></h1>
+						</div>
+						<!-- end page-heading -->
+					
+						<table border="0" width="100%" cellpadding="0" cellspacing="0" id="content-table">
+						<tr>
+							<th rowspan="3" class="sized"><img src="images/shared/side_shadowleft.jpg" width="20" height="300" alt="" /></th>
+							<th class="topleft"></th>
+							<td id="tbl-border-top">&nbsp;</td>
+							<th class="topright"></th>
+							<th rowspan="3" class="sized"><img src="images/shared/side_shadowright.jpg" width="20" height="300" alt="" /></th>
+						</tr>
+						<tr>
+							<td id="tbl-border-left"></td>
+							<td>
+							<!--  start content-table-inner ...................................................................... START -->
+							<div id="content-table-inner">
+					
+									<!--  start product-table ..................................................................................... -->
+									<form id="mainform" action="">
+									<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
+									<tr>
+										<th class="table-header-check"><input type="checkbox"> </th>
+										<th class="table-header-repeat line-left minwidth-1"><a href="">상품아이디</a></th>
+										<th class="table-header-repeat line-left minwidth-1"><a href="">상품종류</a></th>
+										<th class="table-header-repeat line-left"><a href="">상품명</a></th>
+										<th class="table-header-repeat line-left"><a href="">상품소카테고리</a></th>
+										<th class="table-header-repeat line-left"><a href="">설명</a></th>
+										<th class="table-header-repeat line-left"><a href="">가격</a></th>
+										<th class="table-header-repeat line-left"><a href="">재고</a></th>
+										<th class="table-header-repeat line-left"><a href="">등록일</a></th>
+									</tr>
+									<tr>
+										<td><input  type="checkbox"/></td>
+										<td>Sabev</td>
+										<td>George</td>
+										<td><a href="">george@mainevent.co.za</a></td>
+										<td>R250</td>
+										<td><a href="">www.mainevent.co.za</a></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr class="alternate-row">
+										<td><input  type="checkbox"/></td>
+										<td>Sabev</td>
+										<td>George</td>
+										<td><a href="">george@mainevent.co.za</a></td>
+										<td>R250</td>
+										<td><a href="">www.mainevent.co.za</a></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td><input  type="checkbox"/></td>
+										<td>Sabev</td>
+										<td>George</td>
+										<td><a href="">george@mainevent.co.za</a></td>
+										<td>R250</td>
+										<td><a href="">www.mainevent.co.za</a></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr class="alternate-row">
+										<td><input  type="checkbox"/></td>
+										<td>Sabev</td>
+										<td>George</td>
+										<td><a href="">george@mainevent.co.za</a></td>
+										<td>R250</td>
+										<td><a href="">www.mainevent.co.za</a></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td><input  type="checkbox"/></td>
+										<td>Sabev</td>
+										<td>George</td>
+										<td><a href="">george@mainevent.co.za</a></td>
+										<td>R250</td>
+										<td><a href="">www.mainevent.co.za</a></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr class="alternate-row">
+										<td><input  type="checkbox"/></td>
+										<td>Sabev</td>
+										<td>George</td>
+										<td><a href="">george@mainevent.co.za</a></td>
+										<td>R250</td>
+										<td><a href="">www.mainevent.co.za</a></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									</table>
+									<!--  end product-table................................... --> 
+									</form>
+								</div>
+								<!--  end content-table  -->
+							
+						 	<div class="editButton">
+								<button style="width:100px;" onclick="">수정</button>
+								<button style="width:100px;" onclick="">삭제</button>		
+								<div style="float:right">
+										<input type="text"/> 
+										<select  class="styledselect">
+											<option value=""> 상품아이디</option>
+											<option value=""> 상품종류</option>
+											<option value=""> 상품명</option>
+											<option value="">소카테고리</option>
+											<option value="">등록일</option>
+										</select> 
+										<input type="button" style="width:100px;" value="search"/>
+								</div>
+							</div>
+							</td>
+							<td id="tbl-border-right"></td>
+						</tr>
+						<tr>
+							<th class="sized bottomleft"></th>
+							<td id="tbl-border-bottom">&nbsp;</td>
+							<th class="sized bottomright"></th>
+						</tr>
+						</table>
+						</div>
+					</div>
+				
+						
+						
+				<!-- 내용 넣는 곳 : 끝 -->
+			</div>		
+		</div>

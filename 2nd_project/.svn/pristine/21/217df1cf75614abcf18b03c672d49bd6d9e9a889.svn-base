@@ -1,0 +1,104 @@
+package StockList;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+public class StockListDAO extends JdbcDAO{
+	private static StockListDAO _dao;
+	
+	private StockListDAO() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	static {
+		_dao=new StockListDAO();
+	}
+	
+	public static StockListDAO getDAO() {
+		return _dao;
+	}
+	
+	public List<StockListDTO>  getArticles(String grade, String id) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<StockListDTO> articleList = null;
+		articleList = new ArrayList<StockListDTO>();
+		try {
+			conn = getConnection();
+			
+			if(grade.equals("admin")) {
+				pstmt = conn.prepareStatement("select * from stock_list");
+			
+			}else if(grade.equals("user")){
+				pstmt = conn.prepareStatement("select * from stock_list where s_uname = ?");
+				pstmt.setString(1, id);
+			}
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+					StockListDTO article = new StockListDTO();
+					article.setNum(rs.getInt("s_num"));
+					article.setUname(rs.getString("s_uname"));
+					article.setPname(rs.getString("s_pname"));
+					article.setPrice(rs.getInt("s_price"));
+					article.setCredit(rs.getInt("s_credit"));
+					article.setCount(rs.getInt("s_count"));
+					article.setDate(rs.getString("s_date"));
+					article.setAddress(rs.getString("s_address"));
+					article.setPay(rs.getString("s_pay"));
+					articleList.add(article);
+				} 
+			System.out.println(articleList.size());
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			close(conn, pstmt, rs);
+		}
+		return articleList;
+	}
+
+	public List<StockListDTO>  checkList(String grade, String id) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<StockListDTO> articleList = null;
+		articleList = new ArrayList<StockListDTO>();
+		
+		System.out.println(id + grade);
+		try {
+			conn = getConnection();
+			
+			if(grade.equals("admin")) {
+				pstmt = conn.prepareStatement("select * from stock_list where s_pay = 'y'");
+			
+			}else if(grade.equals("user")){
+				pstmt = conn.prepareStatement("select * from stock_list s where s_uname = ? and s_pay = 'y'");
+				pstmt.setString(1, id);
+			}
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+					StockListDTO article = new StockListDTO();
+					article.setNum(rs.getInt("s_num"));
+					article.setUname(rs.getString("s_uname"));
+					article.setPname(rs.getString("s_pname"));
+					article.setPrice(rs.getInt("s_price"));
+					article.setCredit(rs.getInt("s_credit"));
+					article.setCount(rs.getInt("s_count"));
+					article.setDate(rs.getString("s_date"));
+					article.setAddress(rs.getString("s_address"));
+					article.setPay(rs.getString("s_pay"));
+					articleList.add(article);
+				} 
+			System.out.println(articleList.size());
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			close(conn, pstmt, rs);
+		}
+		return articleList;
+	}
+	
+}

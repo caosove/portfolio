@@ -1,0 +1,1048 @@
+@charset "UTF-8";
+
+/* common */
+.ikea-new-ui-body .wrap {
+	width:1060px;
+	margin:0 auto;
+	box-sizing: border-box;
+}
+.ikea-new-ui-body .none {
+	display: none !important;
+}
+.ikea-new-ui-body .rel {
+	position: relative;
+}
+.red {
+	color:red !important;
+}
+.alttxt {
+	position: absolute;
+	top:-9999px; left:-9999px;
+	font-size:0;
+}
+.noBold {
+    font-weight: normal;
+}
+
+/* header */
+.ikea-new-ui-body .ikea2017-header .top-nav {
+	border-bottom: 1px solid #ddd;
+	height:45px;
+}
+.ikea-new-ui-body .ikea2017-header .top-nav .welcome-msg {
+	position: absolute;
+	top:0; left:50%;
+	margin-left:-200px;
+	width:500px;	
+	text-align: center;	
+	color:#535353;
+	font-size:13px;	
+	line-height: 45px;
+}
+.ikea-new-ui-body .ikea2017-header .top-nav .welcome-msg a {
+	color:#0051ba;
+}
+.ikea-new-ui-body .ikea2017-header .top-nav a.top-nav-link {
+	position: relative;	
+	line-height:45px;
+	font-size:12px;
+	color:#535353;
+	padding:0 15px;	
+	display: inline-block;	
+	vertical-align: top;	
+	text-decoration: none;
+}
+.ikea-new-ui-body .ikea2017-header .top-nav .right-menu a.top-nav-link:last-child {
+	background: none;
+	padding-right:0;
+}
+.top-nav .right-menu a.top-nav-link:last-child {
+	padding-right:0;
+}
+.ikea-new-ui-body .ikea2017-header .top-nav .right-menu {
+	position: absolute;
+	top:0; right:0;
+}
+
+/* header middle */
+.ikea-new-ui-body .ikea2017-header .logo-search-box {
+	height:75px;
+}
+.ikea-new-ui-body .ikea2017-header .ikea-logo {
+	padding-top:18px;
+}
+.ikea-new-ui-body .ikea2017-header .ikea-logo img {
+	height:39px;
+}
+.ikea-new-ui-body .ikea2017-header .search-container {
+	position: absolute;
+	top:15px;
+	left:180px;
+	width:420px;
+	box-sizing: border-box;
+}
+.ikea-new-ui-body .ikea2017-header .search-container .search-txt {	
+	box-sizing: border-box;
+	display: block;
+	width:100%;	
+	padding:10px;
+	height:45px;	
+	font-size:17px;
+	border:none;
+	border-bottom:1px solid #000;
+	outline: none;
+}
+.ikea-new-ui-body .ikea2017-header .search-container .btn-submit-search {
+	position: absolute;
+	top:0; right:0;
+	width:45px;
+	height:45px;		
+	border:none;
+	background:transparent;	
+	opacity:1;	
+	cursor: pointer;	
+	background-image:url('https://uiux.newideas.kr/api/pc/images/ico-finder.svg');
+	background-repeat: no-repeat;
+	background-size:auto 22px;
+	background-position:right center;	
+	transition: opacity .4s;
+}
+.ikea-new-ui-body .ikea2017-header .search-container .btn-submit-search:hover {
+	opacity: 1;
+}
+.ikea-new-ui-body .ikea2017-header .btn-cart-wrap  {
+	position: absolute;
+	top:16px; right:0px;	
+}
+.ikea-new-ui-body .ikea2017-header .btn-cart-wrap a {
+	position: relative;
+	display: block;	
+	width:45px;
+	height:45px;	
+	opacity: .8;
+	background-image:url('https://s3.ap-northeast-2.amazonaws.com/s3ikeacdn/uiux/ico-cart.png');
+	background-image:url('https://s3.ap-northeast-2.amazonaws.com/s3ikeacdn/uiux/ico-cart.svg');
+	background-repeat: no-repeat;
+	background-size:30px auto;
+	background-position:right center;	
+	cursor: pointer;
+}
+
+/* 위시리스트 카운트 */
+#my-cart-quantity {
+	display: none;
+}
+.ikea-new-ui-body .ikea2017-header .btn-cart-wrap .cart-count {
+	position: absolute;
+	top:3px; left:40px;	
+	color:#fff;	
+	padding:2px 4px;	
+	font-size:11px;
+	font-weight: bold;	
+	background:#222;	
+	border-radius:40px;
+}
+
+/* 카트 */
+.ikea-new-ui-body .ikea2017-header .cart-container {
+	position: absolute;
+	top:16px; right:55px;
+}
+.ikea-new-ui-body .ikea2017-header .cart-container .ico-cart {
+	position: relative;
+	display: block;	
+	width:45px;
+	height:45px;	
+	opacity: .8;
+	background-image:url('https://uiux.newideas.kr/api/pc/images/ico-cart2.svg');
+	background-image:url('https://uiux.newideas.kr/images/ico-cart3-black.svg');
+	background-image:url('https://uiux.newideas.kr/images/ico-cart-2px-black.svg');
+	background-image:url('https://uiux.newideas.kr/images/ico-cart-pc4.svg');
+	background-image:url('https://s3.ap-northeast-2.amazonaws.com/s3ikeacdn/uiux/ico-shopping-list.png');
+	background-image:url('https://s3.ap-northeast-2.amazonaws.com/s3ikeacdn/uiux/ico-shopping-list.svg');
+	background-repeat: no-repeat;
+	background-size:30px auto;
+	background-position:right center;	
+	cursor: pointer;
+}
+.ikea-new-ui-body .ikea2017-header .cart-container .cart-count {
+	position: absolute;
+	top:3px; left:40px;	
+	color:#fff;	
+	padding:2px 4px;	
+	font-size:11px;
+	font-weight: bold;	
+	background:#222;	
+	border-radius:40px;
+}
+
+/* site all nav */
+.ikea-new-ui-body .site-nav-container {
+	position: relative;	
+	background:#0051ba;
+	background-image:linear-gradient(top, #1C68CD 0%, #0E57BC 50%, #0852B8 100%);
+	background-image:-webkit-linear-gradient(top, #1C68CD 0%, #0852B8 100%);
+	background-image:-moz-linear-gradient(top, #1C68CD 0%, #0E57BC 50%, #0852B8 100%);
+	background-image:-ms-linear-gradient(top, #1C68CD 0%, #0E57BC 50%, #0852B8 100%);	
+	background-image:linear-gradient(top, #1b6acf 0%, #0050bc 100%);
+	background-image:-webkit-linear-gradient(top, #1b6acf 0%, #0050bc 100%);
+	background-image:-moz-linear-gradient(top, #1b6acf 0%, #0050bc 100%);
+	background-image:-ms-linear-gradient(top, #1b6acf 0%, #0050bc 100%);
+	border-top:1px solid	rgba(0,0,0,.15);
+	border-bottom:1px solid rgba(0,0,0,.15);
+}
+
+.ikea-new-ui-body .site-nav-container .site-feature-menu {
+	margin-right:94px !important;
+	font-size:0;
+}
+
+.ikea-new-ui-body .site-nav-container .site-feature-menu > li {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.ikea-new-ui-body .site-nav-container .site-feature-menu a {
+	display: block;	
+	margin-top:0px;
+	height:48px;
+	line-height:48px;	
+	padding:0 10px;	
+	font-size:12px;
+	color:#fff;	
+	text-shadow: 0 1px 0 rgba(0,0,0,.3);	
+	border-top:1px solid rgba(255,255,255,.1);
+	border-left:1px solid rgba(255,255,255,.15);	
+	box-sizing: border-box;
+}
+
+/* 자간 -1px */
+html:lang(ko-KR) .ikea-new-ui-body .site-nav-container .site-feature-menu a {
+	letter-spacing: -1px;
+}
+.ikea-new-ui-body .site-nav-container .site-feature-menu a:hover {
+	background:rgba(0,0,0,.15);
+	text-decoration: none;
+}
+.ikea-new-ui-body .site-nav-container .site-feature-menu > li.all-products a {
+}
+.ikea-new-ui-body .site-nav-container .site-feature-menu > li.all-products a.line2 {
+	line-height:15px;
+	padding:8px 20px;
+	padding:8px 9px;
+}
+.ikea-new-ui-body .site-nav-container .site-feature-menu > li.new-products a {
+	color:#F9D932;
+	font-weight: bold;
+	text-transform: uppercase;
+}	
+.ikea-new-ui-body .site-nav-container .nav-right-banner-container {
+	position: absolute;
+	top:-1px; right:0;
+	font-size:0;
+}
+.ikea-new-ui-body .site-nav-container .nav-right-banner {
+	display: inline-block;
+	vertical-align: top;	
+	background-repeat:no-repeat;
+	background-position:15px 13px;
+	border-top:1px solid	rgba(0,0,0,.2);
+	border-bottom:1px solid rgba(0,0,0,.2);	
+	height:50px;
+	padding: 0 15px 0 15px;	
+	font-size:12px;	
+	box-sizing: border-box;	
+	text-decoration: none;
+}
+.ikea-new-ui-body .site-nav-container .nav-right-banner.showroom {
+	position:relative;	
+	padding-top:8px;
+	background-position: inherit;
+	background-image:-webkit-linear-gradient(#4D4D4D 0%, #151515 100%);
+	background-image:-moz-linear-gradient(#4D4D4D 0%, #151515 100%);
+	background-image:-ms-linear-gradient(#4D4D4D 0%, #151515 100%);
+	border-bottom:0;
+	text-shadow: none;	
+	color: #000;
+	color: #fff;	
+	display: block;	
+	box-sizing: border-box;
+}
+.ikea-new-ui-body .site-nav-container .nav-right-banner.showroom .container {
+	position: absolute;
+	top:-1px;
+	bottom:-1px;
+	left: 0px;
+	right:0px;		
+	border-top:1px solid #555;
+	border-bottom:1px solid #000;	
+	z-index: 0;
+}
+.ikea-new-ui-body .site-nav-container .nav-right-banner.showroom .txt {
+	position: relative;
+}
+.ikea-new-ui-body .site-nav-container .nav-right-banner.showroom:hover {
+	background-image:-webkit-linear-gradient(#262626 0%, #141414 100%);
+	background-image:-moz-linear-gradient(#262626 0%, #141414 100%);
+	background-image:-ms-linear-gradient(#262626 0%, #141414 100%);	
+	border-left: 1px solid rgba(255,255,255,.25);
+}
+.ikea-new-ui-body .site-nav-container .nav-right-banner.idea {
+	position: relative;
+	padding-left:40px;
+	background-image:url('https://uiux.newideas.kr/api/pc/images/ico-idea-blue.svg');	
+	background-image:-webkit-linear-gradient(#ffd500 0%, #f4ce0b 100%);
+	background-image:-moz-linear-gradient(#ffd500 0%, #f4ce0b 100%);
+	background-image:-ms-linear-gradient(#ffd500 0%, #f4ce0b 100%);	
+	background-position: left top;	
+	line-height: 50px;
+	color: #0051ba;
+	font-weight: bold;	
+	border-top:1px solid #F4CC02;
+	border-bottom:1px solid #F4CC02;
+	border-left:1px solid #FBED85;
+}
+.ikea-new-ui-body .site-nav-container .nav-right-banner.idea:hover {
+	background-image:-webkit-linear-gradient(#ffd500 0%, #f2b808 100%);
+	background-image:-moz-linear-gradient(#ffd500 0%, #f2b808 100%);
+	background-image:-ms-linear-gradient(#ffd500 0%, #f2b808 100%);
+}
+.ikea-new-ui-body .site-nav-container .nav-right-banner.idea::after {
+	content:'';
+	display: block;
+	position: absolute;
+	top:13px; left:16px;
+	width: 20px;
+	height:20px;
+	background-image:url('https://s3.ap-northeast-2.amazonaws.com/s3ikeacdn/uiux/ico-idea-blue.svg');
+	background-size:auto 20px;
+	background-repeat: no-repeat;
+}
+
+/* 사이트 푸터 */
+.ikea-new-ui-body .ikea2017-footer .footer-bottom-box {
+	background: #555;
+	padding:25px;
+	font-size:0;
+}
+.ikea-new-ui-body .ikea2017-footer .footer-bottom-box * {
+	font-size:12px;
+	color:#fff;
+}
+.ikea-new-ui-body .ikea2017-footer .footer-bottom-box *:visited {
+	color:#fff !important;
+}
+.ikea-new-ui-body .ikea2017-footer .footer-bottom-box .company-info {
+	margin-bottom: 10px;
+	width:600px;
+	font-size:0;
+}
+.ikea-new-ui-body .ikea2017-footer .footer-bottom-box .company-info .data {
+	margin-bottom: 3px;
+	display: inline-block;
+	width:300px;
+	font-size:12px;
+}
+html:lang(en-KR) .ikea-new-ui-body .ikea2017-footer .footer-bottom-box .company-info .data {
+	display: block;
+	width:auto;
+}
+.ikea-new-ui-body .ikea2017-footer .footer-bottom-box .company-info .data.co-name {
+	display: block;
+	margin-bottom:10px;
+	width:auto;
+}
+.ikea-new-ui-body .ikea2017-footer .footer-bottom-box .company-info .data.addr {
+	display: block;
+	width:auto;
+}
+.ikea-new-ui-body .ikea2017-footer .footer-bottom-box .company-info #btnPopLicense {
+	padding:2px 3px;
+	display: inline;
+	background:#eee;
+	color:#222;
+	border-radius: 3px;
+	font-size:11px;	
+	border:1px solid #ddd;
+}
+.ikea-new-ui-body .ikea2017-footer .footer-bottom-box .copyright {
+	color:#fff;	
+}
+.ikea-new-ui-body .ikea2017-footer .footer-bottom-box .right-links {
+	position: absolute;
+	top:0;
+	right:0;
+}
+.ikea-new-ui-body .ikea2017-footer .footer-bottom-box .right-links > a {
+	padding-left:10px;
+	margin-left:10px;	
+	border-left:1px solid #777;	
+	color:#fff;
+}
+.ikea-new-ui-body .ikea2017-footer .footer-bottom-box .right-links > a:first-child {
+	border:none;
+}
+.ikea-new-ui-body .ikea2017-footer .footer-bottom-box .right-links > a.privacy-policy {
+	color:#F9D932;
+	font-weight: bold;
+}
+
+/* feature products */
+.ikea-new-ui-body .feature-product-container {
+	position: relative;
+	padding:30px 0;
+}
+.ikea-new-ui-body .feature-product-container .section-title {
+	font-size:34px;
+	text-align: center;
+}
+.ikea-new-ui-body .feature-product-container .section-subtitle {
+	font-size:18px;
+	font-weight: normal;
+	text-align: center;
+	margin-bottom: 23px;	
+	margin-top:15px;
+}
+.ikea-new-ui-body .feature-product-container .product-list-container {
+	position: relative;
+	padding-bottom:50px;
+	overflow: hidden;
+}
+.ikea-new-ui-body .feature-product-container .product-list > li {
+	position: relative;
+	float: left;
+	width:16.666%;
+	height:212px;
+	padding-top:30px;
+}
+.ikea-new-ui-body .feature-product-container .product-list > li a {
+	text-decoration: none;
+}
+.ikea-new-ui-body .feature-product-container .product-list > li > article {
+	padding:0 30px;
+}
+.ikea-new-ui-body .feature-product-container .product-list > li .product-img {
+	width:100%;
+	margin-bottom: 15px;
+}
+.ikea-new-ui-body .feature-product-container .product-list > li .badge {
+	display: block;	
+	position:absolute;
+	top:0px; left:30px;		
+	color:#fff;
+	font-size:13px;		
+	width:45px;
+	height:45px;
+	border-radius: 45px;
+	line-height: 45px;	
+	text-align: center;	
+	box-sizing: border-box;	
+	text-transform: capitalize;	
+}
+.ikea-new-ui-body .feature-product-container .product-list > li .badge.new {
+	background:#1294A3;
+}
+.ikea-new-ui-body .feature-product-container .product-list > li .product-name,
+.ikea-new-ui-body .feature-product-container .product-list > li .product-desc,
+.ikea-new-ui-body .feature-product-container .product-list > li .product-price {
+	display: block;
+	font-size:12px;
+	color:#333;
+	font-weight: bold;
+}
+.ikea-new-ui-body .feature-product-container .product-list > li .product-price {
+	font-size:18px;
+	vertical-align: top;
+}
+.ikea-new-ui-body .feature-product-container .product-list > li .product-price .currency-mark {
+	font-size:14px;
+	font-weight: normal;
+	vertical-align: top;
+}
+.ikea-new-ui-body .feature-product-container .product-list > li .product-desc {
+	margin:2px 0 5px;
+	font-weight: normal;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+/* 카테고리 전용 */
+.ikea-new-ui-body .category-container .category-cover-container {
+	background:#fff;
+}
+.ikea-new-ui-body .category-container .category-cover {
+	text-align: center;
+	padding:60px 0;	
+	border-bottom: 1px solid #E0E3E9;
+	background:#fff;
+	background-repeat: no-repeat;
+	background-position: center bottom;	
+	box-sizing: border-box;	
+	color:#2E2F33;
+}
+.ikea-new-ui-body .category-container .category-cover h1 {
+	font-size:32px;
+}
+
+/* 솔팅 */
+.ikea-new-ui-body .category-container .product-list-container .sort-container {
+	position: relative;
+	padding:20px 0;
+}
+.ikea-new-ui-body .category-container .product-list-container .sorting {
+	position: absolute;
+	top:20px;
+	right:0;	
+	width: 170px;
+	height: 20px;
+	border: 1px solid rgb(169,169,169);
+	font-size: 12px
+}
+/* 솔팅 */
+
+/* productList */
+/* 상품리스트 */
+#mainPadding {
+	background-color: #FFF;
+    width: 1060px;
+    margin: 0 auto;
+    min-height: 420px;
+}
+#mainPadding .gridRow {
+	max-width: 1060px;
+    margin: 0 0 20px 0;
+    border: 0;
+    color: #333;
+    width: 100%;
+}
+.productLists .gridRow {
+	height: auto
+}
+.gridRow .categoryGray {
+    padding-bottom: 2px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #333;
+    font-weight: normal;
+}
+.gridRow .categoryGray h2 {
+    font-size: 12px;
+    font-weight: normal;
+    letter-spacing: 2px;
+    margin: 0;
+}
+.gridRow .headOneGray {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 20px;
+    height: auto!important;
+    letter-spacing: -1px;
+    margin: 0 0 13px 0;
+}
+.gridRow .bodyTextGray {
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0;
+    margin: 0 0 11px 0;
+}
+.gridRow .threeColumn {
+	width:23.5%;	
+    display: inline;
+    float: left;
+    border: 0;
+    padding: 0;
+    margin-right: 2%;
+}
+.productLists .product {
+    position: relative;
+    z-index: 0;
+    margin-bottom: 60px;
+}
+.gridRow .threeColumn:nth-child(4n) {
+    margin-right: 0;
+}
+.productLists .product .image {
+    display: block;
+    width: 100%;
+    max-height: 250px;
+    overflow: hidden;
+    vertical-align: middle;
+}
+.product .image img {
+    float: left;
+}
+.productLists .product .productDetails {
+    display: block;
+    height: auto;
+    z-index: 1;
+    background: #fff;
+}
+.productLists .product .productDetails .productTitle {
+    display: block;
+    float: none;    
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;    
+    margin-bottom: 5px;
+    padding-right: 5px;
+    padding-top: 1px;
+    cursor: pointer;
+    font-style: normal;
+}
+.productLists .product .productDetails .productDesp {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 10px;    
+    color: #666;
+    line-height: 16px;
+    text-decoration: none;
+    padding-left: 2px;
+    letter-spacing: -0.5px;
+    font-style: normal;
+}
+.productLists .product .productDetails .price {
+    display: block;
+    position: relative;
+    font-size: 26px;
+    font-weight: bold;
+    vertical-align: top;    
+    text-decoration: none;
+    line-height: 20px;
+    color: #333;
+    clear: left;
+    font-style: normal;
+}
+.productLists .product .productDetails .price .unit {
+    display: inline;
+    font-size: 14px!important;
+}
+.productLists .product .productDetails .button-wrap {
+	display: none;
+	padding: 15px 5%;
+	overflow: auto
+}
+.productLists .product .productDetails .button-wrap button {
+	float: left;
+	width: 49%;
+	font-size: 13px;
+	color: #fff;
+	padding: 7px 0 10px;
+	border: 0;
+	outline: 0;	
+	background: #0051ba;
+}
+.productLists .product .productDetails .button-wrap button:first-child {
+	margin-right: 2%;
+}
+.productLists .product .productDetails .button-wrap button:hover {
+	background: #327cc5
+}
+.productLists .product .productDetails:hover {	
+	box-shadow: 5px 5px 10px rgba(0,0,0,.5);
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+}
+.productLists .product .productDetails:hover a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	padding: 5% 5% 0;
+}
+.productLists .product .productDetails:hover .image > img {
+	max-width: 100%
+}
+.productLists .product .productDetails:hover .button-wrap {
+	display: block;	
+}
+
+/* 상품 등록 */
+.product-regist-container {
+	padding: 50px 0;
+}
+.product-regist {
+	width: 90%;
+	margin: 0 auto;
+}
+.product-regist th, .product-regist td { 
+	padding: 5px 30px 5px 0; 
+	font-size: 14px;
+}
+.product-regist th {
+	text-align: right;
+}
+.product-regist input[type="text"],
+.product-regist textarea {
+	width: 100%;
+	padding: 5px;
+	font-size: 14px;
+	color: #555;
+}
+.product-regist-container .button-wrap {
+	padding: 50px 0;
+	text-align: center;
+}
+.product-regist-container .button-wrap button {
+	width: 200px;
+	font-size: 16px;
+	color: #fff;
+	margin: 0 10px;	
+	padding: 12px 0;
+	border: 0;
+	outline: 0;
+}
+.product-regist-container .button-wrap button:first-child {
+	background: #898989;	
+}
+.product-regist-container .button-wrap button:last-child {
+	background: #0051ba;	
+}
+
+/* 상품 상세 페이지 */
+/* product */
+.pipContainer {
+	overflow: auto;	
+	padding-top: 30px
+}
+#leftMainContainer {
+	vertical-align: top;
+    display: inline-block;
+	margin-right: 20px;
+    width: 550px;
+}
+.rightContentContainer {
+	position: relative;
+    width: 100%;
+    max-height: 680px;
+    margin-bottom: 7px;
+}
+#rightNavContainer {
+	vertical-align: top;
+    display: inline-block;
+    width: 480px;
+    padding-right: 20px;
+}
+#prodImg {
+	display: block;
+    margin: 0 auto;
+    margin-bottom: 60px;
+    height: auto;
+}
+.rightInfoDiv {
+	width: auto;
+    text-align: left;
+    padding: 0 0 10px;    
+    border-bottom: 1px solid #ddd
+}
+.rightInfoDiv h1 {
+    padding: 0;
+    margin: 0;
+    color: #000;
+}
+.rightInfoDiv h1 span.productName {
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: -1px;
+    display: block;
+}
+.rightInfoDiv h1 span.productType {
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: normal;
+    margin-bottom: .1em;
+    display: block;
+}
+.rightInfoDiv .priceContainer {
+    font-weight: bold;
+    color: #000;
+    font-size: 11px;
+    padding-bottom: 6px;
+    margin-bottom: 20px;
+}
+.rightInfoDiv .packagePrice {
+    font-size: 38px;
+    margin-right: 17px;
+    color: #000;
+    letter-spacing: -1.5px;
+}
+.rightInfoDiv .productunit {
+	margin-right: 17px;
+    font-size: 20px!important;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+    color: #000;
+}
+#rightNavContainer .salesArguments {
+    font-size: 12px;
+    line-height: 18px;
+    color: #333;
+    padding: 0;
+    margin-bottom: 30px;
+}
+#rightNavContainer .rightNavSubContainer {
+	margin-top: 15px
+}
+#rightNavContainer .quantityLabel {
+    color: #666;
+    font-size: 14px;
+    line-height: 46px;
+    padding-left: 15px;
+}
+#rightNavContainer #quantity {    
+    float: right;
+    width: 100px;
+    height: 45px;
+    padding: 0 18px;
+    text-align: right;
+    box-sizing: border-box;
+    font-size: 12px;
+    font-weight: bold;
+    color: #444 !important;
+    border-radius: 0;
+    transition: all .3s;
+    border: 1px solid #999;
+}
+.buttonDiv3 {
+    display: block;
+    margin: 10px 0;
+}
+#rightNavContainer .buttonContainer {
+    position: inherit;
+    top: -11px;
+    left: -1px;
+}
+#rightNavContainer button.blueBtn, #rightNavContainer button.blueBtn:hover {
+    position: relative;
+    padding: 0;
+    padding-left: 50px;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    vertical-align: top;
+    border-radius: 0;
+    outline: none;
+    box-shadow: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    background: #155DA6;
+    transition: all .3s;
+}
+#rightNavContainer button.blueBtn:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    background: #124D8A url("../images/ico_cart_bbtn.png") no-repeat center center /45px auto;
+}
+#rightNavContainer button.blueBtn:hover {
+	background: #327cc5;
+}
+#rightNavContainer #addCartContainer .buttonMar {
+    position: relative;
+    float: none;
+    display: block;
+    width: auto;
+    padding: 0 !important;
+    transition: all .3s;
+    vertical-align: top;
+}
+#rightNavContainer #addCartContainer .buttonMar button {
+    position: relative;
+    padding: 0;
+    padding-left: 50px;
+    width: 180px;
+    height: 45px;
+    line-height: 45px;
+    border-radius: 0;
+    background: #D4D4D4;
+    font-size: 12px;
+    color: #656565;
+}
+#rightNavContainer #addCartContainer .buttonMar button:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    background: #B3B3B3 url("../images/ico_cart_gbtn.png") no-repeat center center;
+}
+#rightNavContainer #addCartContainer .buttonMar button:hover {
+	color:#7e7e7e;
+	background:#e7e7e7;
+}
+#total-list-price {
+    display: block;
+    position: absolute;
+    top: 0px;
+    right: 0;
+    line-height: 45px;
+    font-size: 30px;
+    font-weight: bold;
+}
+.stockChkTxtBold {
+	padding: 20px 0 2px 0;
+    margin: 30px 0;
+    font-size: 12px;	
+    border-top: 1px solid #ccc;
+}
+
+/* 상품등록리스트 */
+/*registList*/
+.registList { 
+	padding: 30px 0;
+	border-top: 1px solid #ccc
+}
+.registList h3 {
+	padding: 10px 0;
+}
+
+.regist {
+	width: 100%;
+	font-size: 12px;
+	border-left: 1px solid #ddd;
+	border-top: 1px solid #ddd;
+	
+}
+.regist li {
+	height: 35px;
+	border-right: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	text-align: center;
+}
+
+/* 로그인 */
+.login-logo-line{
+	clear: both;
+	margin:0 auto;
+    text-align: center;
+    padding-bottom: 5px;
+}
+     
+.login-logo{
+	width: 170px;
+	margin: 0 auto;
+	padding-top: 15px;
+	padding-left: 15px;
+}
+   
+.login-form { 
+	margin: 0 auto; 
+	width: 260px;
+	text-align: center;
+	margin-top:30px;
+} 
+.login-id, .login-pw { 
+	width: 260px; 
+	height: 50px; 
+	background-color: #fff;
+	border: none; 
+	border-bottom: 0.5px solid #000; 
+	padding: 10px; 
+	margin-top: 5px;
+	margin-bottom:15px;
+	font-size: 13px; 
+	color: #3a3a3a; 
+} 
+.login-send {
+	width: 260px ;
+	height: 50px; 
+	background-color: rgb(0,94,157); 
+	border-radius: 6px; 
+	padding: 10px;
+	padding-top: 12px;
+	margin-top: 30px; 
+	font-size: 15px;
+	font-weight: bold; 
+	color: #f9d932;
+	transition: 0.5s ease;
+}
+#login-msg{
+	font-size:13px;
+	color:red;
+}
+.login-send:hover{
+	background-color:#f9d932;
+	color:#0051ba;
+	transition: 0.5s ease;
+	cursor: pointer;
+}
+.login-footer{
+	margin:0 auto;
+	padding-top:10px;
+	text-aline:center;
+	font-size: 13px;
+	color: gray;   
+}
+     
+.login-join:visited, .login-join:link{
+	color: gray;
+}
+     
+.login-id:hover, .login-pw:hover{
+	cursor:pointer;
+}
+#login-cancel:hover, .login-join:hover {
+	color: rgb(0,94,157);
+	cursor: pointer;
+}
+.login-form input:focus { 
+	border: 1px solid rgb(0,94,157); 
+} 
+.login-frame { 
+	position: fixed;
+	left: 0; 
+	top: 0; 
+	width: 100%; 
+	height: 100%; 
+	background-color: rgba(0, 0, 0, 0.5); 
+	opacity: 0; 
+	visibility: hidden; 
+	transform: scale(1.1); 
+	transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+	z-index: 10;
+	} 
+.login-content { 
+	position: absolute; 
+	top: 50%;
+ 	left: 50%;
+	transform: translate(-50%, -50%); 
+	background-color: white; 
+	opacity:0.95;
+	padding: 1.3rem 1.2rem; 
+	width: 450px; 
+	height: 470px; 
+	border-radius: 0.5rem; 
+} 
+#login-close-button { 
+	float: right; 
+	width: 1.4rem; 
+	height: 1.4rem;
+	text-align: center; 
+	font-size:0.9rem;
+	font-weight: bold;
+	color:#f9d932;
+	cursor: pointer; 
+	border-radius: 0.25rem; 
+	background-color: #0051ba; 
+	overflow:hidden;
+} 
+#login-close-button:hover { 
+	background-color:#f9d932;
+	color:#0051ba;
+} 
+.show-login-content { 
+	opacity: 1; 
+	visibility: visible; 
+	transform: scale(1.0); 
+	transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+} 

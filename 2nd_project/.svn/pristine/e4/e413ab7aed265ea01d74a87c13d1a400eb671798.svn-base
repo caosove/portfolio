@@ -1,0 +1,73 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+	<header class="ikea2017-header KO">
+		<section class="top-nav">		
+			<nav class="wrap rel">
+				<div class="welcome-msg">안녕하세요. IKEA Korea 입니다.</div>
+				
+				<div class="right-menu">
+					<a id="top-nav-login" class="top-nav-link" href="#">로그인</a>
+					<a class="top-nav-link" href="#">마이페이지</a>
+					<a class="top-nav-link" id="top-nav-link_lang" href="#">관리자</a>
+				</div>
+			</nav>
+		</section>
+		<section class="logo-search-box">
+			<div class="wrap rel">
+				<h1 class="ikea-logo"><a href="index.jsp?workgroup=product&work=main"><img src="https://uiux.newideas.kr/images/ikea-logo.svg" alt="IKEA"></a></h1>
+				<div class="search-container">
+					<a href="#" class="ico-cart"></a>
+					<form method="get" action="/kr/ko/search/">
+						<input autocomplete="off" type="text" id="input-new-search" name="query" class="search-txt" placeholder="">
+						<button type="submit" class="btn-submit-search"><span class="alttxt">검색</span></button>
+					</form>
+				</div>
+				<div class="cart-container">
+					<a href="#" class="ico-cart"></a>
+					<span id="my-cart-quantity" class="cart-count">0</span>
+				</div>
+				<div class="btn-cart-wrap">
+					<a href="#"><span class="alttxt">카트 보기</span></a>
+					<span id="my-cart-quantity2" class="cart-count">0</span>
+				</div>
+			</div>				
+		</section>
+		<div id="blubar-html-wrap">
+			<section id="ikea-bluebar" class="site-nav-container">
+				<div class="wrap rel">
+					<nav>
+						<ul class="site-feature-menu">
+							<li class="all-products">
+								<a style="border-top: 1px solid rgba(255,255,255,.1);
+  border-left: 1px solid rgba(255,255,255,.15);padding-top:0" class="nav-right-banner showroom" 
+  href="index.jsp?workgroup=product&work=product_list">모든 제품</a>
+  								</li>
+							<li class="new-products"><a href="#">New</a></li>
+							<li class="all-products">
+							    <!-- 자바스크립트로 대메뉴시퀀스을 ID로 가진 하위 DIV를 오픈한다. -->
+							    <a onclick="">소파·의자·테이블</a>
+							</li>
+							<li class="all-products">
+							    <!-- 자바스크립트로 대메뉴시퀀스을 ID로 가진 하위 DIV를 오픈한다. -->
+								<a onclick="">침대·매트리스</a>
+					        </li>
+							<li class="all-products">
+							    <!-- 자바스크립트로 대메뉴시퀀스을 ID로 가진 하위 DIV를 오픈한다. -->
+								<a onclick="">요리·식기·주방가구</a>
+							</li>
+							<li class="all-products">
+					            <!-- 자바스크립트로 대메뉴시퀀스을 ID로 가진 하위 DIV를 오픈한다. -->
+					            <a onclick="">텍스타일·러그·커튼</a>
+					        </li>
+				       	</ul>
+						<div class="nav-right-banner-container">
+							<a href="http://www.ikea.com" class="nav-right-banner idea" target="_blank">
+								<span>이케아 All locations</span>
+							</a>
+						</div>
+					</nav>
+				</div>
+			</section>
+		</div>				
+	</header>

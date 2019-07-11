@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+					<!-- 인터페이스 있는 경로 -->
+<mapper namespace="it.will.kingsmap_mybatis.dao.MapDAO"> 
+			<!-- 인터페이스의 메소드 -->
+	<select id="listDao" resultType="it.will.kingsmap_mybatis.dto.MapDTO">
+		SELECT * FROM KINGLIST
+	</select>
+	
+	<select id="busanlistDao" resultType="it.will.kingsmap_mybatis.dto.MapDTO">
+		SELECT * FROM KINGLIST WHERE BCITY=#{bArea} 
+	
+	</select>
+		<select id="bArealistDao" resultType="it.will.kingsmap_mybatis.dto.MapDTO">
+		SELECT * FROM KINGLIST WHERE BAREA=#{bArea} 
+	</select>
+	
+	<select id="bSteplistDao" resultType="it.will.kingsmap_mybatis.dto.MapDTO">
+		SELECT * FROM KINGLIST WHERE BSTEP=#{bStep} 
+	</select>
+	
+	<select id="detailzone" resultType="it.will.kingsmap_mybatis.dto.MapDTO">
+		SELECT * FROM KINGLIST WHERE BNUM=#{bNum} 
+	</select>
+	
+	<select id="getAreainfo" resultType="it.will.kingsmap_mybatis.dto.MapDTO">
+		SELECT * FROM KINGLIST WHERE BCATE=#{param1} AND BZONE=#{param2} 
+	</select>
+	
+	<insert id="insertbillla">
+		INSERT INTO GETBILL VALUES (#{param1}, #{param2}, #{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9},#{param10},#{param11},#{param12})
+	</insert>
+	
+	<select id="detailgunchuck" resultType="it.will.kingsmap_mybatis.dto.GetgunchukDTO">
+		SELECT * FROM GETGUNCHUCK WHERE SIGUNGUCD=#{param1} AND BJDONGCD=#{param2} AND MAINPURPSCDNM=#{param3}
+	</select>
+	
+	<select id="bunyanglistDao" resultType="it.will.kingsmap_mybatis.dto.GosimoonDTO">
+		SELECT * FROM GOSIMOON WHERE GOSICATE=#{param1} AND GOSIZONE=#{param2} 
+	</select>
+	
+	<!-- 해당구역 아파트검색 -->
+	<select id="APTlistDao" resultType="it.will.kingsmap_mybatis.dto.GetgunchukDTO">
+		SELECT DISTINCT BLDNM,PLATPLC,GUNXPOSITION,GUNYPOSITION FROM GETGUNCHUCK WHERE ETCPURPS IN ('아파트','공동주택(아파트)') AND PLATPLC LIKE '%'||#{param1}||'%'
+	</select>
+	
+	<!-- 해당구역 빌라검색 -->
+	<select id="GongdonglistDao" resultType="it.will.kingsmap_mybatis.dto.GetgunchukDTO">
+		SELECT DISTINCT BLDNM,PLATPLC,GUNXPOSITION,GUNYPOSITION FROM GETGUNCHUCK WHERE ETCPURPS IN	('공동주택','다세대') AND PLATPLC LIKE '%'||#{param1}||'%'
+	</select>
+	
+	<!-- 해당구역 단독검색 -->
+	<select id="DandocklistDao" resultType="it.will.kingsmap_mybatis.dto.GetgunchukDTO">
+		SELECT DISTINCT BLDNM,PLATPLC,GUNXPOSITION,GUNYPOSITION FROM GETGUNCHUCK WHERE ETCPURPS IN	('주택','단독주택') AND PLATPLC LIKE '%'||#{param1}||'%'
+	</select>
+	
+	<!-- 하나의 건축물대장 -->
+	<select id="infogunchuckDao" resultType="it.will.kingsmap_mybatis.dto.GetgunchukDTO">
+		SELECT * FROM GETGUNCHUCK WHERE PLATPLC=#{param1} ORDER BY DONGNM
+	</select>
+	
+	
+	<!-- 마커에 최근 실거래가 표시하기 (아파트)-->
+	<select id="ApartLastSilldao" resultType="it.will.kingsmap_mybatis.dto.AptDTO">
+		SELECT * FROM (SELECT * FROM APART WHERE ADDROLD||' '||ADDRNUM=#{param1} AND TYPE='매매' ORDER BY YMDATE DESC) WHERE ROWNUM=1
+	</select>
+	
+	<!-- 마커에 최근 실거래가 표시하기 (아파트)-->
+	<select id="BillLastSilldao" resultType="it.will.kingsmap_mybatis.dto.VillaDTO">
+		SELECT * FROM (SELECT * FROM VILLA WHERE ADDROLD||' '||ADDRNUM=#{param1} AND TYPE='매매' ORDER BY YMDATE DESC) WHERE ROWNUM=1
+	</select>
+	
+	<!-- 동하나의 건축물대장 가져오기 -->
+	<select id="infoOnegunchuckDao" resultType="it.will.kingsmap_mybatis.dto.GetgunchukDTO">
+		SELECT * FROM GETGUNCHUCK WHERE PLATPLC = #{param1} AND DONGNM = #{param2}
+	</select>
+	
+	<select id="getdongAvgsillDao" resultType="it.will.kingsmap_mybatis.dto.DongsillDTO">
+		SELECT ADDROLD, ROUND(SUM(COST)/SUM(CONTRACTNUM),0) AS PRICE, XPOSI, YPOSI FROM (SELECT ADDROLD, TO_NUMBER(CONTRACT) AS CONTRACTNUM, REPLACE(TRADING, ',','') AS COST, TRADING, XPOSITION AS XPOSI, YPOSITION AS YPOSI FROM DONGWICHI,APART WHERE YMDATE=#{param1} AND TYPE='매매' AND DONGWICHI.ADDRESS = APART.ADDROLD) GROUP BY ADDROLD,XPOSI,YPOSI
+	</select>
+	
+	<!-- 아파트검색 -->
+	
+	<select id="searchgunchuckDao" resultType="it.will.kingsmap_mybatis.dto.GetgunchukDTO">
+		SELECT BLDNM, PLATPLC, GUNXPOSITION, GUNYPOSITION FROM GETGUNCHUCK WHERE BLDNM LIKE '%'||#{param1}||'%' GROUP BY BLDNM,PLATPLC,GUNXPOSITION,GUNYPOSITION
+	</select>
+
+</mapper>

@@ -1,0 +1,397 @@
+@charset "utf-8";
+/* &#65533;&#44280;&#49820; &#65533;&#49422;&#47574; */
+@font-face{font-family:'nanum';font-style:normal;font-weight:normal;src:url("../fonts/NanumGothic.eot");src:local('&#65533;&#65533;'), url("../fonts/NanumGothic.woff") format('woff'), url("../fonts/NanumGothic.ttf") format('truetype')}
+@font-face{font-family:'nanum';font-style:normal;font-weight:bold;src:url("../fonts/NanumGothicBold.eot");src:local('&#65533;&#65533;'), url("../fonts/NanumGothicBold.woff") format('woff'), url("../fonts/NanumGothicBold.ttf") format('truetype')}
+
+/* Reset*/
+	
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,textarea,p,blockquote,th,td,input,select,textarea,button {margin:0;padding:0;}
+fieldset,img {border:0 none}
+dl,ul,ol,menu,li {list-style:none}
+blockquote, q {quotes: none}
+blockquote:before, blockquote:after,q:before, q:after {content:'';content:none}
+input,select,textarea,button {vertical-align:middle}
+button {border:0 none;background-color:transparent;cursor:pointer}
+body {background:#fff}
+body,th,td,input,select,textarea,button {font-size:15px;font-family:'nanum',sans-serif;color:#474747;letter-spacing:-0.1em;} /* color�&#48106;&#65533; &#65533;&#48575;&#50692;&#65533;��&#65533;&#65533;��&#48246;&#65533;&#65533; �&#50826;&#53174;&#65533;��&#49820; */
+a {color:#474747;line-height:1em;text-decoration:none}
+a:active, a:hover {text-decoration:none}
+address,caption,cite,code,dfn,em,var {font-style:normal;font-weight:normal}
+body {min-width:1170px;width:100%}
+table {border-collapse:collapse; border-spacing:0}	
+input[type=text] {
+	height:20px
+}	
+#skipNavi{	
+	display:block;
+	width:100%;
+	padding:10px 0;
+	color:#fff;
+	position:absolute;
+	left:0;
+	top:-100px;
+	text-align:center;
+	z-index:1000;
+	background:#00a0e9;
+	border:0 none;
+	font-weight:bold
+}
+#skipNavi:active,
+#skipNavi:focus {	
+	top:0;	
+}
+
+/**************
+	common
+***************/
+.wr {
+	width:1170px;
+	margin:0 auto
+}
+.inner {
+	width:1200px;
+	margin:0 auto
+}
+/*
+.inner {
+	width:960px;
+	margin:0 auto
+}*/
+
+/**************
+	header
+***************/
+
+/* #header {
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	border-bottom: 1px solid #d9d9d9;
+	background:url("images/indexImage/bg.gif") repeat-x #fff;
+	z-index:999999;
+}
+#header .wr {
+	position:relative
+}
+#header .wr > div {
+	overflow:hidden
+}
+#header h1 {
+	float:left;
+	margin-right:100px;
+	padding:5px 0;
+}
+#header #gnb {
+	float:right
+}
+#header #gnb > ul > li {
+	position:relative;
+	float:left;
+	width:162px;
+	height:90px;
+	text-align:center;
+}
+#header #gnb > ul > li:first-child {
+	
+}
+#header #gnb > ul > li > a {
+	display:block;
+	font-weight:bold;
+	font-size:20px;
+	line-height:90px;
+	color:#444
+}
+#header #gnb > ul > li > ul {
+	overflow:hidden;
+	position:absolute;
+	top:91px;
+	left:0px;
+	width:161px;
+	height:0px;	
+	border-right:1px solid #eee
+}
+#header #gnb > ul > li:first-child > ul {	
+	border-left:1px solid #eee
+}
+#header #gnb > ul > li > ul li {
+	padding:10px 15px;
+	text-align:center
+}
+#header #gnb > ul > li > ul li:first-child {
+	margin-top:10px
+}
+#header #gnb > ul > li > ul li:hover {
+	background:#000000;
+}
+#header #gnb > ul > li > ul li a {
+	display:block;
+	font-size:14px
+}
+#header #gnb > ul > li > ul li:hover a {
+	color:#fff
+}
+#header #snb-wr {
+	height:40px
+}
+#header #snb-wr > ul {
+	float:left;
+	background:url(images/indexImage/div1.gif) right center no-repeat;
+}
+#header #snb-wr ul li a {
+	color:#fff
+}
+#header #snb-wr #snb1 {
+	width:488px;
+	padding-left:197px;
+	
+	background:#6d491d
+}
+#header #snb-wr #snb2 {
+	float:right;
+	width:485px;
+	padding-top:14px;
+	padding-bottom:12px;
+
+	background:#000000
+}
+#header #snb-wr #snb1 li {
+	float:left;
+	width:244px;
+	text-align:center;
+	background:url(../images/indexImage/div1.gif) left center no-repeat
+}
+#header #snb-wr #snb1 li a {
+	padding-left:22px;
+	line-height:40px;
+	font-size:13px
+}
+#header #snb-wr #snb1 li.m1 a {
+	background:url(images/indexImage/bg.gif) no-repeat
+}
+#header #snb-wr #snb1 li.m2 a {
+	background:url(images/indexImage/icon2.png) no-repeat
+}
+#header #snb2 li {
+	float:left;
+	margin-left:12px;
+	padding-left:12px;
+	background:url(../img/header/div2.gif) left center no-repeat
+}
+#header #snb2 li:first-child {
+	margin-left:76px;
+	padding-left:0;
+	background:none
+}
+#header #snb2 li a {	
+	font-size:12px;
+	
+} */
+
+/**************
+	container 
+***************/
+/* #container {
+	min-height:700px;
+	margin-top:131px;
+	margin-bottom:50px
+}
+#container .inner {
+	overflow:hidden
+}
+#container #location {
+	width:100%;
+	height:85px;
+	margin-bottom:75px;
+	border-bottom:1px solid #dfe0e1
+}
+#container #location .inner {
+	width:1170px
+}
+#container #location h3 {
+	float:left;
+	padding-left:105px;
+	line-height:85px;
+	font-size:32px;
+	color:#000
+}
+#container #location p {
+	float:right;
+	padding-right:45px;
+	margin-top:40px;
+	line-height:15px;
+	font-size:14px;
+	color:#737373
+}
+#container #location p span {
+	font-weight:bold;
+	color:#000
+}
+#container #location p > a {
+	display:block;
+	float:left
+} */
+/**************
+	footer 
+***************/
+#footer {
+	overflow:hidden;
+	height:500px;
+	padding:80px 0 0;
+	background:url(../img/footer/bg.jpg) no-repeat
+}
+#footer .ft-con .ft-top {
+	overflow:hidden
+}
+#footer .ft-con .ft-top ul li {
+	float:left;
+	width:226px;
+	margin-left:10px
+}
+#footer .ft-con .ft-top ul li:first-child {
+	margin-left:0
+}
+#footer .ft-bottom {
+    overflow:hidden;
+	height:56px;
+	padding:15px 0;
+	margin-top:35px;
+	background:#fff
+}
+#footer .ft-bottom .wr > div {
+	float:left
+}
+#footer .ft-bottom p {
+	float:left
+}
+#footer .ft-bottom ul {
+	overflow:hidden;
+	float:left;
+    margin-left:1px;
+}
+#footer .ft-bottom .wr .ft-sns {
+	width:550px;
+	padding-top:10px;
+	padding-right:35px
+}
+#footer .ft-bottom .ft-sns ul li {
+	float:left;
+	margin-left:30px
+}
+#footer .ft-bottom .ft-sns ul li:first-child {
+	margin-left:0
+}
+/* footer - 공�&#65533;&#65533;��&#48710; */
+#footer .ft-bottom .wr .ft-notice {
+	width:549px;
+	padding-left:35px;
+	border-left:1px dotted #black
+}
+#footer .ft-notice p {
+	margin-top:15px
+}
+#footer .ft-notice ul {
+	width:420px
+}
+#footer .ft-notice ul li {
+	margin-bottom:12px;
+	padding-left:10px;
+	font-size:14px;
+	color:#black;
+	background:url(../img/footer/dot.gif) 0 7px no-repeat
+}
+#footer .ft-notice ul li span {
+	float:right
+}
+#footer .ft-notice ul li a {
+	font-size:14px;
+	color:#black
+}
+/* footer - address */
+#footer .wr {
+	position:relative;
+}
+#footer .wr > ul {
+	overflow:hidden;
+	margin:35px 0 30px
+}
+#footer .wr > ul > li {
+	float:left;
+	margin-left:10px;
+	padding-left:10px;	
+	background:url(../img/footer/div.png) left center no-repeat
+}
+#footer .wr > ul > li:first-child {
+	margin-left:0;
+	padding-left:0;
+	background:none
+}
+#footer .wr > ul > li > a {
+	font-size:14px;
+	color:#black
+}
+#footer .wr .ft-address h2 {
+	float:left;
+	margin-right:42px
+}
+#footer .wr .ft-address p {
+	margin-bottom:10px;
+	font-size:13px;
+	line-height:24px;
+	color:#black
+}
+.EggBanner {
+	position:absolute;
+	right:0;
+	bottom:0
+}
+/**************
+	quick 
+***************/
+#quickWrap {
+	width:74px;
+	position:absolute;
+	left:50%;
+	margin-left:500px;
+	z-index:60
+}
+#quickWrap .quick > ul {
+	overflow:hidden
+}
+#quickWrap .quick > ul > li {
+	padding:12px 12px 7px 12px;
+	text-align:center;
+	border:1px solid #dfe0e1;
+	border-top:0;
+	background:#fff
+}
+#quickWrap .quick > ul > li:first-child {
+	border-top:1px solid #dfe0e1;
+}
+#quickWrap .quick > ul > li dl {
+	overflow:hidden
+}
+#quickWrap .quick > ul > li dt {
+	overflow:hidden;
+	margin-bottom:8px
+}
+#quickWrap .quick > div {
+	margin:8px 0;
+	border:1px solid #dfe0e1;
+	background:#fff
+}
+#quickWrap .quick > div > div {
+	padding:10px 0;
+	text-align:center;
+	border-bottom:1px solid #dfe0e1
+}
+#quickWrap .quick > div #gdscroll > div {
+
+}
+#quickWrap .quick > a {
+	display:block;
+	line-height:25px;
+	text-align:center;
+	border:1px solid #dfe0e1;
+	background:url(../img/common/arrow.png) 50px 11px no-repeat #f1f3f4
+}

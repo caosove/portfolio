@@ -1,0 +1,169 @@
+<%@page import="product.ProductDAO"%>
+<%@page import="product.ProductDTO"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%	
+	//sorting 관련 전달값 저장
+	String sorting = request.getParameter("sorting");
+
+	System.out.println("sorting = " + sorting);
+	if (sorting == null) sorting="";
+	
+	//페이지번호를 반환받아 저장
+	int pageNum = 1;
+	if (request.getParameter("pageNum") != null) {
+		pageNum = Integer.parseInt(request.getParameter("pageNum"));
+	}
+	
+	//페이지에 검색될 상품갯수 설정
+	int pageSize = 8;
+	
+	//전체상품 갯수 메소드 호출
+	int totalProduct = ProductDAO.getDAO().getTotalProduct(sorting);
+	//전체 페이지의 갯수를 계산하여 저장
+	int totalPage = totalProduct / pageSize + (totalProduct % pageSize == 0 ? 0 : 1); 
+	
+	//페이지 번호에 대한 검사
+	if (pageNum <= 0 || pageNum > totalPage) {
+		pageNum = 1;
+	}
+	
+	//페이지 번호에 대한 상품 행번호 계산하여 저장
+	int startRow = (pageNum -1) * pageSize + 1;
+	
+	//페이지 번호에 대한 상품 마지막 행 번호 계산하여 저장
+	int endRow = pageNum * pageSize;
+	
+	//마지막 페이지의 게시글 마지막 행번호를 게시글 갯수로 변경
+	if (endRow > totalProduct) {
+		endRow = totalProduct;
+	}
+	
+	List<ProductDTO> productList = ProductDAO.getDAO().getSortRow(startRow, endRow, sorting);	
+%>
+<div id="ikea" class="ikea-new-ui-body">
+	<div class="category-container">
+		<section class="category-cover">
+			<div class="wrap">
+				<h1>모든 제품</h1>
+			</div>
+		</section>
+		<section class="product-list-container wrap">
+			<div class="sort-container">
+				<form method="post" id="filterForm" name="filterForm">
+					<span style="font-size:12px; display: BLOCK;TEXT-ALIGN: RIGHT;PADDING-RIGHT: 190PX;">
+					[확인용] 검색 게시 상품 목록 (수 : <%=totalProduct %>) 
+					</span>
+					<select class="sorting" name="sorting" id="sorting">
+						<option value="">전체</option>
+						<option value="name" <% if(sorting.equals("name")) { %> selected="selected" <% } %>>이름순</option>
+						<option value="price" <% if(sorting.equals("price")) { %> selected="selected" <% } %>>가격순 </option>
+						<option value="newest"<% if(sorting.equals("newest")) { %> selected="selected" <% } %>>신규상품순</option>
+						<!-- <option value="best">인기상품순</option> -->
+					</select>
+				</form>
+			</div>
+		</section>
+	</div>
+</div>
+<div id="allContent">
+	<div id="mainPadding">
+		<div class="productLists adproductLists" id="productLists">
+			<div class="gridRow">
+				<div class="sixColumn">
+					<div class="categoryGray">
+						<h2>침대 · 매트리스</h2>
+					</div>
+					<h2 class="headOneGray">행복하게 하루를 시작하세요</h2>
+					<p class="bodyTextGray">상쾌한 하루의 시작은 숙면입니다. IKEA의 다양한 스타일의 견고한 더블 침대는 편안함과 안락함으로 기분 좋은 하루의 시작을 도와드립니다. 또한, 빌트인 수납함이나 수납 상자처럼 스마트한 기능도 갖추고 있으며, IKEA 홈페이지를 방문하면 꿈꾸던 안락한 숙면을 완성시켜주는 다양한 매트리스와 베개도 만나볼 수 있습니다.</p>
+				</div>
+			</div>
+			<div class="gridRow">	
+			<% if(totalProduct == 0) {%> 
+			<p>검색된 상품이 없습니다.</p>
+			<% } else { %>
+				<% for (ProductDTO product:productList) {%>
+				<div class="product " title="">
+					<div class="productDetails">
+						<a href="<%=request.getContextPath()%>/This3_product/index.jsp?workgroup=product&work=product_detail&pID=<%=product.getpID()%>" 
+						style="color:#000000">
+							<div class="image">
+								<img src="<%=request.getContextPath()%>/This3_product/images/product_image/<%=product.getpImage()%>" 
+								border="0" alt="" width="230px">								
+							</div>
+							<h3 class="noBold">
+								<span class="productTitle floatLeft"><%=product.getpName() %></span>
+								<span class="productDesp"><%=product.getpCategory() %></span>
+							</h3>											
+							<span class="price regularPrice">
+							<%=DecimalFormat.getCurrencyInstance().format(product.getpPrice()) %>
+							<span class="unit">/개</span></span>									
+						</a>
+						<div class="button-wrap">
+							<button type="button">장바구니</button>
+							<button type="button">구매하기</button>
+						</div>						
+					</div>						
+					<div class="clearBoth"></div>
+				</div>	
+				<% }%>	
+			<% }%>
+			</div>			
+		</div>
+		<div style="clear: both;"></div>
+		
+		<%-- 페이지 번호 출력 - 페이징 처리 --%>
+		<%
+			//보여줄 페이지 번호 갯수 설정
+			int blockSize = 5;
+		
+			//시작페이지 번호 계산
+			int startPage = (pageNum - 1) / blockSize * blockSize + 1;
+			
+			//마지막페이지 번호 계산
+			int endPage = startPage + blockSize - 1;
+			
+			//마지막 페이지 블럭의 마지막 페이지 번호 변경
+			if (endPage > totalPage) {
+				endPage = totalPage;
+			}
+		
+		%>
+		<div class="list_number">
+			<div class="list_n_menu">
+			<% if(startPage > blockSize) { %>
+				<a href="<%=request.getContextPath()%>/This3_product/index.jsp?workgroup=product&work=product_list&pageNum=1">처음</a>
+				<a href="<%=request.getContextPath()%>/This3_product/index.jsp?workgroup=product&work=product_list&pageNum=<%=startPage-blockSize%>">이전</a>
+			<% } else if (startPage < blockSize){ %>
+			<% } else { %>
+				<span class="disabled">처음</span>
+				<span class="disabled">이전</span>
+			<% } %>
+			<% for(int i = startPage; i <= endPage; i++) { %>
+				<% if (pageNum != i) { %>
+				<a href="<%=request.getContextPath() %>/This3_product/index.jsp?workgroup=product&work=product_list&pageNum=<%=i %>"><%=i %></a>
+				<%} else { %>
+				<span class="current"><%=i %></span>
+				<% } %>
+			<%} %>
+			
+			<% if (endPage != totalPage) { %>
+			<a href="<%=request.getContextPath() %>/This3_product/index.jsp?workgroup=product&work=product_list&pageNum=<%=startPage+blockSize %>">다음</a>
+			<a href="<%=request.getContextPath() %>/This3_product/index.jsp?workgroup=product&work=product_list&pageNum=<%=totalPage %>">마지막</a>
+			<% } else if (endPage < blockSize){ %>
+			<% } else {%>
+			<span class="disabled">다음</span>
+			<span class="disabled">마지막</span>
+			<% } %>
+			</div>
+		</div>
+	</div>		
+</div>
+
+<script type="text/javascript">
+	$("#sorting").change(function() {
+		$("#filterForm").submit();
+	});
+</script>

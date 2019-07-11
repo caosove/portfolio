@@ -1,0 +1,142 @@
+<%@page import="user.UserDTO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	//현재 JSP문서와 결과가 포함될 JSP문서에 대한 POST방식 및 Charset 변경
+	String workgroup = request.getParameter("workgroup");
+	String work = request.getParameter("work");
+	String pID = request.getParameter("pID");
+	System.out.println("[" + workgroup + ", " + work + ", " + pID + "]");	
+
+	request.setCharacterEncoding("UTF-8");
+
+	workgroup=request.getParameter("workgroup");
+	//if(workgroup==null) workgroup="product";
+	
+	work=request.getParameter("work");
+	//if(work==null) work="product_list";
+	
+	String contentPath;
+	if (workgroup == null) {
+		contentPath ="main.jsp";
+	} else {
+		contentPath = workgroup+"/"+work+".jsp";
+	}
+	
+	String loginMsg=(String)session.getAttribute("login_msg" );
+	String jsSrc=(String)session.getAttribute("jsSrc");
+	String id=(String)session.getAttribute("id");
+	
+	//System.out.println(loginMsg + jsSrc + "헤더");
+	if(loginMsg==null){
+		loginMsg="";
+	}
+	if(jsSrc==null){
+		jsSrc="";
+	}
+	if(id==null || id.equals("")){
+		id="";
+		loginMsg=" ";
+	} 
+	session.removeAttribute("loginMsg");
+	session.removeAttribute("jsSrc");
+	session.removeAttribute("id");
+
+	UserDTO loginUser=(UserDTO)session.getAttribute("loginUser");
+%>   
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>IKEA KOREA - IKEA</title>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<link rel="stylesheet" href="css/reset.css" type="text/css">
+		<link rel="stylesheet" href="css/main.css" type="text/css">			
+		<link rel="stylesheet" href="css/product.css" type="text/css">			
+	</head>
+	<body class="renewal2017" style="opacity:1">
+		<%-- Header 영역 : 회사로고,메뉴,슬라이더등 --%>
+		<div id="header" class="ikea-new-ui-body">
+			<jsp:include page="header.jsp"/>
+		</div>
+		
+		<%-- Content 영역 : 요청에 대한 결과 출력 --%>
+		<div id="content" class="ikea-new-ui-body">
+			<jsp:include page="<%=contentPath %>"/>	
+		</div>
+		
+		<%-- Footer 영역 : 저작권,약관,개인정보 보호정책,회사주소등 --%>
+		<div id="footer"  class="ikea-new-ui-body">
+			<jsp:include page="footer.jsp"/>
+		</div>	
+		
+		
+	<div class="login-frame"> 
+         <div class="login-content"> 
+         	<span id="login-close-button">×</span> 
+             <div class="login-logo-line"><img alt="ikea-logo" src="https://uiux.newideas.kr/images/ikea-logo.svg" class="login-logo"></div>
+             <form action="<%=request.getContextPath() %>/this14/login/login_action.jsp" method="POST" class="login-form" name="login_form"> 
+               <input type="text" class="login-id" name="login-id" placeholder="아이디" value="<%=id %>" autofocus="autofocus" autocomplete="off"> 
+               <label></label> 
+               <input type="password" class="login-pw" name="login-pw" placeholder="비밀번호" autocomplete="off">
+               <div id="login-msg"><%=loginMsg %></div>
+               <div class="login-send" id="login-send">로그인</div> 
+               <div class="login-footer"><a href="lookup_info.jsp" class="login-join">아이디/비밀번호 찾기</a>&nbsp;│&nbsp;<a href="join_step_01.jsp" class="login-join">회원가입</a></div> 
+             </form> 
+         </div> 
+    </div>
+    
+    <script type="text/javascript">
+	
+var frame=document.querySelector(".login-frame");
+var login=document.getElementById("top-nav-login"); 
+var close=document.getElementById("login-close-button");
+//var cancel=document.getElementById("login-cancel");
+var joinBtn=document.getElementsByClassName("login-join").item(0);
+var loginId=document.getElementsByClassName("login-id").item(0);
+var loginSend=document.getElementById("login-send");
+var loginMsg=document.getElementById("login-msg");
+
+function toggle() { 
+	frame.classList.toggle("show-login-content");
+	loginId.focus();
+}
+
+function windowOnClick() { 
+	if(event.target===frame){
+		toggle();   
+	}
+}
+       
+login.addEventListener("click", toggle); 
+close.addEventListener("click", toggle); 
+//cancel.addEventListener("click", toggle); 
+window.addEventListener("click", windowOnClick, false);
+joinBtn.addEventListener("click", function(){
+	location.href="join_step_01.jsp";
+});
+
+
+
+loginSend.addEventListener("click", function() {
+	login_form.submit();	
+	
+})
+
+frame.addEventListener("keypress", function(e) {
+	if(e.keyCode==13){
+		login_form.submit();
+	}	
+})
+
+</script>
+<%
+if(!loginMsg.equals("")){
+	out.println(jsSrc);
+	//System.out.println(jsSrc);
+}  
+
+%>
+		
+	</body>
+</html>

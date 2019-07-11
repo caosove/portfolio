@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/images/**" location="/images/" />
+	<resources mapping="/css/**" location="/css/" />
+	<resources mapping="/js/**" location="/js/" />
+	<resources mapping="/fonts/**" location="/fonts/" />
+	<resources mapping="/img/**" location="/fonts/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<context:component-scan base-package="it.will.kingsmap" />
+	<context:component-scan base-package="it.will.kingsmap_mybatis.service" />
+	<context:component-scan base-package="it.will.kingsmap_mybatis.dao" />
+	<context:component-scan base-package="it.will.kingsmap_mybatis.dto" />
+	<context:component-scan base-package="it.will.kingsmap.dao.mapper" />
+	<context:component-scan base-package="it.will.kingsmap.getMetod" />
+	
+	<beans:bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+	<!-- 	<beans:property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/> -->
+		<beans:property name="url" value="jdbc:oracle:thin:@www.itwill.site:1521:xe"/>
+		<beans:property name="username" value="team2"/>
+		<beans:property name="password" value="team002"/>		
+	</beans:bean>
+	
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource"></beans:property>
+		<beans:property name="mapperLocations" value="classpath*:it/will/kingsmap/dao/mapper/*.xml"></beans:property>
+	</beans:bean>
+	
+	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<beans:constructor-arg index="0" ref="sqlSessionFactory"></beans:constructor-arg>
+	</beans:bean>
+	
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- maxUploadSize : 업로드 파일의 용량 제한값(Byte)을 인젝션 처리 => value 속성값을 -1로 설정하면 무제한 -->
+		<beans:property name="maxUploadSize" value="-1"/>	
+		<!-- defaultEncoding : multipart/form-data 타입의 입력값에 대한 캐릭터셋의 인코딩 형식을 인젝션 처리 -->
+		<beans:property name="defaultEncoding" value="UTF-8"/>	
+	</beans:bean>
+	
+	<beans:bean class="org.springframework.mail.javamail.JavaMailSenderImpl" id="javaMailSender">
+		<beans:property name="host" value="smtp.gmail.com"/>
+		<beans:property name="port" value="587"/>
+		<beans:property name="username" value="authcodesender@gmail.com"/>
+		<beans:property name="password" value="kings504!"/>
+		<beans:property name="javaMailProperties">
+			<beans:props>
+				<beans:prop key="mail.smtp.ssl.trust">smtp.gmail.com</beans:prop>
+				<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+				<beans:prop key="mail.smtp.auth">true</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+	
+	
+	
+</beans:beans>

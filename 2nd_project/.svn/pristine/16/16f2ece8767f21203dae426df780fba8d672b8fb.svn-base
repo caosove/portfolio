@@ -1,0 +1,65 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="StockList.StockListDAO"%>
+<%@ page import="StockList.StockListDTO"%>
+<%@page import="user.UserDAO"%>
+<%@page import="user.UserDTO"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.text.*"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<%
+	   request.setCharacterEncoding("UTF-8");
+
+		UserDTO loginUser=(UserDTO)session.getAttribute("loginUser");
+		String name =loginUser.getuName();
+		String grade = loginUser.getuGrade();
+	
+		int Ccredit = 0;
+		int Ccount = 0;
+		int Csum = 0;
+		int Cpknum = 0;
+		String Cstatus="";
+		int i=0;
+		/* String Cpname = ""; */
+		int AC = 0;
+		DecimalFormat df = new DecimalFormat("###,###");
+		List<StockListDTO> articleList = null;
+		StockListDAO dbPro = StockListDAO.getDAO();
+		
+		
+		//articleList = dbPro.getArticles(grade, id);
+		//String[] sum = request.getParameterValues("sum");
+		String[] status = request.getParameterValues("status");
+		String[] pknum = request.getParameterValues("Cpknum");
+		String[] count = request.getParameterValues("Ccount");
+		String[] credit = request.getParameterValues("Ccredit");
+
+		//int[] arrsum = new int[sum.length];
+		int[] arrcount = new int[count.length];
+		int[] arrcredit = new int[credit.length];
+		int[] arrpknum = new int[pknum.length];
+
+		for ( i = 0; i < pknum.length; i++) {
+			Ccount = arrcount[i] = Integer.parseInt(count[i]);
+			Cpknum = arrpknum[i] = Integer.parseInt(pknum[i]);
+			Ccredit = arrcredit[i] = Integer.parseInt(credit[i]);
+			Cstatus = status[i];
+			System.out.println(Cstatus);
+			dbPro.BuyUpdate(Ccredit, Ccount, Cpknum, Cstatus);
+			//System.out.println(Ccredit + "    " + Ccount + "    " + Cpknum);
+		}
+		//System.out.println (check +  "   " + i);
+		/* if(check == 1){ */
+		response.sendRedirect("Buy_List.jsp"); 
+		
+	
+	%>
+
+</body>
+</html>

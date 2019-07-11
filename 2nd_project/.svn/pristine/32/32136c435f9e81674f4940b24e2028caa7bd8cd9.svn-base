@@ -1,0 +1,57 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="StockList.StockListDAO"%>
+<%@ page import="StockList.StockListDTO"%>
+<%@page import="product.ProductDAO"%>
+<%@page import="product.ProductDTO"%>
+<%@page import="user.UserDAO"%>
+<%@page import="user.UserDTO"%>
+<%@ page import="java.util.List"%>
+
+<%
+	//U_POST              VARCHAR2(10) 
+	//U_ABASIC            VARCHAR2(50) 
+	//U_ADETAIL           VARCHAR2(50) 
+
+	UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+
+	ProductDTO wishItem = (ProductDTO) session.getAttribute("wishItem");
+ 	int sts = Integer.parseInt(request.getParameter("sts"));
+	StockListDAO dbPro = StockListDAO.getDAO();
+	
+/* 	String uname = loginUser.getuName();
+	String add1 = loginUser.getuPost();
+	String add2 = loginUser.getuAbasic();
+	String add3 = loginUser.getuAdetail();
+
+	String address = add1 + add2 + add3; */
+	String uname ="janggilsan";
+	String add1 ="123-456";
+	String add2 = "서울시 서초구";
+	String add3 = "역삼동";
+
+	String address = add1 + add2 + add3;
+	
+
+	
+	if (sts == 1) {
+		String pname = wishItem.getpName();
+		System.out.println(pname);
+		int price = wishItem.getpPrice();
+		int count = 1;
+
+		dbPro.addCart(uname, pname, price, count, address); 
+
+	} else if (sts ==2) {
+		String pname = request.getParameter("pName");
+		int price = Integer.parseInt(request.getParameter("pPrice"));
+		int count = Integer.parseInt(request.getParameter("pCount"));
+		
+		dbPro.addCart(uname, pname, price, count, address);
+	
+	}
+%>
+<script type="text/javascript">
+	alert("장바구니에 추가 하였습니다.");
+	history.go(-1);
+</script>

@@ -1,0 +1,783 @@
+<div id="map_infowindow" class="foot">
+
+
+
+
+		<script src="static/home/js/map_foot_header.js"></script>
+		<link href="static/home/css/map_foot_header.css" rel="stylesheet">
+
+		<div id="map_foot_header" class="foot_header">
+			<div
+				style="width: 100%; height: 100%; background: #000; position: fixed; left: 0px; top: 0px; z-index: -1; opacity: 0.5; display: none;"
+				id="foot_detail_bg"></div>
+			<div
+				style="height: 44px; text-align: center; font-size: 12px; position: relative; display: block; top: 13px;"
+				class="rfc-cerulean">
+				<div
+					style="background: #fff; width: 192px; display: inline-block; border-radius: 20px; height: 24px; line-height: 24px; box-shadow: 0px 0px 4px #0000004a;">
+					<div style="width: 47%; display: inline-block; cursor: pointer;"
+						id="foot_bookmark_btn">
+						<div class="foot-round-mark"
+							style="width: 30px; text-align: right;">
+							<img src="static/common/img/ico_favorite_w.png"
+								style="height: 17px;" id="foot_bookmark">
+						</div>
+						<div class="foot-round-mark"
+							style="text-align: left; padding-left: 5px;">관심등록</div>
+					</div>
+					<div class="foot-round-mark"
+						style="background: #e4e4e4; width: 1px; height: 100%; display: inline-block;"></div>
+					<div style="width: 47%; display: inline-block; cursor: pointer;"
+						id="foot_share_btn">
+						<div class="foot-round-mark"
+							style="width: 30px; text-align: right;">
+							<img src="static/common/img/ico_share_b.png"
+								style="height: 17px;">
+						</div>
+						<div class="foot-round-mark"
+							style="text-align: left; padding-left: 5px;">공유하기</div>
+					</div>
+				</div>
+			</div>
+			<div style="height: 108px; background: #fff; cursor: pointer;"
+				id="real-price-info-btn">
+				<div style="height: 72px; box-shadow: 0px -2px 2px #00000020;">
+					<div class="rfc-cerulean"
+						style="font-size: 16px; height: 30px; line-height: 34px; padding-left: 16px;"
+						id="foot_address_txt"></div>
+					<div class="rfc-dusk" style="font-size: 12px; padding-left: 16px;">
+						<div style="height: 20px; line-height: 20px;" id="foot_title_txt">
+						</div>
+						<div style="height: 16px; line-height: 16px;" id="foot_value_txt">
+						</div>
+					</div>
+					<div class="rbc-cerulean"
+						style="display: block; position: absolute; width: 48px; top: 56px; right: 12px; height: 48px; border-radius: 30px;"
+						id="roadview_n_btn">
+						<img src="static/home/img/ico_roadview.png"
+							style="height: 30px; display: block; left: 14px; top: 8px; position: absolute;">
+					</div>
+					<div style="position: relative; display: none;" id="show-detail"
+						class="detail-hidden">상세보기</div>
+				</div>
+				<div class="ifs-tab-bar"></div>
+				<div>
+					<div class="foot-n-btm-txt rfc-cerulean" style="width: 48%;">
+						실거래 <span id="foot_real_count">0</span>건
+					</div>
+					<div style="display: none; width: 48%;" id="foot_sale_data_view">
+						<div class="foot-n-btm-txt rfc-cerulean" style="width: 98%;"
+							id="foot_sale_openbtn1">
+							매물 <span id="foot_deal_count">0</span>건
+						</div>
+					</div>
+					<div class="rfc-accent1"
+						style="display: inline-block; pointer-events: auto; cursor: pointer; font-size: 14px; width: 48%; text-align: center;"
+						id="foot_sale_openbtn3">+ 새로운 매물 등록</div>
+				</div>
+			</div>
+			<div
+				style="height: 48px; background: #fff; position: fixed; display: none; width: 100%; top: 0px; max-width: 500px;"
+				id="foot_top_view">
+				<div class="foot-n-top-div"
+					style="width: 48px; min-width: 48px; cursor: pointer;"
+					id="foot_back_btn">
+					<img src="static/common/img/ico_back_b.png" style="height: 24px;">
+				</div>
+				<div class="foot-n-top-div"
+					style="width: 48px; min-width: 48px; cursor: pointer;"
+					id="foot_top_bookmark_btn">
+					<img src="static/common/img/ico_favorite_w.png"
+						style="height: 24px;" id="foot_top_bookmark">
+				</div>
+				<div class="foot-n-top-div" style="width: 90%;">
+					<div class="rfc-cerulean"
+						style="font-size: 16px; height: 20px; top: -5px; position: relative;"
+						id="foot_top_address1"></div>
+					<div class="rfc-cool-grey"
+						style="font-size: 12px; height: 20px; top: -5px; position: relative;"
+						id="foot_top_address2"></div>
+				</div>
+				<div class="foot-n-top-div"
+					style="width: 48px; min-width: 48px; cursor: pointer;"
+					id="foot_top_share_btn">
+					<img src="static/common/img/ico_share_b.png" style="height: 24px;">
+				</div>
+			</div>
+		</div>
+		<div style="height: 72px;" class="rbc-cerulean" id="bottom_agent_slot">
+			<ul style="padding-left: 0px; font-size: 12px; position: relative;">
+				<li
+					style="display: block; position: relative; padding: 8px; width: 64px;">
+					<span
+					style="width: 56px; height: 56px; border-radius: 60px; display: inline-block; background-size: cover; border: 0px; vertical-align: middle; background-image: url('static/common/img/img_profile.png');"
+					id="faf_photo"></span>
+				</li>
+				<li
+					style="display: block; position: absolute; padding-left: 70px; top: 16px;">
+					<ul style="padding-left: 0px;">
+						<li style="display: block; font-size: 16px;"><span
+							id="faf_name">민아</span> <span id="faf_org">팀장</span></li>
+						<li style="display: block;" id="faf_pos">걸스데이 중개소</li>
+					</ul>
+				</li>
+				<li
+					style="display: block; position: absolute; top: 0px; right: 0px; padding-right: 8px;">
+					<div
+						style="width: 136px; height: 40px; background: #fff; border-radius: 4px; top: 16px; display: block; position: relative; right: 8px; text-align: center; line-height: 40px; font-size: 14px;"
+						class="rfc-cerulean" id="faf_agent_list">
+						모든 에이전트 <span id="foot_agent_count">8</span>
+					</div>
+					<div
+						style="width: 150px; display: block; position: relative; top: 12px;"
+						id="faf_agent_call">
+						<div
+							style="display: block; position: absolute; width: 48px; height: 48px; line-height: 48px; border: 1px solid #fff; border-radius: 25px; text-align: center; right: 56px; cursor: pointer;"
+							id="faf_agent_sms">
+							<img src="static/common/img/ico_sms.png" style="width: 15px;">
+						</div>
+						<div
+							style="display: block; position: absolute; width: 48px; height: 48px; line-height: 48px; border: 1px solid #fff; border-radius: 25px; text-align: center; right: 0px; background: #fff; cursor: pointer;"
+							id="faf_agent_phone">
+							<img src="static/common/img/ico_call_b.png" style="width: 15px;">
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div id="map_foot_area_header"
+			style="display: none; position: fixed; bottom: 0px; width: 100%; max-width: 500px; height: 124px; background: #fff;">
+			<ul style="padding-left: 0px; color: #000;">
+				<li style="display: block; height: 37px;">
+					<ul style="padding-left: 0px; font-size: 16px; padding: 5px;">
+						<li
+							style="display: inline-block; width: 50%; text-align: right; padding-right: 5px;"
+							class="rfc-dusk" id="mfa_address">성남시 분당구 수내동</li>
+						<li style="display: inline-block; height: 46px;"
+							class="rfc-cerulean" id="mfa_title">아파트 평균매매가격</li>
+					</ul>
+				</li>
+				<li style="display: block; height: 50px;" class="rfc-dusk">
+					<ul style="padding-left: 0px; display: block; position: relative;">
+						<li style="display: inline-block; width: 38%;">
+							<ul style="padding-left: 0px; text-align: center;">
+								<li style="font-size: 12px; height: 16px; display: block;"
+									id="mfa_date1">'18.01 ~ '18.02</li>
+								<li
+									style="font-size: 16px; height: 27px; line-height: 27px; display: block;"
+									id="mfa_price1">2억 5000</li>
+							</ul>
+						</li>
+						<li style="display: inline-block; width: 20%;">
+							<ul
+								style="padding-left: 0px; display: block; position: relative; top: -4px;">
+								<li
+									style="font-size: 10px; background: #c8cdd2; height: 16px; text-align: center; border-radius: 4px; color: #fff; line-height: 16px;"
+									id="mfa_comment">최근 3개월</li>
+								<li
+									style="font-size: 12px; text-align: center; display: block; bottom: -5px; position: relative;"
+									id="mfa_value">20.5%</li>
+							</ul>
+						</li>
+						<li style="display: inline-block; width: 38%;">
+							<ul style="padding-left: 0px; text-align: center;">
+								<li style="font-size: 12px; height: 16px; display: block;"
+									id="mfa_date2">'18.01 ~ '18.02</li>
+								<li
+									style="font-size: 16px; height: 27px; line-height: 27px; display: block;"
+									id="mfa_price2">2억 5000</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li style="display: block; height: 1px; background: #efefef;">
+				</li>
+				<li style="display: block; line-height: 35px;" class="rfc-cerulean"
+					id="mfa_bottom_1">
+					<ul style="font-size: 14px; padding-left: 0px;">
+						<li
+							style="display: inline-block; width: 49%; text-align: center; height: 40px;"
+							id="mfa_sale_count">매물 999</li>
+						<li style="display: inline-block; text-align: center; width: 49%;"
+							id="mfa_agent_count">에이전트 99</li>
+					</ul>
+				</li>
+				<li style="display: block; line-height: 35px; color: #fff;"
+					class="rbc-cerulean" id="mfa_bottom_2">
+					<ul style="font-size: 14px; padding-left: 0px;">
+						<li
+							style="display: inline-block; width: 100%; text-align: center; height: 40px; padding-right: 120px; cursor: pointer;"
+							id="mfa_sale_count"><img
+							src="static/common/img/ico_zoomin.png"
+							style="top: 2px; position: relative; width: 24px;"> &nbsp;<span
+							style="padding-top: 2px; position: absolute; font-size: 13px;">무료로
+								매물 등록하기</span></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+
+
+		<div class="tabbable-panel">
+			<div class="tabbable-line" id="tab_up">
+				<ul class="nav nav-tabs">
+					<li><a href="#tab_land" data-toggle="tab">토지</a></li>
+					<li><a href="#tab_arch" data-toggle="tab">건물</a></li>
+					<li><a href="#tab_land_price" data-toggle="tab">공시지가</a></li>
+					<li><a href="#tab_house_price" data-toggle="tab">공시가격</a></li>
+					<li><a href="#tab_real_price" data-toggle="tab">실거래가</a></li>
+					<li><a href="#tab_sale" data-toggle="tab">매물</a></li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab_real_price"
+						style="padding-bottom: 20px;">
+						<div id="select_area_div" name="select_area_div"
+							style="padding-top: 0px; padding-bottom: 40px;">
+							<div style="position: relative; float: right;">
+								<form>
+									<select class="form-control" id="select_area"
+										name="select_area" style="font-size: 90%; width: 230px;"></select>
+								</form>
+							</div>
+							<div
+								style="position: relative; float: right; font-size: 12px; line-height: 12px; padding-top: 13px; padding-right: 10px;">면적
+							</div>
+							<div style="position: relative; float: left; padding-top: 3px;">
+								<button class="btn btn-block btn-link" id="load_all"
+									name="load_all">전체보기</button>
+							</div>
+						</div>
+						<div class="real_price_chart">
+							<canvas id="real_price_canvas" width="100%"
+								style="min-height: 260px;"></canvas>
+						</div>
+						<div>
+
+							<table id="real_price_table" class="real_price_table"
+								cellspacing="0" width="100%" height="100%"
+								style="background-color: #f5f5f5; border: 0px;">
+								<thead style="background-color: #f5f5f5; border: 0px;">
+									<tr id="real_price_table_header"
+										style="background-color: #f5f5f5; border: 0px;">
+										<th class="hide">건물 이름</th>
+										<th>대상</th>
+										<th>날짜</th>
+										<th class="hide">전용면적</th>
+										<th>층/호</th>
+										<th>가격</th>
+									</tr>
+								</thead>
+								<tbody style="background-color: #f5f5f5; border: 0px;">
+								</tbody>
+							</table>
+						</div>
+
+						<div id="real_price_more"
+							style="width: 100%; border: 1px; text-align: center; padding: 10px; background: #efefef; margin-top: 10px; cursor: pointer;">
+							더 보기</div>
+					</div>
+
+					<div class="tab-pane" id="tab_house_price"
+						style="padding-bottom: 20px;">
+						<div id="house_price_no"
+							style="text-align: center; vertical-align: middle; line-height: 90px;">데이터가
+							없습니다.</div>
+
+						<div class="" style="padding-bottom: 10px;" id="house_price_chart">
+							<div class="real_price_chart">
+								<canvas id="house_price_canvas" width="100%"
+									style="min-height: 260px;"></canvas>
+							</div>
+						</div>
+						<table id="house_price_table" class="real_price_table"
+							cellspacing="0" width="100%" height="100%"
+							style="background-color: #f5f5f5; border: 0px;">
+							<thead style="background-color: #f5f5f5; border: 0px;">
+								<tr id="house_price_table_header"
+									style="background-color: #f5f5f5; border: 0px;">
+									<th style="width: 40%;">기준년도</th>
+									<th>공시가격</th>
+								</tr>
+							</thead>
+							<tbody style="background-color: #f5f5f5; border: 0px;">
+							</tbody>
+						</table>
+					</div>
+
+					<div class="tab-pane" id="tab_land_price"
+						style="padding-bottom: 20px;">
+						<div class="" style="padding-bottom: 10px;">
+							<div class="real_price_chart">
+								<canvas id="land_price_canvas" width="100%"
+									style="min-height: 260px;"></canvas>
+							</div>
+						</div>
+						<table id="land_price_table" class="real_price_table"
+							cellspacing="0" width="100%" height="100%"
+							style="background-color: #f5f5f5; border: 0px;">
+							<thead style="background-color: #f5f5f5; border: 0px;">
+								<tr id="land_price_table_header"
+									style="background-color: #f5f5f5; border: 0px;">
+									<th style="width: 40%;">기준년도</th>
+									<th>공시지가 (&#13217;당)</th>
+								</tr>
+							</thead>
+							<tbody style="background-color: #f5f5f5; border: 0px;">
+							</tbody>
+						</table>
+					</div>
+
+					<div class="tab-pane" id="tab_land">
+
+						<table id="" class="land_table" cellspacing="0" width="100%"
+							height="100%">
+							<tr>
+								<td colspan=2 style="padding: 1px; background: #f0f0f0;"></td>
+							</tr>
+							<tr>
+								<td style="width: 35%;">대지면적</td>
+								<td style="background-color: #ffffff" id="land_forest_info_area"></td>
+							</tr>
+							<tr>
+								<td colspan=2 style="padding: 1px; background: #f0f0f0;"></td>
+							</tr>
+							<tr>
+								<td style="width: 35%;">지목</td>
+								<td style="background-color: #ffffff"
+									id="land_forest_info_purpose"></td>
+							</tr>
+							<tr>
+								<td colspan=2 style="padding: 1px; background: #f0f0f0;"></td>
+							</tr>
+							<tr>
+								<td style="width: 35%;">용도지역</td>
+								<td style="background-color: #ffffff" id="p6"></td>
+							</tr>
+							<tr>
+								<td colspan=2 style="padding: 1px; background: #f0f0f0;"></td>
+							</tr>
+							<tr>
+								<td style="width: 35%;">이용상황</td>
+								<td style="background-color: #ffffff" id="p10"></td>
+							</tr>
+							<tr>
+								<td colspan=2 style="padding: 1px; background: #f0f0f0;"></td>
+							</tr>
+						</table>
+
+						<table id="" class="land_table" cellspacing="0" width="100%"
+							height="100%">
+							<tr>
+								<td colspan=2 style="padding: 1px; background: #f0f0f0;"></td>
+							</tr>
+							<tr>
+								<td style="width: 35%;">소유구분</td>
+								<td style="background-color: #ffffff" id="owner_gbn"></td>
+							</tr>
+							<tr>
+								<td colspan=2 style="padding: 1px; background: #f0f0f0;"></td>
+							</tr>
+							<tr>
+								<td style="width: 35%;">소유권변동일자</td>
+								<td style="background-color: #ffffff" id="days"></td>
+							</tr>
+							<tr>
+								<td colspan=2 style="padding: 1px; background: #f0f0f0;"></td>
+							</tr>
+							<tr>
+								<td style="width: 35%;">소유권변동원인</td>
+								<td style="background-color: #ffffff" id="why"></td>
+							</tr>
+							<tr>
+								<td colspan=2 style="padding: 1px; background: #f0f0f0;"></td>
+							</tr>
+						</table>
+
+						<table id="" class="land_table" cellspacing="0" width="100%"
+							height="100%">
+							<tr>
+								<td colspan=2 style="padding: 1px; background: #f0f0f0;"></td>
+							</tr>
+							<tr>
+								<td style="width: 35%;">도로접면</td>
+								<td style="background-color: #ffffff" id="p16"></td>
+							</tr>
+							<tr>
+								<td colspan=2 style="padding: 1px; background: #f0f0f0;"></td>
+							</tr>
+							<tr>
+								<td style="width: 35%;">지형높이</td>
+								<td style="background-color: #ffffff" id="p12"></td>
+							</tr>
+							<tr>
+								<td colspan=2 style="padding: 1px; background: #f0f0f0;"></td>
+							</tr>
+							<tr>
+								<td style="width: 35%;">지형형상</td>
+								<td style="background-color: #ffffff" id="p14"></td>
+							</tr>
+							<tr>
+								<td colspan=2 style="padding: 1px; background: #f0f0f0;"></td>
+							</tr>
+						</table>
+
+						<div class="" style="padding-top: 20px;">
+							<div class="row" style="padding-top: 0px; padding-bottom: 20px;">
+								<div class="col-lg-12 col-sm-12 col-xs-12">
+									<div>
+										<label for="email" class="control-label"
+											style="padding: 0px 0px 3px 10px;">지역/지구 등 지정 여부
+											(국토의계획및이용에관한법률)</label>
+										<div class="arch_info" id="info_main"
+											name="land_use_planning_info_main"
+											style="overflow: visible; height: auto; padding: 10px;"></div>
+									</div>
+									<div>
+										<label for="email" class="control-label"
+											style="padding: 10px 0px 3px 10px;">지역/지구 등 지정 여부
+											(기타법률)</label>
+										<div class="arch_info" id="land_use_planning_info_etc"
+											name="land_use_planning_info_etc"
+											style="overflow: visible; height: auto; padding: 10px;"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab_arch" style="padding-top: 0px;">
+						<div id="tab_arch_no"
+							style="text-align: center; vertical-align: middle; line-height: 90px;">건축물
+							정보가 존재하지 않습니다.</div>
+						<a href="#tab_up" style="text-decoration: none; outline: none;">
+							<div class="tab-arch-up" id="tab_arch_up">
+								<span class="glyphicon glyphicon-menu-up"></span>
+							</div>
+						</a> <a href="#tab_arch_down"
+							style="text-decoration: none; outline: none;">
+							<div class="tab-arch-down">
+								<span class="glyphicon glyphicon-menu-down"></span>
+							</div>
+						</a>
+						<div class="" style="padding-bottom: 0px;" id="tab_arch_field">
+							<div class="row" style="padding-top: 0px; padding-bottom: 0px;">
+								<div class="col-lg-12 col-sm-12 col-xs-12"
+									style="padding-bottom: 0px;">
+									<div class="form-group" style="padding-bottom: 0px;">
+										<table id="architecture_table" class="display text-center"
+											cellspacing="0" width="100%">
+											<thead>
+												<tr id="architecture_table_header">
+													<th style="width: 40px;">대장</th>
+													<th style="width: 80px">동명칭</th>
+													<th>주용도</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+
+							<div class="row"
+								style="padding-top: 0px; padding-bottom: 0px; display: none;"
+								id="architecture_violation">
+								<div class="col-lg-12 col-sm-12 col-xs-12"
+									style="padding-bottom: 0px;">
+									<div class="form-group"
+										style="padding-bottom: 0px; background: yellow; color: red; text-align: center; font-size: 14px; line-height: 30px; height: 30px;">
+										위 반 건 축 물</div>
+								</div>
+							</div>
+
+							<div class="row" style="padding: 0px 11px 0px 11px;"
+								id="architecture_title">
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">건물 이름</label>
+									<div class="arch_info" id="title_b1" name="title_b1"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">주/기타 용도</label>
+									<div class="arch_info" id="title_a1" name="title_a1"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">주구조/지붕구조</label>
+									<div class="arch_info" id="title_b5" name="title_b5"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">대지면적</label>
+									<div class="arch_info" id="title_a2" name="title_a2"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">건축면적</label>
+									<div class="arch_info" id="title_a3" name="title_a3"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">연면적</label>
+									<div class="arch_info" id="title_b2" name="title_b2"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">용적률산정용 연면적</label>
+									<div class="arch_info" id="title_b3" name="title_b3"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">건폐율</label>
+									<div class="arch_info" id="title_a4" name="title_a4"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">용적률</label>
+									<div class="arch_info" id="title_b4" name="title_b4"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">지상/지하 층</label>
+									<div class="arch_info" id="title_c5" name="title_c5"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">세대/가구/호 수</label>
+									<div class="arch_info" id="title_c3" name="title_c3"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">주차</label>
+									<div class="arch_info" id="title_c1" name="title_c1"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">승용/비상용 승강기</label>
+									<div class="arch_info" id="title_c4" name="title_c4"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">높이</label>
+									<div class="arch_info" id="title_c2" name="title_c2"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">외필지 수</label>
+									<div class="arch_info" id="title_a5" name="title_a5"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">허가일자</label>
+									<div class="arch_info" id="title_a6" name="title_a6"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">착공일자</label>
+									<div class="arch_info" id="title_b6" name="title_b6"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">사용승인일자</label>
+									<div class="arch_info" id="title_c6" name="title_c6"></div>
+								</div>
+								<div class="col-lg-12 col-sm-12 col-xs-12 form-group">* 주차
+									(옥내 자주/옥내 기계/옥외 자주/옥외 기계)</div>
+							</div>
+
+							<div class="row" style="padding: 0px 11px 0px 11px;"
+								id="architecture_overall">
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">건물 이름</label>
+									<div class="arch_info" id="overall_b1" name="overall_b1"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">주/기타 용도</label>
+									<div class="arch_info" id="overall_a1" name="overall_a1"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">대지면적</label>
+									<div class="arch_info" id="overall_a2" name="overall_a2"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">건축면적</label>
+									<div class="arch_info" id="overall_a3" name="overall_a3"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">연면적</label>
+									<div class="arch_info" id="overall_b2" name="overall_b2"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">용적률산정용 연면적</label>
+									<div class="arch_info" id="overall_b3" name="overall_b3"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">건폐율</label>
+									<div class="arch_info" id="overall_a4" name="overall_a4"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">용적률</label>
+									<div class="arch_info" id="overall_b4" name="overall_b4"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">-</label>
+									<div class="arch_info" id="overall_b5" name="overall_b5"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">주차</label>
+									<div class="arch_info" id="overall_c1" name="overall_c1"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">-</label>
+									<div class="arch_info" id="overall_c2" name="overall_c2"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">세대/가구 수</label>
+									<div class="arch_info" id="overall_c3" name="overall_c3"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">-</label>
+									<div class="arch_info" id="overall_c4" name="overall_c4"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">-</label>
+									<div class="arch_info" id="overall_c5" name="overall_c5"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">외필지 수</label>
+									<div class="arch_info" id="overall_a5" name="overall_a5"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">허가일자</label>
+									<div class="arch_info" id="overall_a6" name="overall_a6"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">착공일자</label>
+									<div class="arch_info" id="overall_b6" name="overall_b6"></div>
+								</div>
+								<div class="col-lg-3 col-sm-4 col-xs-6 form-group"
+									style="padding-left: 5px; padding-right: 5px;">
+									<label for="email" class="control-label">사용승인일자</label>
+									<div class="arch_info" id="overall_c6" name="overall_c6"></div>
+								</div>
+								<div class="col-lg-12 col-sm-12 col-xs-12 form-group">* 주차
+									(옥내 자주/옥내 기계/옥외 자주/옥외 기계)</div>
+							</div>
+							<div id="architecture_floor" class="row"
+								style="padding-top: 0px; padding-bottom: 0px;">
+								<div class="col-lg-12 col-sm-12 col-xs-12">
+									<div class="form-group">
+										<label for="architecture_floor_table" class="control-label">층별
+											정보</label>
+										<table id="architecture_floor_table"
+											class="architecture_floor_table" cellspacing="0" width="100%"
+											class="text-center">
+											<thead>
+												<tr id="architecture_floor_table_header">
+													<th class="hide">지상/지하</th>
+													<th style="width: 50px">층</th>
+													<th style="width: 70px;">면적</th>
+													<th style="width: 90px;">주 용도</th>
+													<th>기타 용도</th>
+													<th class="hide">주/부속</th>
+													<th class="hide">면적 제외 여부</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<div id="architecture_parts" class="row"
+								style="padding-top: 0px; padding-bottom: 0px;">
+								<div class="col-lg-9 col-sm-9 col-xs-9">
+									<div class="form-group">
+										<label for="parts" class="control-label">전유부/대지권</label> <select
+											class="form-control" id="architecture_parts_select"
+											name="architecture_parts_select"
+											style="width: 100%; font-size: 12px;">
+										</select>
+									</div>
+								</div>
+							</div>
+
+							<div id="architecture_parts_detail" class="row"
+								style="padding-top: 0px; padding-bottom: 0px;">
+								<div class="col-lg-12 col-sm-12 col-xs-12">
+									<div class="form-group">
+										<table id="architecture_parts_detail_table"
+											class="display architecture_parts_detail_table"
+											cellspacing="0" width="100%">
+											<thead>
+												<tr id="architecture_parts_detail_table_header">
+													<th style="width: 40px;">구분</th>
+													<th style="width: 50px;">층</th>
+													<th style="width: 65px;">면적</th>
+													<th style="width: 50px;">건축물</th>
+													<th style="white-space: nowrap;">용도</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+
+							<div id="architecture_parts_ownership" class="row"
+								style="padding-top: 0px; padding-bottom: 40px;">
+								<div class="col-lg-12 col-sm-12 col-xs-12">
+									<div class="form-group">
+										<table id="" class="display architecture_parts_detail_table"
+											cellspacing="0" width="100%">
+											<tr>
+												<td
+													style="width: 155px; border: 1px #fff solid; padding: 5px; text-align: center; background: #f5f5f5;">대지권
+													비율</td>
+												<td
+													style="border: 1px #fff solid; padding: 5px; text-align: center; background: #fbfbfb;"
+													id="land_ownership"></td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="tab_arch_down"></div>
+					</div>
+					<div class="tab-pane" id="tab_sale">
+						<div id="tab_sale_no"
+							style="text-align: center; vertical-align: middle; line-height: 90px;">현재
+							등록된 매물이 없습니다.</div>
+						<div class="mfs-scroll-view" style="height: '+inner_height+' px;"
+							id="tab_sale_view">매물 정보</div>
+					</div>
+					<div class="tab-pane text-center" id="tab_price_analysis">
+						<br>
+						<br>
+						<br> 가격 분석 및 예상 서비스를 준비 중입니다.
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

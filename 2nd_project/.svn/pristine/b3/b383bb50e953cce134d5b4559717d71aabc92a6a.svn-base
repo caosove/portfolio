@@ -1,0 +1,210 @@
+<%@page import="user.UserDTO"%>
+<%@page import="pager.ThePager"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="product.ProductDAO"%>
+<%@page import="product.ProductDTO"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<% 
+	UserDTO loginUser=(UserDTO)session.getAttribute("loginUser");
+
+	if(loginUser==null || !loginUser.getuGrade().equals("admin")){
+		/* session.setAttribute("message", "로그인 상태의 관리자만 접근 가능합니다."); */
+%>   
+		<script type="text/javascript">
+		location.href="<%=request.getContextPath()%>/this14/product/index.jsp";
+		</script>
+<%
+		return;
+	}
+	
+	String pSort=request.getParameter("pSort");
+	//System.out.println("pSort = "+pSort);
+	if(pSort == null) pSort = "ALL";
+	
+	//PRODUCT 테이블에 저장된 모든 제품정보를 검색하여 반환하는 DAO 클래스의 메소드 호출
+   	/* List<ProductDTO> productList = ProductDAO.getDAO().getTypeList(pSort); */
+	
+	
+	
+   	String search=request.getParameter("search");
+	if(search==null) search="";
+	String keyword=request.getParameter("keyword");
+	if(keyword==null) keyword="";
+	//System.out.println(search+" = "+keyword);
+	
+	int pageNum=1;//페이지번호를 저장하기 위한 변수
+	if(request.getParameter("pageNum")!=null) {//전달값이 존재할 경우
+		pageNum=Integer.parseInt(request.getParameter("pageNum"));
+	}
+	
+	//페이지에 검색될 갯수 설정
+	int pageSize=10;//검색 회원 갯수를 저장하기 위한 변수
+	
+	//user 테이블에 저장된 전체(검색) 갯수의 반환받는 DAO 클래스의 메소드 호출
+	int totalProduct=ProductDAO.getDAO().getTotalProduct2(search, keyword);// 갯수를 저장하기 위한 변수
+
+	//전체 페이지의 갯수를 계산하여 저장
+	int totalPage=totalProduct/pageSize+(totalProduct%pageSize==0?0:1);//전체 페이지의 갯수를 저장하기 위한 변수
+	
+	//페이지 번호에 대한 검사
+	if(pageNum<=0 || pageNum>totalPage) {//전달된 페이지 번호가 잘못된 경우
+		pageNum=1;
+	}
+	
+	//페이지 번호에 대한 시작 행번호 계산하여 저장
+	// => 1 Page : 1, 2 Page : 11, 3 Page : 21, 4 Page : 31,... 
+	int startRow=(pageNum-1)*pageSize+1;//시작 행번호를 저장하기 위한 변수
+	
+	//페이지 번호에 대한 마지막 행번호 계산하여 저장
+	// => 1 Page : 10, 2 Page : 20, 3 Page : 30, 4 Page : 40,... 
+	int endRow=pageNum*pageSize;//마지막 행번호를 저장하기 위한 변수
+	
+	//마지막 페이지의 회원 마지막 행번호를 갯수로 변경
+	if(endRow>totalProduct) {
+		endRow=totalProduct;
+	}
+	
+	//시작 행번호와 마지막 행번호를 전달하여 user 테이블에 저장된 회원
+	//목록을 검색하여 반환하는 DAO 클래스의 메소드 호출
+	List<ProductDTO> productList=ProductDAO.getDAO().getProductList(startRow, endRow, search, keyword);
+	
+	//응답 시작번호를 계산하여 저장
+	int number=totalProduct-(pageNum-1)*pageSize;
+	
+	/* //세션에 저장된 로그인 인증정보(회원정보)를 반환받아 저장
+	UserDTO loginMember=(UserDTO)session.getAttribute("loginMember"); */
+	
+%>
+<link rel="stylesheet" href="css/product.css" type="text/css">	    
+<div id="allContent">
+	<div id="mainPadding">
+		<!-- 내용 넣는 곳 : 시작 -->
+		<div id="page-heading">
+			<h1 style="font-weight: bold;">&nbsp;&nbsp;&nbsp;<span><a href="<%=request.getContextPath()%>/this14/admin/indexAdmin.jsp?work=product_list">상품리스트</a></span></h1>
+		</div>
+		<div class="registList">
+		<form name="pListForm" id="pListForm" action="<%=request.getContextPath()%>/this14/admin/indexAdmin.jsp?work=product_list" method="post">
+			<div style="float: right; padding-bottom:12px; "> <!-- class="selectSort" -->
+				<select name="search" class="styledselect">
+					<option value="P_ID" selected="selected"> ID</option>
+					<option value="P_TYPE"> 종류</option>
+					<option value="P_NAME"> 제품명</option>
+					<option value="P_DATE">등록일</option>
+				</select> 
+				<input type="text" name="keyword" id="keyword"> 
+				<button type="submit" style="width: 100px;height: 20px;">검색</button>
+			</div>
+			<table class="registTable">
+				<colgroup>
+					<col width="5%" />
+					<col width="10%" />
+					<col width="8%" />
+					<col width="10%" />
+					<col width="20%" />
+					<col width="10%" />
+					<col width="8%" />
+					<col width="10%" />
+					<col width="10%" />
+					<col width="" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<th><input type="checkbox" id="allCheck"/></th>
+						<th>이미지</th>
+						<th>ID</th>
+						<th>종류</th>
+						<th>제품명</th>
+						<th>가격</th>
+						<th>재고</th>
+						<th>등록일</th>						
+						<th>판매상태</th>
+						<th>수정</th>						
+					</tr>
+					<% if (productList.isEmpty()) { %>
+					<tr>
+						<td colspan="10">등록된 제품이 없습니다.</td>
+					</tr>
+					<%} else {%>
+						<%for (ProductDTO product:productList) {%>
+					<tr>
+						<td class="product_check">
+							<input type="checkbox" name="checkId" value="<%=product.getpID() %>" class="check" />
+						</td>
+						<td><img src="<%=request.getContextPath()%>/this14/product/images/product_image/<%=product.getpName()%>.jpg" class="pImg"></td>
+           				<td><%=product.getpID() %></td>
+           				<td><%=product.getpType() %></td>
+           				<td class="prodName"><a href="indexAdmin.jsp?work=product_detail&pID=<%=product.getpID()%>"><%=product.getpName() %></a></td>
+           				<td><%=DecimalFormat.getCurrencyInstance().format(product.getpPrice()) %></td>
+           				<td><%=DecimalFormat.getInstance().format(product.getpInv()) %></td>
+           				<td><%=product.getpDate().substring(0,10) %></td>		
+           				<td><% if(product.getpStatus().equals("PROGRESS")) {%>진행<%} else {%>중지<%} %></td>				
+						<td class="btnLi">
+							<%-- <button type="button" id="modifyBtn" name="<%=product.getpID() %>">수정</button> --%>
+							<%-- <button type="button" id="modifyBtn" onclicK=modifyBtn('<%=product.getpID()%>'> --%>
+							<a class="modifyBtn" href="indexAdmin.jsp?work=product_modify&pID=<%=product.getpID()%>">수정</a>
+						</td>
+					</tr>
+					<% } %>
+				<% } %>
+				</tbody>
+			</table>
+			<%
+				int blockSize=5;
+				String linkUrl=request.getContextPath()+"/this14/admin/indexAdmin.jsp?work=product_list&search="+search+"&keyword="+keyword+"&";
+				ThePager pager=new ThePager(pageNum,blockSize,totalPage,linkUrl);
+			%>
+			<%=pager%>
+			<div class="button-wrap" style="padding: 0;">
+				<button type="button" id="checkRemoveBtn">선택제품 삭제</button>
+				<button type="button" id="addBtn">제품등록</button>
+			</div>
+		</form>
+		</div>
+		<!-- 내용 넣는 곳 : 끝 -->
+	</div>	
+</div>
+
+<script type="text/javascript">
+	$("#addBtn").click(function() {
+		location.href="<%=request.getContextPath()%>/this14/admin/indexAdmin.jsp?work=product_add";
+	});
+	
+	$("#pSort").change(function() {
+		$("#pListForm").submit();		
+	});
+	
+	$("#allCheck").change(function() {
+		if($(this).is(":checked")) {
+			$(".check").prop("checked", true);
+		} else {
+			$(".check").prop("checked", false);
+		}
+	});
+	$("#checkRemoveBtn").click(function() {
+		if($(".check").filter(":checked").size() == 0) {
+			alert("no item checked.");
+			return;
+		}
+		if(confirm("정말로 삭제 하시겠습니까?")) {
+			$("#pListForm").attr("method","post");
+			$("#pListForm").attr("action","<%=request.getContextPath()%>/this14/admin/product_checkRemove_action.jsp");
+			$("#pListForm").submit();
+		}
+	});
+	<%-- $("#modifyBtn").click(function() {
+		var pID=$(this).attr("name");
+		location.href="<%=request.getContextPath()%>/This3_product/index.jsp?workgroup=admin&work=product_modify&pid="+pID;
+		
+	}); --%>
+	<%-- function modifyProd(id) {
+		location.href="<%=request.getContextPath()%>/This3_product/admin/product_modify.jsp?pID="+id;
+	} --%>
+	<%-- $(".status").change(function() {
+		var pID = $(this).attr("name");
+		var pStatus = $(this).val();
+		location.href = "<%=request.getContextPath()%>/This3_product/admin/product_change_action.jsp?pID=" + pID + "&pStatus=" + pStatus;			
+	}); --%>
+</script>
+	

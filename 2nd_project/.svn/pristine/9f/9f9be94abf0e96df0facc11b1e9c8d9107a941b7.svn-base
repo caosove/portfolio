@@ -1,0 +1,114 @@
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="product.ProductDAO"%>
+<%@page import="product.ProductDTO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	//if(request.getParameter("pID")==null) {
+%>
+		<%-- <script type="text/javascript">
+		location.href="<%=request.getContextPath()%>/This3_product/index.jsp?workgroup=product&work=product_list";
+		</script> --%>
+<%		
+		//return;
+	//}
+
+	//전달된 제품번호를 반환받아 저장
+	//int pID=Integer.parseInt(request.getParameter("pID"));
+	int pID = 4001;
+	//제품번호를 전달하여 PRODUCT 테이블에 저장된 제품정보를 검색하여 반환하는 DAO 클래스의 메소드 호출
+	ProductDTO product = ProductDAO.getDAO().getProduct(pID);
+%>
+<div id="ikea" class="ikea-new-ui-body">
+	<div class="category-container">
+		<section class="category-cover">
+			<div class="wrap">
+				<h1>침대 · 매트리스</h1>
+			</div>
+		</section>
+	</div>
+</div>
+<div id="allContent">
+	<div id="mainPadding">
+		<div style="display:none">			
+		</div>
+		<div class="pipContainer">
+			<div id="leftMainContainer">
+				<div class="rightContentContainer">				                 
+	   				<img src="<%=request.getContextPath()%>/This3_product/images/product_image/<%=product.getpImage()%>" 
+	   				alt="" title="<%=product.getpExp() %>" style="width:500px; height:500px;border:0">
+				</div>			 
+			</div>
+			<div id="rightNavContainer" class="addList">
+				<div class="rightInfoDiv">
+					<div id="productInfoWrapper" class="">
+						<h1>
+							<span id="" class="productName"><%=product.getpName() %></span> 
+							<span id="" class="productType"><%=product.getpCategory() %></span>				    			
+						</h1>
+						<div class="priceContainer">			
+							<div id="prodPrice" class="">
+								<span id="" class="packagePrice" style="width: 100%;">
+								<%=DecimalFormat.getCurrencyInstance().format(product.getpPrice()) %></span>									
+								<span id="" class="productunit">&nbsp;/ 개</span>					
+							</div> 
+						</div>
+					</div>
+					<div class="clear"></div>
+		
+					<div id="" class="salesArguments">
+						<span><%=product.getpExp() %></span>
+					</div>
+				</div>
+				<div class="rightNavSubContainer">
+					
+					
+					<form id="addCartContainer" name="addCart" action="InsertCart.jsp" method="post">	
+						<input type="hidden" name="pID" value="<%=product.getpID() %>"/>
+						<input type="hidden" name="pName" value="<%=product.getpName() %>"/>
+						<input type="hidden" name="pImage" value="<%=product.getpImage() %>"/>
+						<input type="hidden" name="pPrice" value="<%=product.getpPrice() %>"/>								
+						<span class="quantityLabel">
+						 	<label for="quantity">수량:</label>
+						</span>
+						<input type="number" id="quantity" class="inputQuantity" name="quantity" 
+						title="수량:" value="1" min="1" max="10" maxlength="3" size="3">
+						<div class="clear"></div>
+									
+						<div class="buttonDiv3">
+							<div class="buttonWrapper">
+								<div id="dispQuantity" class="form">
+									<div>													
+										<div class="buttonContainer">
+											<button type="button" id="checkoutBtn" class="blueBtn">구매하기</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="buttonMar">
+							<div>													
+								<div class="buttonContainer">
+									<input type="sbmit" id="cartBtn" class="orangeBtn">장바구니에 추가
+								</div>
+							</div>
+							<span id="total-list-price"><%=DecimalFormat.getCurrencyInstance().format(product.getpPrice()) %></span>
+						</div>
+					</form>
+					<div class="stockChkTxtBold">
+		    			<b> 실시간 재고상황이 반영되지 않을 수 있어, 정확한 재고량은 매장에서 확인해주세요. </b>
+		    		</div>
+			    	
+				</div>						
+			</div>	
+		</div>
+	</div>		
+</div>
+<!-- <script type="text/javascript">
+ 	$("#checkoutBtn").click(function() {
+		location.href="checkout.jsp?";		
+	});
+	$("#cartBtn").click(function() {
+		location.href="checkout.jsp";		
+	}); 
+</script> -->

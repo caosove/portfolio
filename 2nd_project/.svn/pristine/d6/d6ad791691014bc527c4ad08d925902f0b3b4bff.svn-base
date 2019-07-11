@@ -1,0 +1,125 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="StockList.StockListDAO"%>
+<%@ page import="StockList.StockListDTO"%>
+<%@page import="user.UserDAO"%>
+<%@page import="user.UserDTO"%>
+<%@ page import="java.util.List"%>
+<%@page import="pager.ThePager"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Buy Page</title>
+
+</head>
+<body>
+	
+	<jsp:include page="header.jsp" />
+	
+<!-- 	<script type="text/javascript">
+														
+	alert('결제되었습니다.');
+	</script> -->
+	<!-- Cart view section -->
+	<section id="cart-view">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="cart-view-area">
+					<div class="cart-view-table">
+						<form action="">
+							<div class="table-responsive">
+							<% 
+							UserDTO loginUser=(UserDTO)session.getAttribute("loginUser");
+							String name =loginUser.getuName();
+				
+							String grade = loginUser.getuGrade();
+					
+	
+							String search=request.getParameter("search");
+							if(search==null) search="";
+							String keyword=request.getParameter("keyword");
+							if(keyword==null) keyword="";
+							int pageNum=1;
+							if(request.getParameter("pageNum")!=null) {
+								pageNum=Integer.parseInt(request.getParameter("pageNum"));
+							}
+							int pageSize=10;
+							int totalStock=StockListDAO.getDAO().getChechkTotalStock(name, grade);
+
+							int totalPage=totalStock/pageSize+(totalStock%pageSize==0?0:1);
+							
+							if(pageNum<=0 || pageNum>totalPage) {
+								pageNum=1;
+							}
+				
+							int startRow=(pageNum-1)*pageSize+1;
+							
+							int endRow=pageNum*pageSize;
+							
+							if(endRow>totalStock) {
+								endRow=totalStock;
+							}
+							
+							List<StockListDTO> stockList=StockListDAO.getDAO().getcartList(name, grade, startRow, endRow, search, keyword);
+							
+							int number=totalStock-(pageNum-1)*pageSize;
+
+							//<%loginUser.getuID()  - 유저아이디
+							//<%loginUser.getuGrade() - 로그인한 등급
+							//grade, id는 header.jsp에 있는 UserDTO loginUser=(UserDTO)session.getAttribute("loginUser");
+							//참조하여 가져올수있게 변경해야함.
+							
+							
+							List<StockListDTO> articleList = null;
+							StockListDAO dbPro = StockListDAO.getDAO();
+							articleList = dbPro.checkList(name, grade, startRow, endRow, search, keyword);
+							%>
+								<table class="table">
+									<thead>	
+										<tr>
+											<th>주문번호</th>
+											<th>주문일시</th>
+											<th>상품</th>
+											<th>가격</th>
+											<th>수량</th>
+											<th>배송지</th>
+											<th>배송상태</th>
+										</tr>
+									</thead>
+									
+										<% if(totalStock==0) { %>
+									<tr>
+										<td colspan="8" style="text-align: center;">구매 내역이 없습니다.</td>
+									</tr>
+									<% } else { 
+									for(StockListDTO article:articleList){ %>
+									<tbody>
+										<tr>
+											<td><%=article.getNum() %></td>
+											<td><%=article.getDate() %></td>
+											<td><img src="img/man/polo-shirt-2.png" alt="img">
+											<a class="aa-cart-title" href="#"><%=article.getPname() %></a></td>
+											<td><%=article.getCredit() %></td>
+											<td><%=article.getCount() %></td>
+											<td><%=article.getAddress() %></td>
+											<td><%=article.getStatus() %></td>
+										</tr>
+										<% }
+										}%>
+								</table>
+							</div>
+						</form>
+						<%
+									int blockSize=5;
+									String linkUrl="Buy_List.jsp?"+"&";
+									ThePager pager=new ThePager(pageNum,blockSize,totalPage,linkUrl);
+								%>
+								<%=pager%>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<jsp:include page="footter.jsp" />

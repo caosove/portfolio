@@ -1,0 +1,160 @@
+package StockList;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+
+
+public class StockListDAO extends JdbcDAO{
+	private static StockListDAO _dao;
+	
+	private StockListDAO() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	static {
+		_dao=new StockListDAO();
+	}
+	
+	public static StockListDAO getDAO() {
+		return _dao;
+	}
+	
+	public List<StockListDTO>  getArticles(String grade, String id) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<StockListDTO> articleList = null;
+		articleList = new ArrayList<StockListDTO>();
+		try {
+			conn = getConnection();
+			
+			if(grade.equals("admin")) {
+				pstmt = conn.prepareStatement("select * from stock_list ");
+				
+			}else if(grade.equals("user")){
+				pstmt = conn.prepareStatement("select * from stock_list where s_uname = ?");
+				pstmt.setString(1, id);
+			}
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+					StockListDTO article = new StockListDTO();
+					article.setNum(rs.getInt("s_num"));
+					article.setUname(rs.getString("s_uname"));
+					article.setPname(rs.getString("s_pname"));
+					article.setPrice(rs.getInt("s_price"));
+					article.setCredit(rs.getInt("s_credit"));
+					article.setCount(rs.getInt("s_count"));
+					article.setDate(rs.getString("s_date"));
+					article.setAddress(rs.getString("s_address"));
+					article.setPay(rs.getString("s_pay"));
+					article.setStatus(rs.getString("s_status"));
+					articleList.add(article);
+				} 
+			//System.out.println(articleList.size());
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			close(conn, pstmt, rs);
+		}
+		return articleList;
+	}
+		public List<StockListDTO>  checkList(String grade, String id) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<StockListDTO> articleList = null;
+		articleList = new ArrayList<StockListDTO>();
+		//System.out.println(grade+"" +id);
+		try {
+			conn = getConnection();
+			
+			if(grade.equals("admin")) {
+				pstmt = conn.prepareStatement("select * from stock_list where s_pay = 'y'");
+			
+			}else if(grade.equals("user")){
+				pstmt = conn.prepareStatement("select * from stock_list s where s_uname = ? and s_pay = 'y'");
+				pstmt.setString(1, id);
+			}
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+					StockListDTO article = new StockListDTO();
+					article.setNum(rs.getInt("s_num"));
+					article.setUname(rs.getString("s_uname"));
+					article.setPname(rs.getString("s_pname"));
+					article.setPrice(rs.getInt("s_price"));
+					article.setCredit(rs.getInt("s_credit"));
+					article.setCount(rs.getInt("s_count"));
+					article.setDate(rs.getString("s_date"));
+					article.setAddress(rs.getString("s_address"));
+					article.setPay(rs.getString("s_pay"));
+					article.setStatus(rs.getString("s_status"));
+					articleList.add(article);
+				} 
+			//System.out.println(articleList.size());
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			close(conn, pstmt, rs);
+		}
+		return articleList;
+	}
+	
+	public int addList(StockListDTO article) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int rows=0;
+		try {
+			con=getConnection();
+			
+			 String sql = "insert into stock_list(s_uname,s_pname,s_price,s_credit,s_count,";
+			 		sql+="s_date,s_addressm,s_pay)values(?,?,?,?,?,?,?,?,n)";
+			pstmt=con.prepareStatement(sql);
+	
+			pstmt.setString(1, article.getUname());
+			pstmt.setString(2, article.getPname());
+			pstmt.setInt(3, article.getPrice());
+			pstmt.setInt(4, article.getCredit());
+			pstmt.setInt(5, article.getCount());
+			pstmt.setString(6, article.getDate());
+			pstmt.setString(7, article.getAddress());
+		
+			rows=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[에러]addMember() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
+	}
+	
+	public int BuyUpdate(int credit,int count, int num, String status) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		
+		int rows= 0;
+		try {
+			con=getConnection();
+			String sql="update Stock_List set s_credit=?, s_count=?,  s_pay = 'y', s_status = ? where s_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, credit);
+			pstmt.setInt(2, count);
+			pstmt.setString(3, status);
+			pstmt.setInt(4, num);
+
+			rows = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			System.out.println("[에러]BuyUpdate() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
+		
+	}
+}

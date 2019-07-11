@@ -1,0 +1,250 @@
+package user;
+
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import user.UserDTO;
+
+public class UserDAO extends JdbcDAO{
+	private static UserDAO _dao;
+	
+	private UserDAO() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	static {
+		_dao=new UserDAO();
+	}
+	
+	public static UserDAO getDAO() {
+		return _dao;
+	}
+	
+	public int addUser(UserDTO user) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int rows=0;
+		
+		try {
+			con=getConnection();
+			String sql="insert into users values(?,?,?,?,?,?,?,?,'user',sysdate,user_seq.nextval)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, user.getuId());
+			pstmt.setString(2, user.getuPwd());
+			pstmt.setString(3, user.getuName());
+			pstmt.setString(4, user.getuEmail());
+			pstmt.setString(5, user.getuPost());
+			pstmt.setString(6, user.getuAbasic());
+			pstmt.setString(7, user.getuAdetail());
+			pstmt.setString(8, user.getuPhone());
+			
+			rows=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			System.out.println("addUser()메소드 SQL오류 = "+e.getMessage());
+		}finally {
+			close(con, pstmt);
+		}
+		return rows;
+	}
+	
+	public UserDTO getUser(String id) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		UserDTO user=null;
+		
+		try {
+			con=getConnection();
+			String sql="select * from users where u_id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				user=new UserDTO();
+				user.setuId(rs.getString("u_id"));
+				user.setuPwd(rs.getString("u_pwd"));
+				user.setuName(rs.getString("u_name"));
+				user.setuPhone(rs.getString("u_phone"));
+				user.setuJoindate(rs.getString("u_joindate"));
+				user.setuEmail(rs.getString("u_email"));
+				user.setuPost(rs.getString("u_post"));
+				user.setuAbasic(rs.getString("u_abasic"));
+				user.setuAdetail(rs.getString("u_adetail"));
+			}
+			
+		} catch(SQLException e) {
+			System.out.println("getUser() 메소드 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return user;
+	}
+	
+	public int checkUserId(String id) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int rows=0;
+		try {
+			con=getConnection();
+			String sql="select count(*) from users where u_id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				rows=rs.getInt(1);
+			}
+			
+		} catch(SQLException e) {
+			System.out.println("checkUserId() 메소드 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return rows;
+	}
+	//등급값이 leave(탈퇴)인 유저를 제외한 모든 유저리스트 반환
+	public List<UserDTO> getUserList(){
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<UserDTO> userList=new ArrayList<UserDTO>();
+		try {
+			con=getConnection();
+			
+			String sql="select * from users where u_grade!='leave' order by u_id";
+			pstmt=con.prepareStatement(sql);
+			
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				UserDTO user=new UserDTO();
+				user.setuId(rs.getString("u_id"));
+				user.setuPwd(rs.getString("u_pwd"));
+				user.setuName(rs.getString("u_name"));
+				user.setuPhone(rs.getString("u_phone"));
+				user.setuJoindate(rs.getString("u_joindate"));
+				user.setuEmail(rs.getString("u_email"));
+				user.setuPost(rs.getString("u_post"));
+				user.setuAbasic(rs.getString("u_abasic"));
+				user.setuAdetail(rs.getString("u_adetail"));
+				user.setuGrade(rs.getString("u_grade"));
+
+				
+				userList.add(user);
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러]getStudentList() 메소드 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return userList;
+	}
+	//데이터를 완전히 삭제하는 메소드
+	public int removeUser(String uId) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int rows=0;
+		try {
+			con=getConnection();
+			
+			String sql="delete from users where u_id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, uId);
+			
+			rows=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[에러]removeMember() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
+	}
+	//등급을 탈퇴(leave)로 변환하는 메소드
+	public int leaveUser(String uId) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int rows=0;
+		try {
+			con=getConnection();
+			
+			String sql="update users set u_grade='leave' where u_id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, uId);
+			
+			pstmt.executeQuery();
+			
+			rows=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[에러]leaveUser() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
+	}
+	//아이디 및 멤버상태를 전달받아 MEMBER 테이블에 저장된 회원정보를 변경하고 변경행의 갯수를 반환하는 메소드
+	// => 아이디를 비교하여 멤버상태를 변경
+	public int modifyGrade(String uId,String uGrade) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int rows=0;
+		try {
+			con=getConnection();
+			
+			String sql="update users set u_grade=? where u_id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, uGrade);
+			pstmt.setString(2, uId);
+
+			rows=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[에러]modifyGrade() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
+	}
+	//탈퇴한 모든 유저를 반환
+	public List<UserDTO> getLeaveUserList(){
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<UserDTO> userList=new ArrayList<UserDTO>();
+		try {
+			con=getConnection();
+			
+			String sql="select * from users where u_grade='leave'";
+			pstmt=con.prepareStatement(sql);
+			
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				UserDTO user=new UserDTO();
+				user.setuId(rs.getString("u_id"));
+				user.setuPwd(rs.getString("u_pwd"));
+				user.setuName(rs.getString("u_name"));
+				user.setuPhone(rs.getString("u_phone"));
+				user.setuJoindate(rs.getString("u_joindate"));
+				user.setuEmail(rs.getString("u_email"));
+				user.setuPost(rs.getString("u_post"));
+				user.setuAbasic(rs.getString("u_abasic"));
+				user.setuAdetail(rs.getString("u_adetail"));
+				user.setuGrade(rs.getString("u_grade"));
+
+				
+				userList.add(user);
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러]getLeaveUserList() 메소드 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return userList;
+	}
+}

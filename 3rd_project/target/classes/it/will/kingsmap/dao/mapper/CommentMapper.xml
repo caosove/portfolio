@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="it.will.kingsmap.dao.mapper.CommentMapper">
+	<!-- 게시글 등록 -->
+	<insert id="insertComment" parameterType="it.will.kingsmap_mybatis.dto.CommentDTO">
+		<selectKey keyProperty="num" resultType="int" order="BEFORE">
+			SELECT usercomment_seq.nextval FROM DUAL
+		</selectKey>
+		INSERT INTO usercomment VALUES(#{num}, #{writer}, #{content}, SYSDATE, #{password}, #{ipaddr})
+	</insert>
+	
+	<!-- 글번호로 비밀번호 정보 가져오기 -->
+	<select id="selectPassword" resultType="string">
+		SELECT password FROM usercomment WHERE num=#{num}
+	</select>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="deleteComment" parameterType="it.will.kingsmap_mybatis.dto.CommentDTO">
+		DELETE FROM usercomment WHERE num=#{num}
+	</delete>
+
+	<!-- 게시글 내용 변경 -->
+	<update id="updateComment" parameterType="it.will.kingsmap_mybatis.dto.CommentDTO">
+		UPDATE usercomment SET content=#{content} WHERE num=#{num}
+	</update>
+	
+	<!-- 게시글 목록 출력 -->
+	<select id="selectCommentList" resultType="it.will.kingsmap_mybatis.dto.CommentDTO">
+		SELECT * FROM usercomment ORDER BY num DESC
+	</select>
+	
+	<!-- 전체 게시글 갯수 목록 반환 -->
+	<select id="selectCountComment" resultType="int">
+		SELECT COUNT(*) FROM usercomment
+	</select>
+	
+	<!-- 페이징 처리 게시글 목록 반환 --> 
+	<select id="selectPagingList" parameterType="map" resultType="it.will.kingsmap_mybatis.dto.CommentDTO">
+		SELECT * FROM (SELECT rownum rn, temp.* FROM (SELECT * FROM usercomment ORDER BY num DESC) temp ) WHERE rn BETWEEN #{startRow} and #{endRow}
+	</select>
+	
+	<!-- 댓글 등록  -->
+	<insert id="insertReply" parameterType="it.will.kingsmap_mybatis.dto.ReplyDTO">
+		<selectKey keyProperty="replyNum" resultType="int" order="BEFORE">
+			SELECT reply_seq.nextval FROM DUAL
+		</selectKey>
+		INSERT INTO reply VALUES(#{replyNum}, #{replyWriter}, #{replyContent}, #{replyPassword}, SYSDATE, #{replyIpaddr}, #{commentNum})
+	</insert>
+	
+	<resultMap type="it.will.kingsmap_mybatis.dto.ReplyDTO" id="selectReplyResultMap">
+		<id column="reply_num" property="replyNum"/>
+		<result column="reply_writer" property="replyWriter"/>
+		<result column="reply_content" property="replyContent"/>
+		<result column="reply_password" property="replyPassword"/>
+		<result column="reply_day" property="replyDay"/>
+		<result column="reply_ipaddr" property="replyIpaddr"/>
+		<result column="comment_num" property="commentNum"/>
+	</resultMap>
+	
+	<!-- 전체 댓글 목록 -->
+	<select id="selectReplyList" resultMap="selectReplyResultMap">
+		SELECT reply.reply_num, reply.reply_writer, reply.reply_content, reply.reply_day, reply.reply_ipaddr FROM reply JOIN usercomment ON reply.comment_num = usercomment.num WHERE reply.comment_num=#{commentNum} ORDER BY reply.reply_num ASC 
+	</select>
+</mapper>
+

@@ -1,0 +1,104 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="StockList.StockListDAO"%>
+<%@ page import="StockList.StockListDTO"%>
+<%@page import="user.UserDAO"%>
+<%@page import="user.UserDTO"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.text.*"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<%
+		request.setCharacterEncoding("UTF-8");
+		int sts = Integer.parseInt(request.getParameter("sts"));
+
+		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+		/* 	String name =loginUser.getuName();
+			String grade = loginUser.getuGrade(); */
+
+		String name = "janggilsan";
+		String grade = "user";
+		int Ccredit = 0;
+		int Ccount = 0;
+		int Csum = 0;
+		int Cpknum = 0;
+		int Cprice =0;
+		String Cpname = "";
+		String Cstatus = "";
+		int i = 0;
+		int AC = 0;
+		/* String add1 =loginUser.getuPost();
+		String add2 =loginUser.getuAbasic();
+		String add3 =loginUser.getuAdetail(); */
+		String uname ="janggilsan";
+		String add1 ="123-456";
+		String add2 = "서울시 서초구";
+		String add3 = "역삼동";
+		
+		String address = add1+add2+add3;
+		DecimalFormat df = new DecimalFormat("###,###");
+		List<StockListDTO> articleList = null;
+		StockListDAO dbPro = StockListDAO.getDAO();
+
+		if (sts == 1) {
+
+			//articleList = dbPro.getArticles(grade, id);
+			//String[] sum = request.getParameterValues("sum");
+			String[] status = request.getParameterValues("status");
+			String[] pknum = request.getParameterValues("Cpknum");
+			String[] count = request.getParameterValues("Ccount");
+			String[] credit = request.getParameterValues("Ccredit");
+
+			//int[] arrsum = new int[sum.length];
+			int[] arrcount = new int[count.length];
+			int[] arrcredit = new int[credit.length];
+			int[] arrpknum = new int[pknum.length];
+
+			for (i = 0; i < pknum.length; i++) {
+				Ccount = arrcount[i] = Integer.parseInt(count[i]);
+				Cpknum = arrpknum[i] = Integer.parseInt(pknum[i]);
+				Ccredit = arrcredit[i] = Integer.parseInt(credit[i]);
+				Cstatus = status[i];
+				System.out.println(Cstatus);
+				dbPro.BuyUpdate(Ccredit, Ccount, Cpknum, Cstatus);
+				//System.out.println(Ccredit + "    " + Ccount + "    " + Cpknum);
+			}
+		}else if (sts == 2) {
+
+			//articleList = dbPro.getArticles(grade, id);
+			//String[] sum = request.getParameterValues("sum");
+			String[] status = request.getParameterValues("status");
+			String[] count = request.getParameterValues("Ccount");
+			String[] credit = request.getParameterValues("Ccredit");
+			String[] Pname = request.getParameterValues("Cpname");
+			String[] price = request.getParameterValues("Cprice");
+			
+			
+			System.out.println(price + "-------- " + Pname);
+			//int[] arrsum = new int[sum.length];
+			int[] arrcount = new int[count.length];
+			int[] arrcredit = new int[credit.length];
+			int[] arrprice = new int[price.length];
+			
+			for (i = 0; i < count.length; i++) {
+				Ccount = arrcount[i] = Integer.parseInt(count[i]);
+				Ccredit = arrcredit[i] = Integer.parseInt(credit[i]);
+				Cprice = arrprice[i]= Integer.parseInt(price[i]);
+				Cstatus = status[i];
+				Cpname  = Pname[i];
+				
+				System.out.println(Cstatus);
+				dbPro.addBuy(name, Cpname, Cprice, Ccredit, Ccount, address); 
+				System.out.println(Ccredit + "    " + Ccount + "    " + Cstatus);
+			}
+		}
+		response.sendRedirect("Buy_List.jsp");
+	%>
+
+</body>
+</html>

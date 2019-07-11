@@ -1,0 +1,104 @@
+<%@page import="product.ProductDAO"%>
+<%@page import="product.ProductDTO"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%-- PRODUCT 테이블에 저장된 모든 제품정보를 검색하여 응답하는 JSP 문서 --%>
+<%-- => [제품추가] 버튼을 누른 경우 제품정보 입력 페이지(product_add.jsp) 이동 --%>
+<%-- => [제품명]을 누른 경우 제품정보 상세 페이지(product_detail.jsp) 이동 - 제품번호 전달 --%>   
+<%
+   	List<ProductDTO> productList = ProductDAO.getDAO().getProductList();
+   %>
+	
+<div id="ikea" class="ikea-new-ui-body">
+	<div class="category-container">
+		<section class="category-cover">
+			<div class="wrap">
+				<h1>상품 리스트</h1>
+			</div>
+		</section>				
+	</div>
+</div>
+<div id="allContent">
+	<div id="mainPadding">
+		<!-- 내용 넣는 곳 : 시작 -->
+		<div id="registList">
+			<table class="registTable">
+				<colgroup>
+					<col width="8%" />
+					<col width="5%" />
+					<col width="8%" />
+					<col width="20%" />
+					<col width="20%" />
+					<col width="8%" />
+					<col width="8%" />
+					<col width="8%" />
+					<col width="" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<th>이미지</th>
+						<th>ID</th>
+						<th>종류</th>
+						<th>제품명</th>
+						<th>소카테고리</th>
+						<th>가격</th>
+						<th>재고</th>
+						<th>등록일</th>
+						<th>수정/삭제</th>						
+					</tr>
+					<%
+						if (productList.isEmpty()) {
+					%>
+					<tr>
+						<td colspan="9">등록된 제품이 없습니다.</td>
+					</tr>
+					<%
+						} else {
+					%>
+						<%
+							for (ProductDTO product:productList) {
+						%>
+					<tr>
+						<td><img src="<%=request.getContextPath()%>/This3_product/images/product_image/
+						<%=product.getpImage()%>" class="pImg"></td>
+           				<td><%=product.getpID() %></td>
+           				<td><%=product.getpType() %></td>
+           				<td><%=product.getpName() %></td>
+           				<td><%=product.getpCategory() %></td>
+           				<td><%=DecimalFormat.getCurrencyInstance().format(product.getpPrice()) %></td>
+           				<td><%=DecimalFormat.getInstance().format(product.getpInv()) %></td>
+           				<td><%=product.getpDate().substring(0,10) %></td>						
+						<td class="btnLi">
+							<button type="button" id="modifyBtn" onclick="modifyProd(<%=product.getpID()%>)">수정</button> 
+							<button type="button" id="removeBtn" onclick="removeProd(<%=product.getpID()%>)">삭제</button>
+						</td>
+					</tr>
+						<% } %>
+				<% } %>
+				</tbody>
+			</table>
+			<div class="button-wrap">
+				<button type="button" id="addBtn">제품등록</button>
+			</div>
+		</div>
+		
+		<!-- 내용 넣는 곳 : 끝 -->
+	</div>	
+</div>
+
+<script type="text/javascript">
+	$("#addBtn").click(function() {
+		location.href="<%=request.getContextPath()%>/This3_product/index.jsp?workgroup=admin&work=product_add";
+	});	
+	function modifyProd(id) {
+		location.href="<%=request.getContextPath()%>/This3_product/index.jsp?workgroup=admin&work=product_modify&pID=id";
+	}
+	function removeBtn(id) {
+		if(confirm("정말로 삭제 하시겠습니까?")) {
+			location.href="<%=request.getContextPath()%>/This3_product/index.jsp?workgroup=admin&work=product_remove_action.jsp&pID=id";
+		}
+	}
+</script>
+	

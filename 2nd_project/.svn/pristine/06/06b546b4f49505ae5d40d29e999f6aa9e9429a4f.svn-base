@@ -1,0 +1,70 @@
+
+<%@page import="user.Utility"%>
+<%@page import="user.UserDTO"%>
+<%@page import="user.UserDAO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+ 
+	request.setCharacterEncoding("UTF-8");
+
+	if(request.getMethod().equals("GET")){
+		response.sendRedirect(request.getContextPath()+"/this14/product/index.jsp");
+		return;
+	}
+	
+	if(request.getParameter("lookupPw-id")==null){
+		String uName=request.getParameter("lookupId-name");
+		String uPhone=request.getParameter("lookupId-phone");
+		//System.out.println(request.getParameter("lookup-id"));
+		
+		String userCheck=UserDAO.getDAO().lookupId(uName, uPhone, "");
+		
+		if(userCheck==null || userCheck.equals("")){
+			session.setAttribute("name", uName);
+			session.setAttribute("phone", uPhone);
+			if(!uName.equals("")||!uPhone.equals("")){
+			session.setAttribute("id", "false");
+			}
+		} else{
+			session.setAttribute("name", uName);
+			session.setAttribute("phone", uPhone);
+			session.setAttribute("id", userCheck);
+		}
+		
+		//session.setAttribute("msg", uName+"님의 ");
+				
+	} else if(request.getParameter("lookupPw-id")!=null){
+		String uName=request.getParameter("lookupPw-name");
+		String uPhone=request.getParameter("lookupPw-phone");
+		String uId=request.getParameter("lookupPw-id");
+		/*
+		System.out.println(uName);
+		System.out.println(uPhone);
+		System.out.println(uId);
+		*/
+		String userCheck=UserDAO.getDAO().lookupId(uName, uPhone, uId);
+		
+		if(userCheck==null || userCheck.equals("")){
+			session.setAttribute("pwName", uName);
+			session.setAttribute("pwPhone", uPhone);
+			session.setAttribute("pwId", uId);
+			if(!userCheck.equals(uId) || !uName.equals("") || !uPhone.equals("")){
+				session.setAttribute("newPwd", "false");
+			}
+		} else if(!userCheck.equals("") && userCheck.equals(uId)){
+			UserDTO user=UserDAO.getDAO().getUser(uId);
+			String newPwd=Utility.randomPassword();
+			user.setuPwd(Utility.encrypt(newPwd, "SHA-256"));
+			UserDAO.getDAO().modifyUser(user);
+			UserDAO.getDAO().modifyUserGrade(uId, "password");
+			
+			session.setAttribute("pwName", uName);
+			session.setAttribute("pwPhone", uPhone);
+			session.setAttribute("pwId", uId);
+			session.setAttribute("newPwd", newPwd);		
+		} 
+	}
+
+	response.sendRedirect(request.getContextPath()+"/this14/login/lookup_info.jsp");
+%>

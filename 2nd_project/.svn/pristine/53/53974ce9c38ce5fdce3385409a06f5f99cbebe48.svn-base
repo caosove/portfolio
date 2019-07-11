@@ -1,0 +1,253 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="StockList.StockListDAO"%>
+<%@ page import="StockList.StockListDTO"%>
+<%@page import="user.UserDAO"%>
+<%@page import="user.UserDTO"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.text.*"%>
+<%@page import="pager.ThePager"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<jsp:include page="header.jsp" />
+<!-- ikea cssfiles -->
+<link rel="stylesheet" href="css/reset.css" type="text/css">
+<link rel="stylesheet" href="css/main.css" type="text/css">
+<link rel="stylesheet" href="css/Style1.css" type="text/css">
+
+<!-- Font awesome -->
+ <link href="css/font-awesome.css" rel="stylesheet">
+<!-- Bootstrap -->
+<link href="css/bootstrap.css" rel="stylesheet">
+<!-- Theme color -->
+ <link id="switcher" href="css/theme-color/default-theme.css" rel="stylesheet">  
+<!-- Main style sheet -->
+<link href="css/style.css" rel="stylesheet"> 
+<!-- Google Font -->
+<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'> 
+<title>Cart Page</title>
+</head>
+<body onload="init();">
+
+
+	<!-- Cart view section -->
+	<section id="cart-view">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="cart-view-area">
+					<div class="cart-view-table">
+						<form method="post"  action = "checkout.jsp">
+							<div class="table-responsive">
+
+
+								<%
+								UserDTO loginUser=(UserDTO)session.getAttribute("loginUser");
+								/* String name =loginUser.getuName();
+								String grade = loginUser.getuGrade(); */
+								String name = "janggilsan";
+								String grade = "user";
+								
+								String search=request.getParameter("search");
+								if(search==null) search="";
+								String keyword=request.getParameter("keyword");
+								if(keyword==null) keyword="";
+								int pageNum=1;
+								if(request.getParameter("pageNum")!=null) {
+									pageNum=Integer.parseInt(request.getParameter("pageNum"));
+								}
+								int pageSize=10;
+								int totalStock=StockListDAO.getDAO().getCartTotalStock(name, grade);
+
+								int totalPage=totalStock/pageSize+(totalStock%pageSize==0?0:1);
+								
+								if(pageNum<=0 || pageNum>totalPage) {
+									pageNum=1;
+								}
+					
+								int startRow=(pageNum-1)*pageSize+1;
+								
+								int endRow=pageNum*pageSize;
+								
+								if(endRow>totalStock) {
+									endRow=totalStock;
+								}
+								
+								List<StockListDTO> stockList=StockListDAO.getDAO().getcartList(name, grade, startRow, endRow, search, keyword);
+								
+								int number=totalStock-(pageNum-1)*pageSize;
+									
+		
+									DecimalFormat df = new DecimalFormat("###,###");
+
+									int num = 0;
+								%>
+								<table class="table">
+									<thead>
+										<tr>
+											<th></th>
+											<th></th>
+											<th>상품</th>
+											<th>가격</th>
+											<th>수량</th>
+											<th>총 가격</th>
+										</tr>
+									</thead>
+									<% if(totalStock==0) { %>
+									<tr>
+										<td colspan="8" style="text-align: center;">담은 품목이 없습니다.</td>
+									</tr>
+									<% } else { 
+										for (StockListDTO article : stockList) {
+											num = stockList.indexOf(article);
+											int val = article.getCredit();
+											int val1 = article.getPrice();
+											System.out.println(val);
+									%>
+									<tbody>
+
+										<tr>
+											<td><a class="remove" onclick="delchk(<%=num%>)"> 
+											<input type="hidden" name="pknum" value="<%=article.getNum()%>"readonly>
+											<input type ="hidden" name ="kknum" >
+											 <fa class="fa fa-close"></fa></a></td>
+											<td><a href="#"> <img src="img/man/polo-shirt-1.png"
+													alt="img"></a></td>
+
+											<td><input type="text" name="Pname"
+												value="<%=article.getPname()%>" readonly> </a></td>
+											<td><%=df.format(val1)%> (원)</td>
+
+											<!-- 상품상세페이지에서 상품갯수 넘겨받을 변수명 Quantity -->
+											<td><input type="hidden" name="sell_price"
+												value="<%=article.getPrice()%>"> <input type="text"
+												name="amount" value="<%=article.getCount()%>" size="3"
+												onchange="change();"> <input type="button"
+												id=<%=num%> name="btn" value=" + " onclick="add(<%=num%>);">
+												<input type="button" id=<%=num%> name="btn" value=" - "
+												onclick="del(<%=num%>);"></td>
+											<td><input type="text" name="sum" size="11" readonly>
+												<%-- <%= df.format(val)%>  --%>(원)</td>
+										</tr>
+										
+
+										<%
+											}
+										%>
+										<tr>
+											<td colspan="10" class="aa-cart-view-bottom"><input 
+												class="aa-cart-view-btn"  type="submit" value="구매하기"></td>
+											<!-- onclick="location.href='checkout.jsp'" -->
+										</tr>
+										<% 
+										}
+										%>
+
+
+										
+									</tbody>
+								</table>
+							</div>
+						</form>
+						<%
+									int blockSize=5;
+									String linkUrl="cart2.jsp?"+"&";
+									ThePager pager=new ThePager(pageNum,blockSize,totalPage,linkUrl);
+								%>
+								<%=pager%>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script language="JavaScript">
+	
+		var i=0;
+		var sell_price;
+		var amount ;
+		
+	
+		for(i=0; i<= <%=num%>; i++ ){
+			function delchk(i){
+		    	pknum = document.getElementsByName("pknum")[i].value;
+		    	//ppnum.value = pknum;
+		    	//alert(pknum);
+		   		if(confirm("삭제하시겠습니까?")){
+		    	
+		       location.href='cartAction.jsp?aaa='+pknum;
+		        
+		      	return true;
+		  		} else {
+		       	return false;
+		   		}
+			}
+		}
+		function init() {
+			for(i=0; i<= <%=num%>; i++ ){
+			sell_price = document.getElementsByName("sell_price")[i].value ;
+			amount = document.getElementsByName("amount")[i].value;
+			document.getElementsByName("sum")[i].value =  sell_price ;
+			
+			}
+			change();
+		}
+		
+		for(var i=0; i<= <%=num%>; i++ ){
+			function add(i) {
+				/* btn = document.getElementsByName("btn")[i*2].id;  */
+		 		sell_price = document.getElementsByName("sell_price")[i].value;  
+				hm = document.getElementsByName("amount")[i];
+				tot = document.getElementsByName("sum")[i];
+				if(hm.value>9){
+					alert('10개를 초과하여 구매하실 수 없습니다.');
+				}else{
+				 hm.value ++;
+				 tot.value = (parseInt(hm.value) * sell_price).format();
+				}
+			}	
+		}
+		
+		for(var i=0; i<= <%=num%>; i++ ){
+			function del(i) {
+				sell_price = document.getElementsByName("sell_price")[i].value;
+				hm =document.getElementsByName("amount")[i];
+				tot = document.getElementsByName("sum")[i];
+				
+				if (hm.value > 1) {
+				hm.value --;
+				tot.value =(parseInt(hm.value) * sell_price).format();
+				}
+			}
+		}
+		
+		function change() {
+			for(var i=0; i<= <%=num%>; i++ ){
+			hm =document.getElementsByName("amount")[i];
+			tot = document.getElementsByName("sum")[i];
+			
+			sell_price = document.getElementsByName("sell_price")[i].value; 
+				if (hm < 0) {
+					hm = 0;
+				}
+				tot.value = (parseInt(hm.value) * sell_price).format();	
+			}	
+		}
+		
+		Number.prototype.format = function(){
+		       if(this==0) return 0;
+		       var reg=/(\d+)(\d{3})/;
+		       var n=(this + '');
+		       while (reg.test(n)) {
+		          n = n.replace(reg,'$1'+','+'$2');
+		       }
+		       return n;
+		   };
+	</script>
+	 <jsp:include page="footter.jsp" /> </section>
+
+</body>
+</html>
+
+

@@ -1,0 +1,327 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%@ page import=" it.will.kingsmap_mybatis.dto.AptDTO"%>
+<%@ page import=" it.will.kingsmap_mybatis.dao.AptDAO"%>
+<%@page import="java.util.List"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+	<!-- <form name="costForm">
+	<input type="text" name="YMDATE" value="2018%"> 
+	<input type="text" name="OFFICIALDATE" value="2018%"> 
+	<input type="text" name="ADDROLD" value="%중구 대창동1가%">
+	<input type="text" name="ADDRNUM" value="54-67"> 
+	<input type="button" value="정보보기" onclick="submitCheck();">
+</form> -->
+<div style = "background:#ffffff; height:200px; overflow:auto;">
+	<table class="table table-bordered table-hover"
+		style="text-align: center; border: 1px solid #dddddd">
+	
+		<thead>
+			<tr align="center">
+				<th width="15%">거래년월<BR></th>
+				<th width="10%">매매<BR>(천만원)</th>
+				<th width="10%">전세<BR>(천만원)</th>
+				<th width="10%">월세<BR>(만원)</th>
+				<th width="15%">면적<BR>(㎡)</th>
+				<th width="20%">공시가<BR>(㎡/만원)</th>
+				<th width="20%">타입</th>
+			</tr>
+		</thead>
+		
+		
+ 			 
+		 <c:choose>
+			<c:when test="${!empty(billcost)}">
+				<c:forEach var="vill" items="${billcost}">
+					<tbody>
+						<tr align="center">
+							<td width="15%">${vill.YMDATE}</td>
+							<td width="10%">${vill.TRADING}</td>
+							<td width="10%">${vill.DEPOSIT}</td>
+							<td width="10%">${vill.MONTHLY}</td>
+							<td width="15%">${vill.CONTRACT}</td>
+							<td width="20%">
+							<c:forEach var="price" items="${gongsi}">
+							<fmt:formatNumber value="${price.OFFICIALPRICE}" pattern="#,###" />
+							</c:forEach>
+							</td>
+							<td width="20%">${vill.TYPE}</td>
+						</tr>
+					</tbody>
+				</c:forEach>
+			</c:when>
+			<c:otherwise> 
+				<c:forEach var="cost" items="${costList}">
+					<tbody>
+						<tr align="center">
+							<td width="15%">${cost.YMDATE}</td>
+							<td width="10%">${cost.TRADING}</td>
+							<td width="10%">${cost.DEPOSIT}</td>
+							<td width="10%">${cost.MONTHLY}</td>
+							<td width="15%">${cost.CONTRACT}</td>
+							<td width="20%"> <c:forEach var="price" items="${gongsi}">
+							<fmt:formatNumber value="${price.OFFICIALPRICE}" pattern="#,###" />
+							</c:forEach>
+							</td>
+							<td width="20%">${cost.TYPE}</td>
+						</tr>
+					</tbody>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose> 
+	
+	</table>
+
+</div>
+	<!-- 
+	<h1>매매 & 공시지가</h1> -->
+	<div id="vid">
+		<div class="canvas">
+			<canvas id="mixChart"
+				style="display: block; height: 300px; width: 450px;"></canvas>
+		</div>
+	</div>
+</body>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+
+<script type="text/javascript">
+	var maemae = new Array(12);
+	var gongsi = new Array(12);
+	var cost;
+	var price
+
+	if ("${costList }" != null) {
+
+		<c:forEach var="cost" items="${costList}" varStatus="status">
+		if ("${cost.YMDATE}"== 201801 && "${cost.TYPE}" == "매매" ){
+			cost = "${fn:replace(cost.TRADING,',','')}";
+			maemae[0] = Number(cost);
+		} else if ("${cost.YMDATE}"== 201802  && "${cost.TYPE}" == "매매"){
+			cost = "${fn:replace(cost.TRADING,',','')}";
+			maemae[1] = Number(cost);
+		} else if ("${cost.YMDATE}"== 201803  && "${cost.TYPE}" == "매매" ) {
+			cost = "${fn:replace(cost.TRADING,',','')}";
+			maemae[2] = Number(cost);
+		} else if ("${cost.YMDATE}"== 201804  && "${cost.TYPE}" == "매매" ) {
+			cost = "${fn:replace(cost.TRADING,',','')}";
+			maemae[3] = Number(cost);
+		} else if ("${cost.YMDATE}"== 201805  && "${cost.TYPE}" == "매매") {
+			cost = "${fn:replace(cost.TRADING,',','')}";
+			maemae[4] = Number(cost);
+		} else if ("${cost.YMDATE}"== 201806  && "${cost.TYPE}" == "매매" ) {
+			cost = "${fn:replace(cost.TRADING,',','')}";
+			maemae[5] = Number(cost);
+		} else if ("${cost.YMDATE}"== 201807  && "${cost.TYPE}" == "매매" ) {
+			cost = "${fn:replace(cost.TRADING,',','')}";
+			maemae[6] = Number(cost);
+		} else if ("${cost.YMDATE}"== 201808  && "${cost.TYPE}" == "매매") {
+			cost = "${fn:replace(cost.TRADING,',','')}";
+			maemae[7] = Number(cost);
+		} else if ("${cost.YMDATE}"== 201809 && "${cost.TYPE}" == "매매" ) {
+			cost = "${fn:replace(cost.TRADING,',','')}";
+			maemae[8] = Number(cost);
+		} else if ("${cost.YMDATE}"== 201810  && "${cost.TYPE}" == "매매") {
+			cost = "${fn:replace(cost.TRADING,',','')}";
+			maemae[9] = Number(cost);
+		} else if ("${cost.YMDATE}"== 201811 && "${cost.TYPE}" == "매매") {
+			cost = "${fn:replace(cost.TRADING,',','')}";
+			maemae[10] = Number(cost);
+		} else if ("${cost.YMDATE}"== 201812 && "${cost.TYPE}" == "매매") {
+			cost = "${fn:replace(cost.TRADING,',','')}";
+			maemae[11] = Number(cost);
+		}
+		</c:forEach>
+		for (var i = 0; i < maemae.length; i++) {
+			if (!maemae[i]) {
+				maemae[i] = 0;
+			}
+			//alert(maemae[i]);
+		}
+
+		<c:forEach var = "price" items="${gongsi}">
+		/* alert("${price.OFFICIALPRICE}"); */
+		price = "${price.OFFICIALPRICE}";
+		</c:forEach>
+
+		for (var j = 0; j < gongsi.length; j++) {
+			gongsi[j] = price / 10000;
+			/* alert(gongsi[j]); */
+		}
+
+		var labels = [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월",
+				"10월", "11월", "12월" ];
+		var mix = document.getElementById("mixChart").getContext('2d');
+
+		var mixChart = new Chart(mix, {
+			type : 'bar',
+			data : {
+				labels : labels,
+				datasets : [ {
+					type : 'line',
+					label : "공시지가(평당)",
+					data : gongsi,
+					borderColor : 'rgba(102, 102, 102, 1)',
+					backgroundColor : 'rgba(0, 0, 0, 0)',
+					yAxisID : 'gongsi',
+				}, {
+					label : "매매가(천만원)",
+					data : maemae,
+					borderColor : 'rgba(0, 0, 0, 0)',
+					backgroundColor : 'rgba(255, 0, 0, 0.5)',
+					yAxisID : 'maemae',
+				} ]
+			},
+			options : {
+				scales : {
+					yAxes : [ {
+						id : "gongsi",
+						ticks : {
+							beginAtZero : true,
+						},
+						scaleLabel : {
+							display : true,
+							labelString : '공시'
+						}
+					}, {
+						id : "maemae",
+						position : 'right',
+						ticks : {
+							beginAtZero : true,
+						},
+						scaleLabel : {
+							display : true,
+							labelString : '매매'
+						}
+					}, ]
+				},
+			}
+		});
+
+	} else {
+		<c:forEach var="vill" items="${billcost}" varStatus="status">
+		if ("${vill.YMDATE}"== 201812 && "${vill.TYPE}" == "매매") {
+			cost = "${fn:replace(vill.TRADING,',','')}";
+			maemae[0] = Number(cost);
+		} else if ("${vill.YMDATE}"== 201812 && "${vill.TYPE}" == "매매") {
+			cost = "${fn:replace(vill.TRADING,',','')}";
+			maemae[1] = Number(cost);
+		} else if ("${vill.YMDATE}"== 201812 && "${vill.TYPE}" == "매매") {
+			cost = "${fn:replace(vill.TRADING,',','')}";
+			maemae[2] = Number(cost);
+		} else if ("${vill.YMDATE}"== 201812 && "${vill.TYPE}" == "매매") {
+			cost = "${fn:replace(vill.TRADING,',','')}";
+			maemae[3] = Number(cost);
+		} else if ("${vill.YMDATE}"== 201812 && "${vill.TYPE}" == "매매") {
+			cost = "${fn:replace(vill.TRADING,',','')}";
+			maemae[4] = Number(cost);
+		} else if ("${vill.YMDATE}"== 201812 && "${vill.TYPE}" == "매매") {
+			cost = "${fn:replace(vill.TRADING,',','')}";
+			maemae[5] = Number(cost);
+		} else if ("${vill.YMDATE}"== 201812 && "${vill.TYPE}" == "매매") {
+			cost = "${fn:replace(vill.TRADING,',','')}";
+			maemae[6] = Number(cost);
+		} else if ("${vill.YMDATE}"== 201812 && "${vill.TYPE}" == "매매") {
+			cost = "${fn:replace(vill.TRADING,',','')}";
+			maemae[7] = Number(cost);
+		} else if ("${vill.YMDATE}"== 201812 && "${vill.TYPE}" == "매매") {
+			cost = "${fn:replace(vill.TRADING,',','')}";
+			maemae[8] = Number(cost);
+		} else if ("${vill.YMDATE}"== 201812 && "${vill.TYPE}" == "매매") {
+			cost = "${fn:replace(vill.TRADING,',','')}";
+			maemae[9] = Number(cost);
+		} else if ("${vill.YMDATE}"== 201812 && "${vill.TYPE}" == "매매") {
+			cost = "${fn:replace(vill.TRADING,',','')}";
+			maemae[10] = Number(cost);
+		} else if ("${vill.YMDATE}"== 201812 && "${vill.TYPE}" == "매매") {
+			cost = "${fn:replace(vill.TRADING,',','')}";
+			maemae[11] = Number(cost);
+		}
+		</c:forEach>
+		for (var i = 0; i < maemae.length; i++) {
+			if (!maemae[i]) {
+				maemae[i] = 0;
+			}
+			//alert(maemae[i]);
+		}
+
+		<c:forEach var = "price" items="${gongsi}">
+		/* alert("${price.OFFICIALPRICE}"); */
+		price = "${price.OFFICIALPRICE}";
+		</c:forEach>
+
+		for (var j = 0; j < gongsi.length; j++) {
+			gongsi[j] = price / 10000;
+			/* alert(gongsi[j]); */
+		}
+
+		var labels = [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월",
+				"10월", "11월", "12월" ];
+		var mix = document.getElementById("mixChart").getContext('2d');
+
+		var mixChart = new Chart(mix, {
+			type : 'bar',
+			data : {
+				labels : labels,
+				datasets : [ {
+					type : 'line',
+					label : "공시지가(평당)",
+					data : gongsi,
+					borderColor : 'rgba(102, 102, 102, 1)',
+					backgroundColor : 'rgba(0, 0, 0, 0)',
+					yAxisID : 'gongsi',
+				}, {
+					label : "매매가(천만원)",
+					data : maemae,
+					borderColor : 'rgba(0, 0, 0, 0)',
+					backgroundColor : 'rgba(255, 0, 0, 0.5)',
+					yAxisID : 'maemae',
+				} ]
+			},
+			options : {
+				scales : {
+					yAxes : [ {
+						id : "gongsi",
+						ticks : {
+							beginAtZero : true,
+						},
+						scaleLabel : {
+							display : true,
+							labelString : '공시'
+						}
+					}, {
+						id : "maemae",
+						position : 'right',
+						ticks : {
+							beginAtZero : true,
+						},
+						scaleLabel : {
+							display : true,
+							labelString : '매매'
+						}
+					}, ]
+				},
+			}
+		});
+
+	}
+
+	$(document).ready(function() {
+		costForm.method = "GET";
+		/* costForm.submit(); */
+		/* alert("이동");	 */
+	});
+</script>
+
+</html>
